@@ -1,0 +1,11 @@
+C:\Users\Bridgelabz\source\repos\Functional\obj\Debug\netcoreapp3.0\Functional.csprojAssemblyReference.cache
+C:\Users\Bridgelabz\source\repos\Functional\obj\Debug\netcoreapp3.0\Functional.AssemblyInfoInputs.cache
+C:\Users\Bridgelabz\source\repos\Functional\obj\Debug\netcoreapp3.0\Functional.AssemblyInfo.cs
+C:\Users\Bridgelabz\source\repos\Functional\bin\Debug\netcoreapp3.0\Functional.exe
+C:\Users\Bridgelabz\source\repos\Functional\bin\Debug\netcoreapp3.0\Functional.deps.json
+C:\Users\Bridgelabz\source\repos\Functional\bin\Debug\netcoreapp3.0\Functional.runtimeconfig.json
+C:\Users\Bridgelabz\source\repos\Functional\bin\Debug\netcoreapp3.0\Functional.runtimeconfig.dev.json
+C:\Users\Bridgelabz\source\repos\Functional\bin\Debug\netcoreapp3.0\Functional.dll
+C:\Users\Bridgelabz\source\repos\Functional\bin\Debug\netcoreapp3.0\Functional.pdb
+C:\Users\Bridgelabz\source\repos\Functional\obj\Debug\netcoreapp3.0\Functional.dll
+C:\Users\Bridgelabz\source\repos\Functional\obj\Debug\netcoreapp3.0\Functional.pdb
