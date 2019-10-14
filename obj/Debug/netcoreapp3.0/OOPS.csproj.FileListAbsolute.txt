@@ -1,0 +1,13 @@
+C:\Users\Bridgelabz\source\repos\OOPS\bin\Debug\netcoreapp3.0\OOPS.exe
+C:\Users\Bridgelabz\source\repos\OOPS\obj\Debug\netcoreapp3.0\OOPS.AssemblyInfoInputs.cache
+C:\Users\Bridgelabz\source\repos\OOPS\obj\Debug\netcoreapp3.0\OOPS.AssemblyInfo.cs
+C:\Users\Bridgelabz\source\repos\OOPS\bin\Debug\netcoreapp3.0\OOPS.deps.json
+C:\Users\Bridgelabz\source\repos\OOPS\bin\Debug\netcoreapp3.0\OOPS.runtimeconfig.json
+C:\Users\Bridgelabz\source\repos\OOPS\bin\Debug\netcoreapp3.0\OOPS.runtimeconfig.dev.json
+C:\Users\Bridgelabz\source\repos\OOPS\bin\Debug\netcoreapp3.0\OOPS.dll
+C:\Users\Bridgelabz\source\repos\OOPS\bin\Debug\netcoreapp3.0\OOPS.pdb
+C:\Users\Bridgelabz\source\repos\OOPS\bin\Debug\netcoreapp3.0\Newtonsoft.Json.dll
+C:\Users\Bridgelabz\source\repos\OOPS\obj\Debug\netcoreapp3.0\OOPS.csproj.CopyComplete
+C:\Users\Bridgelabz\source\repos\OOPS\obj\Debug\netcoreapp3.0\OOPS.dll
+C:\Users\Bridgelabz\source\repos\OOPS\obj\Debug\netcoreapp3.0\OOPS.pdb
+C:\Users\Bridgelabz\source\repos\OOPS\obj\Debug\netcoreapp3.0\OOPS.csprojAssemblyReference.cache

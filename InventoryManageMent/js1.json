@@ -1,0 +1,18 @@
+[
+  {
+    "Name": "Rice",
+    "Weight": 50,
+    "PriceperKg": 60
+  },
+  {
+    "Name": "Pulses",
+    "Weight": 50,
+    "Priceperkg": 80
+  },
+  {
+    "Name": "Wheat",
+    "Weight": 50,
+    "Priceperkg": 40
+  }
+
+]

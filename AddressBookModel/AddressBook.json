@@ -1,0 +1,29 @@
+{
+  "AddressList": [
+    {
+      "FirstName": "Ramsagar",
+      "LastName": "Maurya",
+      "PhoneNumber": 9794660611,
+      "City": "Bangalore",
+      "State": "Karnataka",
+      "Zip": 560068
+    },
+    {
+      "Name": "Krishna",
+      "LastName": "Sagar",
+      "PhoneNumber": 9451934702,
+      "City": "Ghaziabad",
+      "State": "Delhi Ncr",
+      "Zip": 201002
+    },
+
+    {
+      "Name": "Shweta ",
+      "LastName": "Khambay",
+      "PhoneNumber": 9554190987,
+      "City": "Vadodara",
+      "State": "Gujrat",
+      "Zip": 375463
+    }
+  ]
+}

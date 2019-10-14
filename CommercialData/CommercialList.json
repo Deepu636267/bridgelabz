@@ -1,0 +1,33 @@
+{ "AccountList": [
+    {
+      "AccountName":"sachin",
+      "ShareNumber": 0,
+      "StockPrice": 0.0
+    },
+    {
+      "AccountName": "Rahul",
+      "ShareNumber": 0,
+      "StockPrice": 0.0
+    },
+    {
+      "AccountName":"MAnoj",
+      "ShareNumber": 0,
+      "StockPrice": 0.0
+    },
+    {
+      "AccountName": null,
+      "ShareNumber": 0,
+      "StockPrice": 0.0
+    },
+    {
+      "AccountName": null,
+      "ShareNumber": 0,
+      "StockPrice": 0.0
+    },
+    {
+      "AccountName": null,
+      "ShareNumber": 0,
+      "StockPrice": 0.0
+    }
+  ]
+ }
