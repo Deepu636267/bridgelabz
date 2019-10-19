@@ -33,7 +33,7 @@ namespace Functional
            //// Checking the Digit because if digit is not 4 then the yaer has always be in a Four Digit
             if (count == 4)
             {
-                if ((year % 4 == 0 || year % 100 == 0) && year % 400 == 0)
+                if ((year % 400 == 0 || year % 100 != 0) && year % 4 == 0)
                 {
                     Console.WriteLine(year + " is a Leap year");
                 }
