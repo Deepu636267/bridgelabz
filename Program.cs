@@ -13,7 +13,7 @@ namespace DesignPattern
     {
         public static void Main()
         {
-            Console.WriteLine("1.Singleton" + "\n2.Factory" + "\n3.Prototype" + "\n4.Adatpter" + "\n5.Facade" + "\n6.Proxy" + "\n7.Template" + "\n8.Visitor" + "\n9.Mediator");
+            Console.WriteLine("1.Singleton" + "\n2.Factory" + "\n3.Prototype" + "\n4.Adatpter" + "\n5.Facade" + "\n6.Proxy" + "\n7.Template" + "\n8.Visitor" + "\n9.Mediator"+"\n10.Reflection"+"\n11.Dependency Inversion Principle"+"\n12.Observer Design Pattern");
             Console.WriteLine("Enter your choice Which You Want to Test the Design patetrn");
             int choice = Convert.ToInt32(Console.ReadLine());
             switch(choice)
@@ -70,6 +70,10 @@ namespace DesignPattern
                     DependencyInversionPrinciple.AutomobileController automobileController = new DependencyInversionPrinciple.AutomobileController(automobile);
                     automobile.Ignition();
                     automobile.Stop();
+                    break;
+                case 12:
+                    ObserverDesignPattern.MainApp main = new ObserverDesignPattern.MainApp();
+                    main.Test();
                     break;
             }
             // School school = new School();
