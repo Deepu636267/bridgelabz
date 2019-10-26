@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29318.209
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployementManagementSystem", "EmployementManagementSystem.csproj", "{BBA7F9CE-66C2-4CE9-87ED-4ABFEE54DB7C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBA7F9CE-66C2-4CE9-87ED-4ABFEE54DB7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBA7F9CE-66C2-4CE9-87ED-4ABFEE54DB7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBA7F9CE-66C2-4CE9-87ED-4ABFEE54DB7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBA7F9CE-66C2-4CE9-87ED-4ABFEE54DB7C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {58CDB004-1F5E-409D-8982-1FCCEB6BD801}
+	EndGlobalSection
+EndGlobal

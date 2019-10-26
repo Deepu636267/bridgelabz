@@ -1,0 +1,17 @@
+C:\Users\Bridgelabz\source\repos\EmployementManagementSystem\bin\Debug\netcoreapp2.1\appsettings.json
+C:\Users\Bridgelabz\source\repos\EmployementManagementSystem\bin\Debug\netcoreapp2.1\Properties\launchSettings.json
+C:\Users\Bridgelabz\source\repos\EmployementManagementSystem\bin\Debug\netcoreapp2.1\EmployementManagementSystem.deps.json
+C:\Users\Bridgelabz\source\repos\EmployementManagementSystem\bin\Debug\netcoreapp2.1\EmployementManagementSystem.runtimeconfig.json
+C:\Users\Bridgelabz\source\repos\EmployementManagementSystem\bin\Debug\netcoreapp2.1\EmployementManagementSystem.runtimeconfig.dev.json
+C:\Users\Bridgelabz\source\repos\EmployementManagementSystem\bin\Debug\netcoreapp2.1\EmployementManagementSystem.dll
+C:\Users\Bridgelabz\source\repos\EmployementManagementSystem\obj\Debug\netcoreapp2.1\EmployementManagementSystem.csprojAssemblyReference.cache
+C:\Users\Bridgelabz\source\repos\EmployementManagementSystem\obj\Debug\netcoreapp2.1\EmployementManagementSystem.RazorAssemblyInfo.cache
+C:\Users\Bridgelabz\source\repos\EmployementManagementSystem\obj\Debug\netcoreapp2.1\EmployementManagementSystem.RazorAssemblyInfo.cs
+C:\Users\Bridgelabz\source\repos\EmployementManagementSystem\obj\Debug\netcoreapp2.1\EmployementManagementSystem.AssemblyInfoInputs.cache
+C:\Users\Bridgelabz\source\repos\EmployementManagementSystem\obj\Debug\netcoreapp2.1\EmployementManagementSystem.AssemblyInfo.cs
+C:\Users\Bridgelabz\source\repos\EmployementManagementSystem\obj\Debug\netcoreapp2.1\EmployementManagementSystem.RazorTargetAssemblyInfo.cache
+C:\Users\Bridgelabz\source\repos\EmployementManagementSystem\bin\Debug\netcoreapp2.1\EmployementManagementSystem.pdb
+C:\Users\Bridgelabz\source\repos\EmployementManagementSystem\obj\Debug\netcoreapp2.1\EmployementManagementSystem.dll
+C:\Users\Bridgelabz\source\repos\EmployementManagementSystem\obj\Debug\netcoreapp2.1\EmployementManagementSystem.pdb
+C:\Users\Bridgelabz\source\repos\EmployementManagementSystem\bin\Debug\netcoreapp2.1\EmployementManagementSystem.Views.dll
+C:\Users\Bridgelabz\source\repos\EmployementManagementSystem\obj\Debug\netcoreapp2.1\EmployementManagementSystem.csproj.CopyComplete
