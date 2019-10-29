@@ -1,0 +1,123 @@
+﻿<html>
+<head>
+    <meta charset="utf-8" />
+    <title>AddEmployee</title>
+</head>
+<body>
+    <center><h2><b>Add Employee Details</b></h2></center>
+    <form method="POST" id="insert" action="AddEmployees">
+        <table border="0" align="center">
+            <tbody>
+                <tr>
+                    <td><label for="name"><b>EmployeeName</b></label></td>
+                    <td><input type="text" id="name" placeholder="Name" name="name" /></td>
+                <tr><td><br /></td></tr>
+                <tr>
+                    <td><label for="designation"><b>Designation</b></label></td>
+                    <td><input type="text" id="designation" placeholder="Designation" name="designation" /></td>
+                <tr><td><br /></td></tr>
+                <tr>
+                    <td>
+                        <label><b>Gender</b></label>
+                    </td>
+                    <td>
+                        <select name="gender" id="gender" required="">
+                            <option value="" disabled="disabled">--SELECT--</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+
+                        </select>
+                    </td>
+                </tr>
+                <tr><td><br /></td>></tr>
+                <tr>
+                    <td><label><b>Email</b></label></td>
+                    <td><input type="text" id="email" placeholder="abc@gamil.com" name="eamil" /></td>
+                </tr>
+                <tr>
+                    <td><label><b>Password</b></label></td>
+                    <td><input type="password" id="password" placeholder="*********" name="password" /></td>
+                </tr>
+                <tr>
+                    <td><label><b>Address</b></label></td>
+                    <td><input type="text" id="address" placeholder="address" name="address" /></td>
+                </tr>
+                <tr><td><br /></td></tr>
+                <tr>
+                    <td><pre class="tab"></pre></td>
+                    <td width="40px">
+                        <b>
+                            <input type="button" value="BACK" id="CANCEL"
+                                   onclick="window.location.href='https://localhost:44363//Add.html'" />
+                        </b>
+                    <td width="40px">
+                        <b>
+                            <input type="button" name="ADD" id="btnSubmit"
+                                   onclick="btnSubmit();" value="ADD" />
+                        </b>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <div class="modal fade" tabindex="-1" id="successModal"
+         data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <h2 class="modal-title">Registration Successful!</h2>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success"
+                            data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+    </script>
+    <!--<script type="text/javascript">
+       $(function () {
+           $("#btnSubmit").click(function () {
+               $("#loaderDiv").show();
+               var formData = new FormData();
+               formData.append("EmpName", $("#name").val());
+               formData.append("Designation", $("#designation").val());
+               formData.append("Gender", $("#gender").val());
+               formData.append("Email", $("#email").val());
+               formData.append("EmpPassword", $("#password").val());
+               formData.append("Address", $("#address").val());
+               $.ajax({
+                   url: "/Create",
+                   type: 'POST',
+                   cache: false,
+                   contentType: false,
+                   processData: false,
+                   data: formData,
+                   success: function (response) {
+                       $("#loaderDiv").show();
+                       alert("EMPLOYEE ADDED SUCCESSFULL");
+                   }
+               });
+           });
+       });
+    </script>-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnSubmit').click(function () {
+                $('#successModal').modal('show');
+            });
+        });
+    </script>
+</body>
+</html >

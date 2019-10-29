@@ -9,9 +9,10 @@ namespace EmployementManagementSystem.Repository
     public interface IEmployeeRepository
     {
         bool Create(string EmpName, string Designation, string Gender, string Email, string EmpPassword, string Address);
-        //List<EmployeeModel> Retrieve();
-        //bool Update(EmployeeModel employee);
-        //bool Delete(int Id);
+        List<EmployeeModel> Retrieve();
+        bool Update(EmployeeModel employee);
+        bool Delete(EmployeeModel employee);
+        bool M_Login(EmployeeModel login);
 
     }
 }

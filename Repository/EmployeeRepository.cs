@@ -58,78 +58,102 @@ namespace EmployementManagementSystem.Repository
 
         }
 
-        //public bool Delete(int Id)
-        //{
-        //    Connection();
-        //    SqlCommand command = new SqlCommand("DeleteEmpByID", con);
-        //    command.CommandType = CommandType.StoredProcedure;
-        //    command.Parameters.AddWithValue("EmpId", Id);
-        //    con.Open();
-        //    int i = command.ExecuteNonQuery();
-        //    con.Close();
-        //    if(i>=1)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
+        public bool Update(EmployeeModel employee)
+        {
+            Connection();
+            SqlCommand command = new SqlCommand("UpdateEmpDetails", con);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@EmpId", employee.EmpId);
+            command.Parameters.AddWithValue("@EmpName", employee.EmpName);
+            command.Parameters.AddWithValue("@Designation", employee.Designation);
+            command.Parameters.AddWithValue("@Gender", employee.Gender);
+            command.Parameters.AddWithValue("@Email", employee.Email);
+            command.Parameters.AddWithValue("@EmpPassword", employee.EmpPassword);
+            command.Parameters.AddWithValue("@Address", employee.Address);
 
-        //public List<EmployeeModel> Retrieve()
-        //{
-        //    Connection();
-        //    List<EmployeeModel> EmpList = new List<EmployeeModel>();
-        //    SqlCommand command = new SqlCommand("GetEmployess", con);
-        //    command.CommandType = CommandType.StoredProcedure;
-        //    SqlDataAdapter da = new SqlDataAdapter(command);
-        //    DataTable dt = new DataTable();
-        //    con.Open();
-        //    da.Fill(dt);
-        //    con.Close();
-        //    EmpList = (from DataRow dr in dt.Rows
+            con.Open();
+            int i = command.ExecuteNonQuery();
+            con.Close();
+            if(i>=1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool Delete(EmployeeModel employee)
+        {
+            Connection();
+            SqlCommand command = new SqlCommand("DeleteEmpById", con);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@EmpId", employee.EmpId);
+            con.Open();
+            int i = command.ExecuteNonQuery();
+            con.Close();
+            if(i>=1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
-        //               select new EmployeeModel()
-        //               {
-        //                   EmpId = Convert.ToInt32(dr["Id"]),
-        //                   EmpName = Convert.ToString(dr["Name"]),
-        //                   Designation = Convert.ToString(dr["Designation"]),
-        //                   Gender = Convert.ToString(dr["Address"]),
-        //                   Email = Convert.ToString(dr["Address"]),
-        //                   EmpPassword = Convert.ToString(dr["Address"]),
-        //                   Address = Convert.ToString(dr["Address"])
-        //               }).ToList();
 
 
-        //    return EmpList;
+        public List<EmployeeModel> Retrieve()
+        {
+            Connection();
+            List<EmployeeModel> EmpList = new List<EmployeeModel>();
+            SqlCommand command = new SqlCommand("GetEmployees", con);
+            command.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(command);
+            DataTable dt = new DataTable();
+            con.Open();
+            da.Fill(dt);
+            con.Close();
+            EmpList = (from DataRow dr in dt.Rows
 
-        //}
+                       select new EmployeeModel()
+                       {
+                           EmpId = Convert.ToInt32(dr["EmpId"]),
+                           EmpName = Convert.ToString(dr["EmpName"]),
+                           Designation = Convert.ToString(dr["Designation"]),
+                           Gender = Convert.ToString(dr["Gender"]),
+                           Email = Convert.ToString(dr["Email"]),
+                           EmpPassword = Convert.ToString(dr["EmpPassword"]),
+                           Address = Convert.ToString(dr["Address"])
+                       }).ToList();
 
-        //public bool Update(EmployeeModel employee)
-        //{
-        //    Connection();
-        //    SqlCommand command = new SqlCommand("UpdateEmpDetails", con);
-        //    command.CommandType = CommandType.StoredProcedure;
-        //    command.Parameters.AddWithValue("@EmpId", employee.EmpId);
-        //    command.Parameters.AddWithValue("@Name", employee.EmpName);
-        //    command.Parameters.AddWithValue("@Designation", employee.Designation);
-        //    command.Parameters.AddWithValue("@Gender", employee.Gender);
-        //    command.Parameters.AddWithValue("@Email", employee.Email);
-        //    command.Parameters.AddWithValue("@Password", employee.EmpPassword);
-        //    command.Parameters.AddWithValue("@Address", employee.Address);
-        //    con.Open();
-        //    int i = command.ExecuteNonQuery();
-        //    con.Close();
-        //    if(i>=1)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
 
-        //}
+            return EmpList;
+
+        }
+
+        public bool M_Login(EmployeeModel login)
+        {
+            Connection();
+            SqlCommand command = new SqlCommand("M_Login", con);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@Name", login.EmpName);
+            command.Parameters.AddWithValue("@EmpPassword", login.EmpPassword);
+            con.Open();
+            DataSet dataSet = new DataSet();
+            SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+            dataAdapter.Fill(dataSet);
+            con.Close();
+            bool loginSuccessful = ((dataSet.Tables.Count > 0) && (dataSet.Tables[0].Rows.Count > 0));
+            if (loginSuccessful && login.EmpName != "" && login.EmpPassword != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

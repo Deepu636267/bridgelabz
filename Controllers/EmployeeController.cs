@@ -35,6 +35,59 @@ namespace EmployementManagementSystem.Controllers
                     return BadRequest(ex.Message);
                 }
             }
+        [HttpPut]
+        [Route("Edit")]
+        public IActionResult Update(EmployeeModel employee)
+        {
+            try
+            {
+                var result = _employeeManager.Edit(employee);
+                return Ok(new { result });
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpDelete]
+        [Route("Delete")]
+        public IActionResult ActionDelete(EmployeeModel employee)
+        {
+            try
+            {
+                var result = _employeeManager.Delete(employee);
+                return Ok(new { result });
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet]
+        [Route("Show")]
+        public IActionResult Retrieve()
+        {
+            try
+            {
+                var result = _employeeManager.Show();
+                return Ok(new { result });
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost]
+        [Route("Login")]
+        public IActionResult Index(EmployeeModel login)
+        {
+            try
+            {
+                var result = _employeeManager.Login(login);
+                return Ok(new { result });
+               
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         
     }
 }

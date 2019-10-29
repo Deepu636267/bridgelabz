@@ -8,7 +8,8 @@ namespace EmployementManagementSystem.Model
     using System.Threading.Tasks;
     public class EmployeeModel
     {
-        private int EmpId { get; set; }
+      
+        public int EmpId { get; set; }
         public string EmpName { get; set; }
         public string Designation { get; set; }
         public string Gender { get; set; }

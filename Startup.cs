@@ -39,7 +39,9 @@ namespace EmployementManagementSystem
                 {
                     app.UseDeveloperExceptionPage();
                 }
-                app.UseMvc(routes =>
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseMvc(routes =>
                 {
                     routes.MapRoute(
                         name: "default",

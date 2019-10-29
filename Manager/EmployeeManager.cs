@@ -1,4 +1,5 @@
-﻿using EmployementManagementSystem.Repository;
+﻿using EmployementManagementSystem.Model;
+using EmployementManagementSystem.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,35 @@ namespace EmployementManagementSystem.Manager
             emp.Address = Address;
             _employeeRepository.Create(emp.EmpName,emp.Designation,emp.Gender,emp.Email,emp.EmpPassword,emp.Address);
             return "Added Successfully";
+        }
+        public string Edit(EmployeeModel empl)
+        {
+            _employeeRepository.Update(empl);
+            return "Updated Succesfully";
+        }
+        public string Delete(EmployeeModel employee)
+        {
+            _employeeRepository.Delete(employee);
+            return "Data Deleted Succesfully";
+        }
+        public List<EmployeeModel> Show()
+        {
+            var list=_employeeRepository.Retrieve();
+            return list;
+        }
+        public string Login(EmployeeModel login)
+        {
+            var result=_employeeRepository.M_Login(login);
+            if(result==true)
+            {
+                return "Login suceesfully";
+            }
+            else
+            {
+                return "Login Credential Not correct";
+            }
+            
+
         }
     }
 }
