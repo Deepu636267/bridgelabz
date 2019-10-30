@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EmployementManagementSystem.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    //[Route("api/[controller]")]
+    //[ApiController]
     public class EmployeeController : ControllerBase
     {
             //EmployeeRepository employeeRepository = new EmployeeRepository();
@@ -68,7 +68,7 @@ namespace EmployementManagementSystem.Controllers
             try
             {
                 var result = _employeeManager.Show();
-                return Ok(new { result });
+                return Ok(result);
             }catch(Exception ex)
             {
                 return BadRequest(ex.Message);

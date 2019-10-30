@@ -1,19 +1,25 @@
 ﻿<html>
 <head>
     <meta charset="utf-8" />
-    <title>AddEmployee</title>
+    <title>UpdateEmployee</title>
 </head>
 <body>
-    <h2 align="center"><b>ADD EMPLOYEE DETAILS</b></h2>
-    <form method="POST" id="insert" action="AddEmployees">
+
+    <h2 align="center"><b>UPDATE EMPLOYEE DETAILS</b> </h2>
+    <form method="put" id="update" action="UpdateEmployee">
         <table border="0" align="center">
             <tbody>
-                <tr><td><br /></tr>
+                <tr><td><br/></tr>
+                <tr>
+                    <td><label for="id"><b>EmployeeID</b></label></td>
+                    <td><input type="text" id="id" name="id" placeholder="1" /></td>
+                </tr>
+                <tr><td><br/></tr>
                 <tr>
                     <td><label for="name"><b>NAME</b></label></td>
                     <td><input type="text" id="name" name="name" placeholder="Name" /></td>
                 </tr>
-                <tr><td><br /></td></tr>
+                <tr><td><br/></td></tr>
                 <tr>
                     <td><label for="designation"><b>DESIGNATION</b></label></td>
                     <td><input type="text" id="designation" name="designation" placeholder="Designation" /></td>
@@ -24,7 +30,7 @@
                         <label><b>Gender</b></label>
                     </td>
                     <td>
-                        <select>
+                        <select name="gender" id="gender" required="">
                             <option value="" disabled="disabled">--SELECT--</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -62,30 +68,7 @@
             </tbody>
         </table>
     </form>
-    <!--<div class="modal fade" tabindex="-1" id="successModal"
-         data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        &times;
-                    </button>
-                    <h4 class="modal-title">Success</h4>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <h2 class="modal-title">Registration Successful!</h2>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success"
-                            data-dismiss="modal">
-                        Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>-->
+
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
     </script>
     <script type="text/javascript">
@@ -93,6 +76,7 @@
             $("#btnSubmit").click(function () {
                 $("#loaderDiv").show();
                 var formData = new FormData();
+                formData.append("EmpId", $("#id").val());
                 formData.append("EmpName", $("#name").val());
                 formData.append("Designation", $("#designation").val());
                 formData.append("Gender", $("#gender").val());
@@ -100,19 +84,16 @@
                 formData.append("EmpPassword", $("#password").val());
                 formData.append("Address", $("#address").val());
                 $.ajax({
-                    url: "/Add",
-                    type: 'POST',
+                    url: "/Edit",
+                    type: 'PUT',
                     cache: false,
                     contentType: false,
                     processData: false,
                     data: formData,
                     success: function (response) {
                         $("#loaderDiv").show();
-                        alert("EMPLOYEE ADDED SUCCESSFULL");
+                        alert("UPDATE EMPLOYEE DATA SUCCESSFULL");
                         windows.location = 'https://localhost:44363/GetAllEmployeeData.html';
-                    },
-                    error: function (err) {
-                        alert(err);
                     }
                 });
             });

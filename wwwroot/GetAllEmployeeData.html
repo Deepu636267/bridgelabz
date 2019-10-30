@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Employee Data</title>
+</head>
+<body>
+    <form>
+        <h2 align="center" method="GET"><b>Employee Deatils</b></h2>
+        <input type="button" id="btnGetAllEmployees" value="Get All Employees" onclick="btnGetAllEmployees()" />
+        <b>
+            <input type="button" value="AddNewData" id="Add"
+                   onclick="window.location.href='https://localhost:44363//Add.html'" />
+        </b>
+        <b>
+            <input type="button" value="Delete" id="Add"
+                   onclick="window.location.href='https://localhost:44363//Delete.html'" />
+        </b>
+        <b>
+            <input type="button" value="Edit" id="Add"
+                   onclick="window.location.href='https://localhost:44363//Update.html'" />
+        </b>
+        <br /><br />
+        <table border="1" align="left" id="Employees" style="border-collapse:collapse">
+            <thead>
+                <tr>
+                    <th>EmployeeId</th>
+                    <th>EmployeeName</th>
+                    <th>Designation</th>
+                    <th>Gender</th>
+                    <th>EmailId</th>
+                    <th>EmmployeePassword</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </form>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#btnGetAllEmployees').click(function () {
+                    $.ajax({
+                        url: '/Show',
+                        dataType: "json",
+                        method: 'post',
+                        success: function (data) {
+                            var employee = $('#Employees tbody');
+                            employee.empty();
+                            $(data).each(function (index, emp) {
+                                employee.append('<tr><td>' + emp.empId + '</td><td>'
+                                    + emp.empName + '</td><td>'
+                                    + emp.designation + '</td><td>'
+                                    + emp.gender + '</td><td>'
+                                    + emp.email + '</td><td>'
+                                    + emp.empPassword + '</td><td>'
+                                    + emp.address + '</td></tr>');
+                            });
+                        },
+                        error: function (err) {
+                            alert(err);
+                        }
+                    });
+                });
+            });
+    </script>
+</body>
+</html>

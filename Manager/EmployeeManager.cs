@@ -43,8 +43,8 @@ namespace EmployementManagementSystem.Manager
         }
         public List<EmployeeModel> Show()
         {
-            var list=_employeeRepository.Retrieve();
-            return list;
+            return _employeeRepository.Retrieve();
+          
         }
         public string Login(EmployeeModel login)
         {
