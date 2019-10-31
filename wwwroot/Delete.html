@@ -1,58 +1,56 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <title>Delete Data</title>
-</head>
-<body>
-    <h2 align="center"><b>Delete</b></h2>
-    <form method="delete" action=" Delete" id=" deletedData">
-        <table border="0" align="center">
-            <tbody>
-                <tr><td><br /></tr>
-                <tr>
-                    <td><label for="id"><b>EmpId</b></label></td>
-                    <td><input type="text" id="id" name="id" placeholder="1" /></td>
-                </tr>
-                <tr>
-                    <td><pre class="tab"></pre></td>
-                    <td width="40px">
-                        <b>
-                            <input type="button" value="Delete" id="btnSubmit" />
-                        </b>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-    </form>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-    </script>
-    <script type="text/javascript">
-        $(function () {
-            $("#btnSubmit").click(function () {
-                $("#loaderDiv").show();
-                var formData = new FormData();
-                formData.append("EmpId", $("#id").val());
-                $.ajax({
-                    url: "/Delete",
-                    type: 'Delete',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: formData,
-                    success: function (response) {
-                        $("#loaderDiv").show();
-                        alert("Do You Want Delete Data");
-                        window.location = 'https://localhost:44363/GetAllEmployeeData.html';
-                    },
-                    error: function (err) {
-                        alert(err);
-                    }
+    <head>
+        <meta charset="utf-8" />
+        <title>Delete Data</title>
+    </head>
+    <body bgcolor="#C0C0C0">
+        <h2 align="center"><b>Deleting Data</b></h2>
+        <form method="delete" action=" Delete" id=" deletedData">
+            <table border="0" align="center">
+                <tbody>
+                    <tr><td><br /></tr>
+                    <tr>
+                        <td><label for="id"><b>EmpId</b></label></td>
+                        <td><input type="text" id="id" name="id" placeholder="1" /></td>
+                    </tr>
+                    <tr>
+                        <td><pre class="tab"></pre></td>
+                        <td width="40px" colspan="2">
+                            <b>
+                                <input type="button" value="Delete" id="btnSubmit" />
+                            </b>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $("#btnSubmit").click(function () {
+                    $("#loaderDiv").show();
+                    var formData = new FormData();
+                    formData.append("EmpId", $("#id").val());
+                    $.ajax({
+                        url: "/Delete",
+                        type: 'Delete',
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (response) {
+                            $("#loaderDiv").show();
+                            alert("Do You Want Delete Data?");
+                            window.location = 'https://localhost:44363/GetAllEmployeeData.html';
+                        },
+                        error: function (err) {
+                            alert(err);
+                        }
+                    });
                 });
             });
-        });
-    </script>
-
-</body>
+        </script>
+    </body>
 </html>

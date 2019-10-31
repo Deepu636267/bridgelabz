@@ -1,98 +1,96 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <title>Create Account</title>
-</head>
-<body bgcolor="lightblue">
-    <h2 align="center">SignUp</h2>
-    <form method="post" id="signup" action="Update.html">
-        <table border="0" align="center">
-            <tbody>
-                <tr><td><br /></td></tr>
-                <tr>
-                    <td><lable for="name"><b>UserName</b></lable></td>
-                    <td><input type="text" id="name" name="name" placeholder="Name" /></td>
-                </tr>
-                <tr><td><br /></td></tr>
-                <tr>
-                    <td><label for="designation"><b>DESIGNATION</b></label></td>
-                    <td><input type="text" id="designation" name="designation" placeholder="Designation" /></td>
-
-                <tr><td><br /></td></tr>
-                <tr>
-                    <td>
-                        <label><b>Gender</b></label>
-                    </td>
-                    <td>
-                        <select name="gender" id="gender" required="">
-                            <option value="" disabled="disabled">--SELECT--</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-
-                        </select>
-                    </td>
-                </tr>
-                <tr><td><br /></td>></tr>
-                <tr>
-                    <td><label><b>Email</b></label></td>
-                    <td><input type="text" id="email" placeholder="abc@gamil.com" name="eamil" /></td>
-                </tr>
-                <tr>
-                    <td><label><b>Password</b></label></td>
-                    <td><input type="password" id="password" placeholder="*********" name="password" /></td>
-                </tr>
-                <tr>
-                    <td><label><b>Address</b></label></td>
-                    <td><input type="text" id="address" placeholder="address" name="address" /></td>
-                </tr>
-                <tr><td><br /></td></tr>
-                <tr>
-                    <td><pre class="tab"></pre></td>
-                    <td width="40px">
-                        <b>
-                            <input type="button" value="BACK" id="CANCEL"
-                                   onclick="window.location.href='https://localhost:44363//Add.html'" />
-                        </b>
+    <head>
+        <meta charset="utf-8" />
+        <title>Create Account</title>
+    </head>
+    <body bgcolor="lightblue">
+        <h2 align="center">SignUp</h2>
+        <form method="post" id="signup" action="Update.html">
+            <table border="0" align="center">
+                <tbody>
+                    <tr><td><br /></td></tr>
+                    <tr>
+                        <td><lable for="name"><b>UserName</b></lable></td>
+                        <td><input type="text" id="name" name="name" placeholder="Name" /></td>
+                    </tr>
+                    <tr><td><br /></td></tr>
+                    <tr>
+                        <td><label for="designation"><b>DESIGNATION</b></label></td>
+                        <td><input type="text" id="designation" name="designation" placeholder="Designation" /></td>
+                    </tr>
+                    <tr><td><br /></td></tr>
+                    <tr>
+                        <td>
+                            <label><b>Gender</b></label>
                         </td>
-                    <td width="40px">
-                        <b>
-                            <input type="button" class="btnSubmit" name="Submit" id="btnSubmit" onclick="btnSubmit();" value="ADD" />
-                        </b>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-    </script>
-    <script type="text/javascript">
-        $(function () {
-            $("#btnSubmit").click(function () {
-                $("#loaderDiv").show();
-                var formData = new FormData();
-                formData.append("EmpName", $("#name").val());
-                formData.append("Designation", $("#designation").val());
-                formData.append("Gender", $("#gender").val());
-                formData.append("Email", $("#email").val());
-                formData.append("EmpPassword", $("#password").val());
-                formData.append("Address", $("#address").val());
-                $.ajax({
-                    url: "/Add",
-                    type: 'POST',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: formData,
-                    success: function (response) {
-                        $("#loaderDiv").show();
-                        alert("Account Created SuceessFully Go to the Login Link");
-                        window.location = 'https://localhost:44363//Login.html';
-                    }
+                        <td>
+                            <select name="gender" id="gender" required="">
+                                <option value="" disabled="disabled">--SELECT--</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr><td><br /></td>></tr>
+                    <tr>
+                        <td><label><b>Email</b></label></td>
+                        <td><input type="text" id="email" placeholder="abc@gamil.com" name="eamil" /></td>
+                    </tr>
+                    <tr>
+                        <td><label><b>Password</b></label></td>
+                        <td><input type="password" id="password" placeholder="*********" name="password" /></td>
+                    </tr>
+                    <tr>
+                        <td><label><b>Address</b></label></td>
+                        <td><input type="text" id="address" placeholder="address" name="address" /></td>
+                    </tr>
+                    <tr><td><br /></td></tr>
+                    <tr>
+                        <td><pre class="tab"></pre></td>
+                        <td width="40px">
+                            <b>
+                                <input type="button" value="RESET" id="CANCEL"
+                                       onclick="window.location.href='https://localhost:44363//SignUp.html'" />
+                            </b>
+                        </td>
+                        <td width="40px">
+                            <b>
+                                <input type="button" class="btnSubmit" name="Submit" id="btnSubmit" onclick="btnSubmit();" value="ADD" />
+                            </b>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $("#btnSubmit").click(function () {
+                    $("#loaderDiv").show();
+                    var formData = new FormData();
+                    formData.append("EmpName", $("#name").val());
+                    formData.append("Designation", $("#designation").val());
+                    formData.append("Gender", $("#gender").val());
+                    formData.append("Email", $("#email").val());
+                    formData.append("EmpPassword", $("#password").val());
+                    formData.append("Address", $("#address").val());
+                    $.ajax({
+                        url: "/Add",
+                        type: 'POST',
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (response) {
+                            $("#loaderDiv").show();
+                            alert("Account Created SuceessFully Go to the Login Link");
+                            window.location = 'https://localhost:44363//Login.html';
+                        }
+                    });
                 });
             });
-        });
-    </script>
-
-</body>
+        </script>
+    </body>
 </html>

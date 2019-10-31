@@ -1,58 +1,58 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
+    <head>
     <meta charset="utf-8" />
     <title>LogIn</title>
-</head>
-<body bgcolor="lightred">
-    <h2 align="center"><b>LogIn</b></h2>
-    <form method="post" id="login" action=" login">
-        <table border="0" align="center">
-            <tbody>
-                <tr><td><br /></td></tr>
-                <tr>
-                    <td><label for="username">UserName</label></td>
-                    <td><input type="text" placeholder="name" id=" name" /></td>
-                </tr>
-                <tr>
-                    <td><label for="password">Password</label></td>
-                    <td><input type="password" placeholder="******" id="password" /></td>
-                </tr>
-                <tr><td><br /></td></tr>
-                <tr>
-                    <td width="40px" align="center" colspan="2">
-                        <center>
-                            <input type="button" class="btnSubmit" name="LogIn" id="btnSubmit" onclick="btnSubmit();" value="LogIn" />
-                        </center>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-    </script>
-    <script type="text/javascript">
-        $(function () {
-            $("#btnSubmit").click(function () {
-                $("#loaderDiv").show();
-                var formData = new FormData();
-                formData.append("EmpName", $("#name").val());
-                formData.append("EmpPassword", $("#password").val());
-                $.ajax({
-                    url: "/Login",
-                    type: 'POST',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: formData,
-                    success: function (response) {
-                        $("#loaderDiv").show();
-                        alert("Account Created SuceessFully click Ok");
-                        window.location = 'https://localhost:44363/GetAllEmployeeData.html';
-                    }
+    </head>
+    <body bgcolor="#C70039">
+        <h2 align="center"><b>LogIn</b></h2>
+        <form method="post" id="login" action=" login">
+            <table border="0" align="center">
+                <tbody>
+                    <tr><td><br /></td></tr>
+                    <tr>
+                        <td><label for="username">UserName</label></td>
+                        <td><input type="text" placeholder="name" id=" name" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="password">Password</label></td>
+                        <td><input type="password" placeholder="******" id="password" /></td>
+                    </tr>
+                    <tr><td><br /></td></tr>
+                    <tr>
+                        <td width="40px" align="center" colspan="2">
+                            <center>
+                                <input type="button" class="btnSubmit" name="LogIn" id="btnSubmit" onclick="btnSubmit();" value="LogIn" />
+                            </center>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $("#btnSubmit").click(function () {
+                    $("#loaderDiv").show();
+                    var formData = new FormData();
+                    formData.append("EmpName", $("#name").val());
+                    formData.append("EmpPassword", $("#password").val());
+                    $.ajax({
+                        url: "/Login",
+                        type: 'POST',
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: formData,
+                        success: function (response) {
+                            $("#loaderDiv").show();
+                            alert("LOGIN SuceessFully click Ok");
+                            window.location = 'https://localhost:44363/GetAllEmployeeData.html';
+                        }
+                    });
                 });
             });
-        });
-    </script>
-</body >
+        </script>
+    </body >
 </html >

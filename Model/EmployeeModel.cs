@@ -1,5 +1,9 @@
-﻿
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file=EmployeeModel.cs" company="Bridgelabz">
+//   Copyright © 2019 Company="BridgeLabz"
+// </copyright>
+// <creator name="Sachin Kumar Maurya"/>
+// --------------------------------------------------------------------------------------------------------------------
 namespace EmployementManagementSystem.Model
 {
     using System;
@@ -7,6 +11,9 @@ namespace EmployementManagementSystem.Model
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Threading.Tasks;
+    /// <summary>
+    /// EmployeeModel is a class which the basic strcture of our project
+    /// </summary>
     public class EmployeeModel
     {
         [Key]      

@@ -1,31 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
-using EmployementManagementSystem.Model;
-using Microsoft.Extensions.Configuration;
-
-using System.Data;
-using Microsoft.IdentityModel.Protocols;
-//using System.Configuration;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file=EmployeeRepository.cs" company="Bridgelabz">
+//   Copyright © 2019 Company="BridgeLabz"
+// </copyright>
+// <creator name="Sachin Kumar Maurya"/>
+// --------------------------------------------------------------------------------------------------------------------
 namespace EmployementManagementSystem.Repository
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data.SqlClient;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using EmployementManagementSystem.Model;
+    using Microsoft.Extensions.Configuration;
+    using System.Data;
+    using Microsoft.IdentityModel.Protocols;
+    //using System.Configuration;
+    /// <summary>
+    /// EmployeeRepository is a class which has all logical things for Crud Opreartion
+    /// </summary>
+    /// <seealso cref="EmployementManagementSystem.Repository.IEmployeeRepository" />
     public class EmployeeRepository : IEmployeeRepository
     {
         private readonly IConfiguration configuration;
         private SqlConnection con=null;
         string constr = null;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EmployeeRepository"/> class.
+        /// </summary>
+        /// <param name="configurations">The configurations.</param>
         public EmployeeRepository(IConfiguration configurations)
         {
             configuration = configurations;
         }
+        /// <summary>
+        /// Connections this instance.
+        /// </summary>
         private void Connection()
         {
-            constr = configuration.GetSection("ConnectionStrings").GetSection("EmployeeContext").Value;
-            con = new SqlConnection(constr);
+            try
+            {
+                constr = configuration.GetSection("ConnectionStrings").GetSection("EmployeeContext").Value;
+                con = new SqlConnection(constr);
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
+        /// <summary>
+        /// Creates the specified emp name.
+        /// </summary>
+        /// <param name="EmpName">Name of the emp.</param>
+        /// <param name="Designation">The designation.</param>
+        /// <param name="Gender">The gender.</param>
+        /// <param name="Email">The email.</param>
+        /// <param name="EmpPassword">The emp password.</param>
+        /// <param name="Address">The address.</param>
+        /// <returns></returns>
         public bool Create(string EmpName,string Designation,string Gender,string Email,string EmpPassword,string Address)
         {
             Connection();
@@ -55,9 +86,12 @@ namespace EmployementManagementSystem.Repository
             {
                 return false;
             }
-
         }
-
+        /// <summary>
+        /// Updates the specified employee.
+        /// </summary>
+        /// <param name="employee">The employee.</param>
+        /// <returns></returns>
         public bool Update(EmployeeModel employee)
         {
             Connection();
@@ -70,7 +104,6 @@ namespace EmployementManagementSystem.Repository
             command.Parameters.AddWithValue("@Email", employee.Email);
             command.Parameters.AddWithValue("@EmpPassword", employee.EmpPassword);
             command.Parameters.AddWithValue("@Address", employee.Address);
-
             con.Open();
             int i = command.ExecuteNonQuery();
             con.Close();
@@ -83,6 +116,11 @@ namespace EmployementManagementSystem.Repository
                 return false;
             }
         }
+        /// <summary>
+        /// Deletes the specified employee.
+        /// </summary>
+        /// <param name="employee">The employee.</param>
+        /// <returns></returns>
         public bool Delete(EmployeeModel employee)
         {
             Connection();
@@ -101,9 +139,10 @@ namespace EmployementManagementSystem.Repository
                 return false;
             }
         }
-
-
-
+        /// <summary>
+        /// Retrieves this instance.
+        /// </summary>
+        /// <returns></returns>
         public List<EmployeeModel> Retrieve()
         {
             Connection();
@@ -116,7 +155,6 @@ namespace EmployementManagementSystem.Repository
             da.Fill(dt);
             con.Close();
             EmpList = (from DataRow dr in dt.Rows
-
                        select new EmployeeModel()
                        {
                            EmpId = Convert.ToInt32(dr["EmpId"]),
@@ -127,12 +165,13 @@ namespace EmployementManagementSystem.Repository
                            EmpPassword = Convert.ToString(dr["EmpPassword"]),
                            Address = Convert.ToString(dr["Address"])
                        }).ToList();
-
-
             return EmpList;
-
         }
-
+        /// <summary>
+        /// ms the login.
+        /// </summary>
+        /// <param name="login">The login.</param>
+        /// <returns></returns>
         public bool M_Login(EmployeeModel login)
         {
             Connection();
