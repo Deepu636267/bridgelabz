@@ -58,6 +58,13 @@
                                 <input type="button" value="RESET" id="CANCEL"
                                        onclick="window.location.href='https://localhost:44363//Update.html'" />
                             </b>
+                        </td>
+                        <td width="40px">
+                            <b>
+                                <input type="button" value="Show Data" id="CANCEL"
+                                       onclick="window.location.href='https://localhost:44363//GetAllEmployeeData.html'" />
+                            </b>
+                        </td>
                         <td width="40px">
                             <b>
                                 <input type="button" class="btnSubmit" name="ADD" id="btnSubmit" onclick="btnSubmit();" value="ADD" />
@@ -92,6 +99,10 @@
                             $("#loaderDiv").show();
                             alert("UPDATE EMPLOYEE DATA SUCCESSFULL");
                             windows.location = 'https://localhost:44363/GetAllEmployeeData.html';
+                        },
+                         error: function (response) {
+                             $("#loaderDiv").show();
+                            alert("Id will Not Be Correct");
                         }
                     });
                 });

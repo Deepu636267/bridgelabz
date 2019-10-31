@@ -11,12 +11,13 @@
                     <tr><td><br /></td></tr>
                     <tr>
                         <td><label for="name"><b>NAME</b></label></td>
-                        <td><input type="text" id="name" name="name" placeholder="Name" /></td>
+                        <td><input type="text" id="name" name="name" placeholder="Name" required/></td>
+                        
                     </tr>
                     <tr><td><br /></td></tr>
                     <tr>
                         <td><label for="designation"><b>DESIGNATION</b></label></td>
-                        <td><input type="text" id="designation" name="designation" placeholder="Designation" /></td>
+                        <td><input type="text" id="designation" name="designation" placeholder="Designation" required/></td>
                     </tr>
                     <tr><td><br /></td></tr>
                     <tr>
@@ -35,15 +36,15 @@
                     <tr><td><br /></td>></tr>
                     <tr>
                         <td><label><b>Email</b></label></td>
-                        <td><input type="text" id="email" placeholder="abc@gamil.com" name="eamil" /></td>
+                        <td><input type="text" id="email" placeholder="abc@gamil.com" name="eamil" required /></td>
                     </tr>
                     <tr>
                         <td><label><b>Password</b></label></td>
-                        <td><input type="password" id="password" placeholder="*********" name="password" /></td>
+                        <td><input type="password" id="password" placeholder="*********" name="password" required/></td>
                     </tr>
                     <tr>
                         <td><label><b>Address</b></label></td>
-                        <td><input type="text" id="address" placeholder="address" name="address" /></td>
+                        <td><input type="text" id="address" placeholder="address" name="address" required/></td>
                     </tr>
                     <tr><td><br /></td></tr>
                     <tr>
@@ -112,7 +113,7 @@
                             windows.location = 'https://localhost:44363/GetAllEmployeeData.html';
                         },
                         error: function (err) {
-                            alert(err);
+                            alert("Data type will be Mismatch and check all deatils You Filled or not");
                         }
                     });
                 });

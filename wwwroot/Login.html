@@ -49,6 +49,11 @@
                             $("#loaderDiv").show();
                             alert("LOGIN SuceessFully click Ok");
                             window.location = 'https://localhost:44363/GetAllEmployeeData.html';
+                        },
+                        error: function (response)
+                        {
+                             $("#loaderDiv").show();
+                            alert("Login Credential are Not correct");
                         }
                     });
                 });
