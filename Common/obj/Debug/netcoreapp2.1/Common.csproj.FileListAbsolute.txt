@@ -1,0 +1,8 @@
+C:\Users\Bridgelabz\source\repos\Common\bin\Debug\netcoreapp2.1\Common.deps.json
+C:\Users\Bridgelabz\source\repos\Common\bin\Debug\netcoreapp2.1\Common.dll
+C:\Users\Bridgelabz\source\repos\Common\bin\Debug\netcoreapp2.1\Common.pdb
+C:\Users\Bridgelabz\source\repos\Common\obj\Debug\netcoreapp2.1\Common.csprojAssemblyReference.cache
+C:\Users\Bridgelabz\source\repos\Common\obj\Debug\netcoreapp2.1\Common.AssemblyInfoInputs.cache
+C:\Users\Bridgelabz\source\repos\Common\obj\Debug\netcoreapp2.1\Common.AssemblyInfo.cs
+C:\Users\Bridgelabz\source\repos\Common\obj\Debug\netcoreapp2.1\Common.dll
+C:\Users\Bridgelabz\source\repos\Common\obj\Debug\netcoreapp2.1\Common.pdb
