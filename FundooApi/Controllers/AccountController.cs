@@ -32,5 +32,47 @@ namespace FundooApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost]
+        [Route("Login")]
+        public async Task<IActionResult> LogIn(LoginModel login)
+        {
+            try
+            {
+                var result = await _manager.UserLogin(login);
+                return Ok(new { result });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost]
+        [Route("Reset")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordModel reset)
+        {
+            try
+            {
+                var result = await _manager.UserResetPassword(reset);
+                return Ok(new { result });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost]
+        [Route("Forget")]
+        public async Task<IActionResult> ForgetPassword(ForgetPasswordModel forget)
+        {
+            try
+            {
+                var result = await _manager.UserForgetPassword(forget);
+                return Ok(new { result });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

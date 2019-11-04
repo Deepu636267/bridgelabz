@@ -11,6 +11,7 @@ namespace Common.Models.UserModels
         private string lastName;
         private string email;
         private string password;
+        private string cardType;
         [Required]
         public string  FirstName
         {
@@ -62,6 +63,18 @@ namespace Common.Models.UserModels
             {
                 this.password = value;
 
+            }
+        }
+      
+        public string CardType
+        {
+            get
+            {
+                return this.cardType;
+            }
+            set
+            {
+                this.cardType = value;
             }
         }
     }

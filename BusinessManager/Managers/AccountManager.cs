@@ -20,5 +20,24 @@ namespace BusinessManager.Managers
              await _repository.Create(user);
             return "Account Created Succesfully";
         }
+
+       
+
+        public async Task<string> UserLogin(LoginModel login)
+        {
+            await _repository.LogIn(login);
+            return "Login Succesfull";
+        }
+
+        public async Task<string> UserResetPassword(ResetPasswordModel reset)
+        {
+            await _repository.ResetPassword(reset);
+            return "Password change Successfully";
+        }
+        public async Task<string> UserForgetPassword(ForgetPasswordModel forget)
+        {
+            await _repository.ForgetPassword(forget);
+            return "Email sent Successfully";
+        }
     }
 }

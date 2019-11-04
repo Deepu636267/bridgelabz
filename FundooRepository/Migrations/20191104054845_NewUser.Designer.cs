@@ -3,14 +3,16 @@ using FundooRepository.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FundooRepository.Migrations
 {
     [DbContext(typeof(UserContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20191104054845_NewUser")]
+    partial class NewUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,7 +25,8 @@ namespace FundooRepository.Migrations
                     b.Property<string>("Email")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CardType");
+                    b.Property<string>("CardType")
+                        .IsRequired();
 
                     b.Property<string>("FirstName")
                         .IsRequired();
