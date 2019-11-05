@@ -30,21 +30,20 @@ namespace FundooRepository.Repository
                     CardType=userm.CardType
 
                 };
-                _context.Users.Add(user);
-                return Task.Run(() => _context.SaveChanges());
+               // _context.Users.Add(user);
+               return Task.Run(() => _context.SaveChanges());
             }catch(SqlException ex)
             {
                 return Task.FromException(ex);
             }
         }
-
        
-        public Task LogIn(LoginModel login)
+        public Task<UserModel> LogIn(LoginModel login)
         {
             var result = _context.Users.Where(i => i.Email == login.Email && i.Password == login.Password).FirstOrDefault();
             if(result!=null)
             {
-                return Task.Run(() => _context.SaveChanges());
+                return Task.Run(()=> result);
             }
             else
             {
@@ -95,7 +94,7 @@ namespace FundooRepository.Repository
             mailMessage.IsBodyHtml = true;
             mailMessage.Body = sbEmailBody.ToString();
             mailMessage.Subject = "Reset Your Password";
-            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);  
             smtpClient.Credentials = new System.Net.NetworkCredential()
             {
                 UserName = "deepumaurya07@gmail.com",
@@ -103,6 +102,12 @@ namespace FundooRepository.Repository
             };
             smtpClient.EnableSsl = true;
             smtpClient.Send(mailMessage);
+        }
+        public Task<UserModel> FindByEmailAsync(string email)
+        {
+            var user =  _context.Users.Find(email);
+            return Task.Run(()=>user);
+            
         }
 
     }

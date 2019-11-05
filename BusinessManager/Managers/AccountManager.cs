@@ -23,10 +23,10 @@ namespace BusinessManager.Managers
 
        
 
-        public async Task<string> UserLogin(LoginModel login)
+        public async Task<UserModel> UserLogin(LoginModel login)
         {
-            await _repository.LogIn(login);
-            return "Login Succesfull";
+           var result= await _repository.LogIn(login);
+            return result;
         }
 
         public async Task<string> UserResetPassword(ResetPasswordModel reset)
@@ -38,6 +38,11 @@ namespace BusinessManager.Managers
         {
             await _repository.ForgetPassword(forget);
             return "Email sent Successfully";
+        }
+        public async Task<UserModel> FindByEmailAsync(string email)
+        {
+            var result =await _repository.FindByEmailAsync(email);
+            return result;
         }
     }
 }
