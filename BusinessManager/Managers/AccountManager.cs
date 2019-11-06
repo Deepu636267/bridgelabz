@@ -23,7 +23,7 @@ namespace BusinessManager.Managers
 
        
 
-        public async Task<UserModel> UserLogin(LoginModel login)
+        public async Task<string> UserLogin(LoginModel login)
         {
            var result= await _repository.LogIn(login);
             return result;

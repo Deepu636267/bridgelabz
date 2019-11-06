@@ -9,9 +9,10 @@ namespace FundooRepository.Intefaces
     public interface IAccountRepository
     {
         Task Create(UserModel userm);
-        Task<UserModel> LogIn(LoginModel login);
+        Task<string> LogIn(LoginModel login);
         Task ResetPassword(ResetPasswordModel reset);
         Task ForgetPassword(ForgetPasswordModel forget);
         Task<UserModel> FindByEmailAsync(string email);
+        Task<String> GenerateToken(string Email);
     }
 }

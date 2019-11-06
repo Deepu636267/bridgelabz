@@ -1,11 +1,16 @@
 ﻿using Common.Models.UserModels;
 using FundooRepository.Context;
 using FundooRepository.Intefaces;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Mail;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,9 +19,11 @@ namespace FundooRepository.Repository
     public class AccountRepository : IAccountRepository
     {
         private readonly UserContext _context;
-        public AccountRepository(UserContext context)
+        private readonly ApplicationSetting _appsetting;
+        public AccountRepository(UserContext context, IOptions<ApplicationSetting> appsetting)
         {
             _context = context;
+            _appsetting = appsetting.Value;
         }
         public Task Create(UserModel userm)
         {
@@ -38,12 +45,13 @@ namespace FundooRepository.Repository
             }
         }
        
-        public Task<UserModel> LogIn(LoginModel login)
+        public Task<string> LogIn(LoginModel login)
         {
             var result = _context.Users.Where(i => i.Email == login.Email && i.Password == login.Password).FirstOrDefault();
             if(result!=null)
             {
-                return Task.Run(()=> result);
+                var LoginToken = GenerateToken(result.Email);
+                return Task.Run(()=> LoginToken);
             }
             else
             {
@@ -108,6 +116,34 @@ namespace FundooRepository.Repository
             var user =  _context.Users.Find(email);
             return Task.Run(()=>user);
             
+        }
+        public Task<String> GenerateToken(string Email)
+        {
+            try
+            {
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                        new Claim("Email", Email)
+                    }),
+                    Expires = DateTime.UtcNow.AddDays(1),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appsetting.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var cacheKey = Email;
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+                var token = tokenHandler.WriteToken(securityToken);
+                //ConnectionMultiplexer connectionMulitplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+                //IDatabase database = connectionMulitplexer.GetDatabase();
+                //database.StringSet(cacheKey, token.ToString());
+                //database.StringGet(cacheKey);
+                return Task.Run(()=>token);              
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
     }

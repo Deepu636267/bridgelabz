@@ -20,11 +20,10 @@ namespace FundooApi.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountManager _manager;
-        private readonly ApplicationSetting _appsetting;
-        public AccountController(IAccountManager manager,IOptions<ApplicationSetting> appsetting)
+       // private readonly ApplicationSetting _appsetting;
+        public AccountController(IAccountManager manager)
         {
             _manager = manager;
-            _appsetting = appsetting.Value;
         }
         [HttpPost]
         [Route("Add")]
@@ -82,40 +81,40 @@ namespace FundooApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost]
-        [Route("Log")]
-        public async Task<IActionResult> Log(LoginModel login)
-        {
-            try
-            {
-                var result = await _manager.FindByEmailAsync(login.Email);
-                if(result!=null)
-                {
-                    var tokenDescriptor = new SecurityTokenDescriptor
-                    {
-                        Subject = new ClaimsIdentity(new Claim[]
-                        {
-                            new Claim("Email", result.Email)
-                        }),
-                        Expires = DateTime.UtcNow.AddDays(1),
-                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appsetting.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
-                    };
-                    var tokenHandler = new JwtSecurityTokenHandler();
-                    var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-                    var token = tokenHandler.WriteToken(securityToken);
-                    return Ok(new { token });
-                }
-                else
-                {
-                    return BadRequest(new { message = "Not valid" });
-                }
+        //[HttpPost]
+        //[Route("Log")]
+        //public async Task<IActionResult> Log(LoginModel login)
+        //{
+        //    try
+        //    {
+        //        var result = await _manager.FindByEmailAsync(login.Email);
+        //        if(result!=null)
+        //        {
+        //            var tokenDescriptor = new SecurityTokenDescriptor
+        //            {
+        //                Subject = new ClaimsIdentity(new Claim[]
+        //                {
+        //                    new Claim("Email", result.Email)
+        //                }),
+        //                Expires = DateTime.UtcNow.AddDays(1),
+        //                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appsetting.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
+        //            };
+        //            var tokenHandler = new JwtSecurityTokenHandler();
+        //            var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+        //            var token = tokenHandler.WriteToken(securityToken);
+        //            return Ok(new { token });
+        //        }
+        //        else
+        //        {
+        //            return BadRequest(new { message = "Not valid" });
+        //        }
                
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
         [HttpGet, Authorize]
       //  [Authorize]
