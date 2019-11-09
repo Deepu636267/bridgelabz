@@ -1,0 +1,9 @@
+C:\Users\Bridgelabz\source\repos\Employeeclient\bin\Employeeclient.dll.config
+C:\Users\Bridgelabz\source\repos\Employeeclient\bin\Employeeclient.dll
+C:\Users\Bridgelabz\source\repos\Employeeclient\bin\Employeeclient.pdb
+C:\Users\Bridgelabz\source\repos\Employeeclient\bin\Newtonsoft.Json.dll
+C:\Users\Bridgelabz\source\repos\Employeeclient\bin\Newtonsoft.Json.xml
+C:\Users\Bridgelabz\source\repos\Employeeclient\obj\Debug\Employeeclient.csprojAssemblyReference.cache
+C:\Users\Bridgelabz\source\repos\Employeeclient\obj\Debug\Employeeclient.csproj.CopyComplete
+C:\Users\Bridgelabz\source\repos\Employeeclient\obj\Debug\Employeeclient.dll
+C:\Users\Bridgelabz\source\repos\Employeeclient\obj\Debug\Employeeclient.pdb

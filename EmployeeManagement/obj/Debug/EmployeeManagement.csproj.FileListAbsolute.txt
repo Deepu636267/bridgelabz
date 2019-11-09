@@ -1,0 +1,6 @@
+C:\Users\Bridgelabz\source\repos\EmployeeManagement\bin\EmployeeManagement.dll.config
+C:\Users\Bridgelabz\source\repos\EmployeeManagement\bin\EmployeeManagement.dll
+C:\Users\Bridgelabz\source\repos\EmployeeManagement\bin\EmployeeManagement.pdb
+C:\Users\Bridgelabz\source\repos\EmployeeManagement\obj\Debug\EmployeeManagement.csprojAssemblyReference.cache
+C:\Users\Bridgelabz\source\repos\EmployeeManagement\obj\Debug\EmployeeManagement.dll
+C:\Users\Bridgelabz\source\repos\EmployeeManagement\obj\Debug\EmployeeManagement.pdb
