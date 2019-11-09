@@ -1,11 +1,19 @@
-﻿using Common.Models.UserModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file=IAccountManager.cs" company="Bridgelabz">
+//   Copyright © 2019 Company="BridgeLabz"
+// </copyright>
+// <creator name="Sachin Kumar Maurya"/>
+// --------------------------------------------------------------------------------------------------------------------
 namespace BusinessManager.Interfaces
 {
+    using Common.Models.UserModels;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Threading.Tasks;
+    /// <summary>
+    /// IAccountManager is an inteface for manager class
+    /// </summary>
     public interface IAccountManager
     {
         Task<string> Registration(UserModel user);

@@ -1,10 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file=UserModel.cs" company="Bridgelabz">
+//   Copyright © 2019 Company="BridgeLabz"
+// </copyright>
+// <creator name="Sachin Kumar Maurya"/>
+// --------------------------------------------------------------------------------------------------------------------
 namespace Common.Models.UserModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Text;
+    /// <summary>
+    /// UserModel is a class for basic stucture
+    /// </summary>
     public class UserModel
     {
         private string firstName;
@@ -12,6 +20,12 @@ namespace Common.Models.UserModels
         private string email;
         private string password;
         private string cardType;
+        /// <summary>
+        /// Gets or sets the first name.
+        /// </summary>
+        /// <value>
+        /// The first name.
+        /// </value>
         [Required]
         public string  FirstName
         {
@@ -25,7 +39,13 @@ namespace Common.Models.UserModels
 
             }
         }
-       [Required]
+        /// <summary>
+        /// Gets or sets the last name.
+        /// </summary>
+        /// <value>
+        /// The last name.
+        /// </value>
+        [Required]
         public string LastName
         {
             get
@@ -38,6 +58,12 @@ namespace Common.Models.UserModels
 
             }
         }
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
+        /// <value>
+        /// The email.
+        /// </value>
         [Key]
         [Required]
         public string Email
@@ -52,6 +78,12 @@ namespace Common.Models.UserModels
 
             }
         }
+        /// <summary>
+        /// Gets or sets the password.
+        /// </summary>
+        /// <value>
+        /// The password.
+        /// </value>
         [Required]
         public string Password
         {
@@ -65,7 +97,12 @@ namespace Common.Models.UserModels
 
             }
         }
-      
+        /// <summary>
+        /// Gets or sets the type of the card.
+        /// </summary>
+        /// <value>
+        /// The type of the card.
+        /// </value>
         public string CardType
         {
             get

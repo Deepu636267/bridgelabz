@@ -1,30 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using BusinessManager.Interfaces;
-using Common.Models.UserModels;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file=AccountController.cs" company="Bridgelabz">
+//   Copyright © 2019 Company="BridgeLabz"
+// </copyright>
+// <creator name="Sachin Kumar Maurya"/>
+// --------------------------------------------------------------------------------------------------------------------
 namespace FundooApi.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Text;
+    using System.Threading.Tasks;
+    using BusinessManager.Interfaces;
+    using Common.Models.UserModels;
+    using FundooApi.Cache;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Options;
+    using Microsoft.IdentityModel.Tokens;
+    /// <summary>
+    /// AccountController is controller class for all account operation
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
         private readonly IAccountManager _manager;
-       // private readonly ApplicationSetting _appsetting;
+        // private readonly ApplicationSetting _appsetting;       
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccountController"/> class.
+        /// </summary>
+        /// <param name="manager">The manager.</param>
         public AccountController(IAccountManager manager)
         {
             _manager = manager;
         }
+        /// <summary>
+        /// Registers the specified user.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns></returns>
         [HttpPost]
         [Route("Add")]
         public async Task<IActionResult> Register(UserModel user)
@@ -39,6 +58,11 @@ namespace FundooApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        /// <summary>
+        /// Logs the in.
+        /// </summary>
+        /// <param name="login">The login.</param>
+        /// <returns></returns>
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> LogIn(LoginModel login)
@@ -53,6 +77,11 @@ namespace FundooApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        /// <summary>
+        /// Resets the password.
+        /// </summary>
+        /// <param name="reset">The reset.</param>
+        /// <returns></returns>
         [HttpPost]
         [Route("Reset")]
         public async Task<IActionResult> ResetPassword(ResetPasswordModel reset)
@@ -67,7 +96,13 @@ namespace FundooApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        /// <summary>
+        /// Forgets the password.
+        /// </summary>
+        /// <param name="forget">The forget.</param>
+        /// <returns></returns>
         [HttpPost]
+       // [Cached(600)]
         [Route("Forget")]
         public async Task<IActionResult> ForgetPassword(ForgetPasswordModel forget)
         {
@@ -108,16 +143,18 @@ namespace FundooApi.Controllers
         //        {
         //            return BadRequest(new { message = "Not valid" });
         //        }
-               
+
         //    }
         //    catch (Exception ex)
         //    {
         //        return BadRequest(ex.Message);
         //    }
-        //}
-
+        //}        
+        /// <summary>
+        /// Results this instance.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet, Authorize]
-      //  [Authorize]
         [Route("reg")]
         public async Task<Object> Result()
         {

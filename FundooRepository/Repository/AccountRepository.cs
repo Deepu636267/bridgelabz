@@ -1,30 +1,52 @@
-﻿using Common.Models.UserModels;
-using FundooRepository.Context;
-using FundooRepository.Intefaces;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using StackExchange.Redis;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Net.Mail;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file=AccountRepository.cs" company="Bridgelabz">
+//   Copyright © 2019 Company="BridgeLabz"
+// </copyright>
+// <creator name="Sachin Kumar Maurya"/>
+// --------------------------------------------------------------------------------------------------------------------
 namespace FundooRepository.Repository
 {
+    using Common.Models.UserModels;
+    using FundooRepository.Context;
+    using FundooRepository.Intefaces;
+    using Microsoft.Extensions.Options;
+    using Microsoft.IdentityModel.Tokens;
+    using StackExchange.Redis;
+    using System;
+    using System.Collections.Generic;
+    using System.Data.SqlClient;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Linq;
+    using System.Net.Mail;
+    using System.Security.Claims;
+    using System.Text;
+    using System.Threading.Tasks;
+    /// <summary>
+    /// AccountRepository is class which has inherited the IAccountRepository for all the busineess logic 
+    /// </summary>
+    /// <seealso cref="FundooRepository.Intefaces.IAccountRepository" />
     public class AccountRepository : IAccountRepository
     {
+        /// <summary>
+        /// The context
+        /// </summary>
         private readonly UserContext _context;
         private readonly ApplicationSetting _appsetting;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccountRepository"/> class.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="appsetting">The appsetting.</param>
         public AccountRepository(UserContext context, IOptions<ApplicationSetting> appsetting)
         {
             _context = context;
             _appsetting = appsetting.Value;
         }
+        /// <summary>
+        /// Creates the specified userm.
+        /// </summary>
+        /// <param name="userm">The userm.</param>
+        /// <returns></returns>
         public Task Create(UserModel userm)
         {
             try { 
@@ -44,7 +66,11 @@ namespace FundooRepository.Repository
                 return Task.FromException(ex);
             }
         }
-       
+        /// <summary>
+        /// Logs the in.
+        /// </summary>
+        /// <param name="login">The login.</param>
+        /// <returns></returns>
         public Task<string> LogIn(LoginModel login)
         {
             var result = _context.Users.Where(i => i.Email == login.Email && i.Password == login.Password).FirstOrDefault();
@@ -58,6 +84,11 @@ namespace FundooRepository.Repository
                 return null;
             }
         }
+        /// <summary>
+        /// Forgets the password.
+        /// </summary>
+        /// <param name="forget">The forget.</param>
+        /// <returns></returns>
         public Task ForgetPassword(ForgetPasswordModel forget)
         {
             var result = _context.Users.Where(i => i.Email == forget.Email).FirstOrDefault();
@@ -72,7 +103,11 @@ namespace FundooRepository.Repository
             }
 
         }
-
+        /// <summary>
+        /// Resets the password.
+        /// </summary>
+        /// <param name="reset">The reset.</param>
+        /// <returns></returns>
         public Task ResetPassword(ResetPasswordModel reset)
         {
             var result = _context.Users.Where(i => i.Email == reset.Email && i.Password==reset.OldPassword).FirstOrDefault();
@@ -87,6 +122,11 @@ namespace FundooRepository.Repository
                 return null;
             }
         }
+        /// <summary>
+        /// Sends the password reset email.
+        /// </summary>
+        /// <param name="ToEmail">To email.</param>
+        /// <param name="UserName">Name of the user.</param>
         private void SendPasswordResetEmail(string ToEmail, string UserName)
         {
             // MailMessage class is present is System.Net.Mail namespace
@@ -111,12 +151,22 @@ namespace FundooRepository.Repository
             smtpClient.EnableSsl = true;
             smtpClient.Send(mailMessage);
         }
+        /// <summary>
+        /// Finds the by email asynchronous.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
         public Task<UserModel> FindByEmailAsync(string email)
         {
             var user =  _context.Users.Find(email);
             return Task.Run(()=>user);
             
         }
+        /// <summary>
+        /// Generates the token.
+        /// </summary>
+        /// <param name="Email">The email.</param>
+        /// <returns></returns>
         public Task<String> GenerateToken(string Email)
         {
             try
@@ -145,6 +195,5 @@ namespace FundooRepository.Repository
                 return null;
             }
         }
-
     }
 }
