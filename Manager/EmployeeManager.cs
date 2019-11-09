@@ -64,8 +64,13 @@ namespace EmployementManagementSystem.Manager
         /// <returns></returns>
         public string Edit(EmployeeModel empl)
         {
-            _employeeRepository.Update(empl);
-            return "Updated Succesfully";
+           var result= _employeeRepository.Update(empl);
+           if(result==true)
+              return "Updated Succesfully";
+           else
+            {
+                return null;
+            }
         }
         /// <summary>
         /// Deletes the specified employee.
@@ -74,8 +79,11 @@ namespace EmployementManagementSystem.Manager
         /// <returns></returns>
         public string Delete(EmployeeModel employee)
         {
-            _employeeRepository.Delete(employee);
-            return "Data Deleted Succesfully";
+            var result=_employeeRepository.Delete(employee);
+            if (result == true)
+                return "Data Deleted Succesfully";
+            else
+                return null;
         }
         /// <summary>
         /// Shows this instance.
@@ -93,6 +101,7 @@ namespace EmployementManagementSystem.Manager
         /// <returns></returns>
         public string Login(EmployeeModel login)
         {
+
             var result=_employeeRepository.M_Login(login);
             if(result==true)
             {
@@ -100,7 +109,7 @@ namespace EmployementManagementSystem.Manager
             }
             else
             {
-                return "Login Credential Not correct";
+                return null;
             }
         }
     }

@@ -11,8 +11,8 @@
                 <tbody>
                     <tr><td><br /></td></tr>
                     <tr>
-                        <td><label for="username">UserName</label></td>
-                        <td><input type="text" placeholder="name" id=" name" /></td>
+                        <td><label for="name">UserName</label></td>
+                        <td><input type="text" placeholder="name" id="name" /></td>
                     </tr>
                     <tr>
                         <td><label for="password">Password</label></td>
@@ -47,8 +47,11 @@
                         data: formData,
                         success: function (response) {
                             $("#loaderDiv").show();
-                            alert("LOGIN SuceessFully click Ok");
-                            window.location = 'https://localhost:44363/GetAllEmployeeData.html';
+                           
+                                alert("LOGIN SuceessFully click Ok");
+                                window.location = 'https://localhost:44363/GetAllEmployeeData.html';
+                            
+                           
                         },
                         error: function (response)
                         {

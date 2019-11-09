@@ -42,6 +42,9 @@ namespace EmployementManagementSystem
             services.AddSingleton<IConfiguration>(_config);
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IEmployeeManager, EmployeeManager>();
+
+
+
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

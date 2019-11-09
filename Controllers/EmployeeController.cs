@@ -64,8 +64,12 @@ namespace EmployementManagementSystem.Controllers
             try
             {
                 var result = _employeeManager.Edit(employee);
-                return Ok(new { result });
-            }catch(Exception ex)
+                if (result != null)
+                    return Ok(new { result });
+                else
+                    return BadRequest();
+            }
+            catch(Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -82,7 +86,11 @@ namespace EmployementManagementSystem.Controllers
             try
             {
                 var result = _employeeManager.Delete(employee);
-                return Ok(new { result });
+                if (result != null)
+                    return Ok(new { result });
+                else
+                    return BadRequest();
+              
             }catch(Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -117,9 +125,12 @@ namespace EmployementManagementSystem.Controllers
             try
             {
                 var result = _employeeManager.Login(login);
-                return Ok(new { result });
-               
-            }catch(Exception ex)
+                if (result != null)
+                    return Ok(new { result });
+                else
+                   return BadRequest();
+            }
+            catch(Exception ex)
             {
                 return BadRequest(ex.Message);
             }
