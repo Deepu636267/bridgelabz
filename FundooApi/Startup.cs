@@ -41,6 +41,8 @@ namespace FundooApi
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddTransient<IAccountRepository, AccountRepository > ();
             services.AddTransient<IAccountManager, AccountManager>();
+            services.AddTransient<INotesRepository, NotesRepository>();
+            services.AddTransient<INotesManager, NotesManager>();
 
             //authenticate
             //services.AddDefaultIdentity<UserModel>().AddEntityFrameworkStores<UserContext>();

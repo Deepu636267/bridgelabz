@@ -11,6 +11,7 @@ namespace FundooRepository.Repository
     using FundooRepository.Intefaces;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
     /// <summary>
@@ -24,8 +25,31 @@ namespace FundooRepository.Repository
             _context = context;
         }
 
-        public Task Create(NotesModel notes)
+        public Task Create(NotesModel notes,string email)
         {
+            notes.Email = email;
+            var note = new NotesModel()
+            {
+                Email=notes.Email,
+                Title=notes.Title,
+                Description=notes.Description,
+                CreatedDate=DateTime.Now
+            };
+             _context.Notes.Add(note);
+            return Task.Run(() => _context.SaveChanges());
+        }
+
+        public Task Retrieve(int Id,string email)
+        {
+            var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
+            if(result!=null)
+            {
+                if(result.Email.Equals(email))
+                {
+
+                }
+            }
+
             throw new NotImplementedException();
         }
     }

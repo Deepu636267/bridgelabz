@@ -140,8 +140,8 @@ namespace Common.Models.NotesModels
         /// </value>
         public string Images
         {
-            get { return this.Images; }
-            set { this.Images = value; }
+            get { return this.images; }
+            set { this.images = value; }
         }
         /// <summary>
         /// Gets or sets the reminder.
