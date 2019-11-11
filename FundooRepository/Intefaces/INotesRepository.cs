@@ -17,7 +17,10 @@ namespace FundooRepository.Intefaces
     public interface INotesRepository
     {
         Task Create(NotesModel notes, string email);
-        Task Retrieve(int Id, string email);
+        Task<List<NotesModel>> RetrieveById(int Id, string email);
+        Task Delete(int ID, string Email);
+        Task Update(NotesModel notes, string Email);
+        Task<List<NotesModel>> Show(string Email);
 
     }
 }

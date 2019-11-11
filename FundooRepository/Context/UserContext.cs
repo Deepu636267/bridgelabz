@@ -6,6 +6,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace FundooRepository.Context
 {
+    using Common.Models.LabelsModels;
     using Common.Models.NotesModels;
     using Common.Models.UserModels;
     using Microsoft.EntityFrameworkCore;
@@ -42,5 +43,6 @@ namespace FundooRepository.Context
         /// </value>
         public DbSet<NotesModel> Notes
         { get; set; }
+        public DbSet<LabelModel> Labels { get; set; }
     }
 }

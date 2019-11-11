@@ -19,6 +19,21 @@ namespace FundooRepository.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Common.Models.LabelsModels.LabelModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Label");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Labels");
+                });
+
             modelBuilder.Entity("Common.Models.NotesModels.NotesModel", b =>
                 {
                     b.Property<int>("Id")
