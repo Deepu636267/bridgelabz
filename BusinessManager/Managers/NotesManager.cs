@@ -9,6 +9,7 @@ namespace BusinessManager.Managers
     using BusinessManager.Interfaces;
     using Common.Models.NotesModels;
     using FundooRepository.Intefaces;
+    using Microsoft.AspNetCore.Http;
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -202,9 +203,33 @@ namespace BusinessManager.Managers
                 return null;
             }
         }
+        /// <summary>
+        /// Deletes all.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
         public async Task<string> DeleteAll(string email)
         {
             var result = await repository.DeleteAll(email);
+            if (result == true)
+            {
+                return "UnTrash Succesfully";
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// Images the upload.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <param name="file">The file.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public async Task<string> ImageUpload(int Id, IFormFile file, string email)
+        {
+            var result = await repository.ImageUpload(Id,file,email);
             if (result == true)
             {
                 return "UnTrash Succesfully";

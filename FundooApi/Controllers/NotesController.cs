@@ -323,6 +323,10 @@ namespace FundooApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        /// <summary>
+        /// Deletes all.
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("DeleteAll")]
         public async Task<IActionResult> DeleteAll()
@@ -331,6 +335,34 @@ namespace FundooApi.Controllers
             try
             {
                 var result = await _manager.DeleteAll(email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Images the upload.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <param name="file">The file.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Image")]
+        public async Task<IActionResult> ImageUpload(int Id, IFormFile file)
+        {
+            string email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.ImageUpload(Id,file,email);
                 if (result != null)
                 {
                     return Ok(new { result });

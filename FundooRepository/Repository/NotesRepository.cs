@@ -6,9 +6,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace FundooRepository.Repository
 {
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
     using Common.Models.NotesModels;
     using FundooRepository.Context;
     using FundooRepository.Intefaces;
+    using Microsoft.AspNetCore.Http;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -369,7 +372,49 @@ namespace FundooRepository.Repository
                 return Task.Run(() => false);
             }
         }
-    
+        public Task<bool> ImageUpload(int Id, IFormFile file,string email)
+        {
+            var path = file.OpenReadStream();
+            var File =file.FileName;
+            CloudinaryDotNet.Account account = new CloudinaryDotNet.Account("dtil5iw6l", "562314371245223", "rvy_ZB_bMoq7pva8whrFXOcBprI");
+            CloudinaryDotNet.Cloudinary cloudinary = new CloudinaryDotNet.Cloudinary(account);
+            var image = new ImageUploadParams()
+            {
+                File = new FileDescription(File)
+            };
+            var uploadResult = cloudinary.Upload(image);
+            if (uploadResult.Error != null)
+                throw new Exception(uploadResult.Error.Message);
+            var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
+            if (result!=null)
+            {
+                if(result.Email.Equals(email))
+                {
+                    result.Images = uploadResult.Uri.ToString();
+                    try
+                    {
+                        var value = Task.Run(() => _context.SaveChanges());
+                    }
+                    catch (Exception)
+                    {
+                        return Task.Run(() => false);
+                    }
+                    return Task.Run(() => true);
+                }
+                else
+                {
+                    return Task.Run(() => false);
+                }
+            }
+            else
+            {
+                return Task.Run(() => false);
+            }
+
+
+        }
+
+        
 
     }
 }

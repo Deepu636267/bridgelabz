@@ -7,6 +7,7 @@
 namespace FundooRepository.Intefaces
 {
     using Common.Models.NotesModels;
+    using Microsoft.AspNetCore.Http;
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -28,6 +29,7 @@ namespace FundooRepository.Intefaces
         Task<bool> Trash(int Id, string email);
         Task<bool> RestoreById(int Id, string email);
         Task<bool> DeleteAll(string email);
+        Task<bool> ImageUpload(int Id, IFormFile file, string email);
 
     }
 }

@@ -7,6 +7,7 @@
 namespace BusinessManager.Interfaces
 {
     using Common.Models.NotesModels;
+    using Microsoft.AspNetCore.Http;
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -28,5 +29,6 @@ namespace BusinessManager.Interfaces
         Task<string> Trash(int Id, string email);
         Task<string> RestoreById(int Id, string email);
         Task<string> DeleteAll(string email);
+        Task<string> ImageUpload(int Id, IFormFile file, string email);
     }
 }
