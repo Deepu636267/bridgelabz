@@ -27,7 +27,7 @@ namespace FundooRepository.Intefaces
         Task<bool> UnPin(int Id, string email);
         Task<bool> Trash(int Id, string email);
         Task<bool> RestoreById(int Id, string email);
-        
+        Task<bool> DeleteAll(string email);
 
     }
 }

@@ -186,11 +186,11 @@ namespace FundooRepository.Repository
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(securityToken);
-                var userdata = _context.Notes.Where(i => i.Email == Email).FirstOrDefault();
-                ConnectionMultiplexer connectionMulitplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
-                IDatabase database = connectionMulitplexer.GetDatabase();
-                database.StringSet(cacheKey, userdata.Id);
-                database.StringGet(cacheKey);
+                //var userdata = _context.Notes.Where(i => i.Email == Email).FirstOrDefault();
+                //ConnectionMultiplexer connectionMulitplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+                //IDatabase database = connectionMulitplexer.GetDatabase();
+                //database.StringSet(cacheKey, userdata.Id);
+                //database.StringGet(cacheKey);
                 return Task.Run(()=>token);              
             }
             catch (Exception)

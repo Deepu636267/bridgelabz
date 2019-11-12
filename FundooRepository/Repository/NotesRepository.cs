@@ -17,7 +17,7 @@ namespace FundooRepository.Repository
     /// <summary>
     /// NotesRepository is a class which inherited the INotesRepository
     /// </summary>
-    public class NotesRepository:INotesRepository
+    public class NotesRepository : INotesRepository
     {
         private readonly UserContext _context;
         /// <summary>
@@ -34,17 +34,17 @@ namespace FundooRepository.Repository
         /// <param name="notes"></param>
         /// <param name="email"></param>
         /// <returns></returns>
-        public Task Create(NotesModel notes,string email)
+        public Task Create(NotesModel notes, string email)
         {
             notes.Email = email;
             var note = new NotesModel()
             {
-                Email=notes.Email,
-                Title=notes.Title,
-                Description=notes.Description,
-                CreatedDate=DateTime.Now
+                Email = notes.Email,
+                Title = notes.Title,
+                Description = notes.Description,
+                CreatedDate = DateTime.Now
             };
-             _context.Notes.Add(note);
+            _context.Notes.Add(note);
             return Task.Run(() => _context.SaveChanges());
         }
         /// <summary>
@@ -53,12 +53,12 @@ namespace FundooRepository.Repository
         /// <param name="Id"></param>
         /// <param name="email"></param>
         /// <returns></returns>
-        public Task<List<NotesModel>> RetrieveById(int Id,string email)
+        public Task<List<NotesModel>> RetrieveById(int Id, string email)
         {
             var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
-            if(result!=null)
+            if (result != null)
             {
-                if(result.Email.Equals(email))
+                if (result.Email.Equals(email))
                 {
                     return Task.Run(() => _context.Notes.Where(p => p.Id == Id).ToList());
                 }
@@ -143,12 +143,12 @@ namespace FundooRepository.Repository
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public Task<bool> Archive(int Id,string email)
+        public Task<bool> Archive(int Id, string email)
         {
             var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
-            if(result!=null)
+            if (result != null)
             {
-                if(result.Email.Equals(email))
+                if (result.Email.Equals(email))
                 {
                     result.IsArchive = true;
                     try
@@ -161,7 +161,7 @@ namespace FundooRepository.Repository
                     }
                     //if (value.Equals(1))
                     //{
-                        return Task.Run(() => true);
+                    return Task.Run(() => true);
                     //}
                     //else
                     //{
@@ -200,14 +200,7 @@ namespace FundooRepository.Repository
                     {
                         return Task.Run(() => false);
                     }
-                    //if (value.Equals(1))
-                    //{
                     return Task.Run(() => true);
-                    //}
-                    //else
-                    //{
-                    //    return Task.Run(() => false);
-                    //}
                 }
                 else
                 {
@@ -241,14 +234,7 @@ namespace FundooRepository.Repository
                     {
                         return Task.Run(() => false);
                     }
-                    //if (value.Equals(1))
-                    //{
                     return Task.Run(() => true);
-                    //}
-                    //else
-                    //{
-                    //    return Task.Run(() => false);
-                    //}
                 }
                 else
                 {
@@ -282,14 +268,7 @@ namespace FundooRepository.Repository
                     {
                         return Task.Run(() => false);
                     }
-                    //if (value.Equals(1))
-                    //{
                     return Task.Run(() => true);
-                    //}
-                    //else
-                    //{
-                    //    return Task.Run(() => false);
-                    //}
                 }
                 else
                 {
@@ -323,14 +302,7 @@ namespace FundooRepository.Repository
                     {
                         return Task.Run(() => false);
                     }
-                    //if (value.Equals(1))
-                    //{
                     return Task.Run(() => true);
-                    //}
-                    //else
-                    //{
-                    //    return Task.Run(() => false);
-                    //}
                 }
                 else
                 {
@@ -364,14 +336,7 @@ namespace FundooRepository.Repository
                     {
                         return Task.Run(() => false);
                     }
-                    //if (value.Equals(1))
-                    //{
                     return Task.Run(() => true);
-                    //}
-                    //else
-                    //{
-                    //    return Task.Run(() => false);
-                    //}
                 }
                 else
                 {
@@ -385,10 +350,10 @@ namespace FundooRepository.Repository
         }
         public Task<bool> DeleteAll(string email)
         {
-            var result = _context.Notes.Where(i => i.Email == email).First();
-            if(result!=null)
+            IEnumerable<NotesModel> list = _context.Notes.Where(i => i.Email == email).ToList();
+            if (list != null)
             {
-                _context.Notes.Remove(result);
+                _context.Notes.RemoveRange(list);
                 try
                 {
                     var value = Task.Run(() => _context.SaveChanges());
@@ -397,19 +362,14 @@ namespace FundooRepository.Repository
                 {
                     return Task.Run(() => false);
                 }
-                //if (value.Equals(1))
-                //{
                 return Task.Run(() => true);
-                //}
-                //else
-                //{
-                //    return Task.Run(() => false);
-                //}
-            }    
+            }
             else
             {
                 return Task.Run(() => false);
             }
         }
+    
+
     }
 }
