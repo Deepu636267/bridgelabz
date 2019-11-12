@@ -150,6 +150,7 @@ namespace FundooRepository.Repository
             };
             smtpClient.EnableSsl = true;
             smtpClient.Send(mailMessage);
+            smtpClient.Dispose();
         }
         /// <summary>
         /// Finds the by email asynchronous.
@@ -176,6 +177,7 @@ namespace FundooRepository.Repository
                     Subject = new ClaimsIdentity(new Claim[]
                     {
                         new Claim("Email", Email)
+                       
                     }),
                     Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appsetting.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
@@ -184,10 +186,11 @@ namespace FundooRepository.Repository
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(securityToken);
-                //ConnectionMultiplexer connectionMulitplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
-                //IDatabase database = connectionMulitplexer.GetDatabase();
-                //database.StringSet(cacheKey, token.ToString());
-                //database.StringGet(cacheKey);
+                var userdata = _context.Notes.Where(i => i.Email == Email).FirstOrDefault();
+                ConnectionMultiplexer connectionMulitplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+                IDatabase database = connectionMulitplexer.GetDatabase();
+                database.StringSet(cacheKey, userdata.Id);
+                database.StringGet(cacheKey);
                 return Task.Run(()=>token);              
             }
             catch (Exception)

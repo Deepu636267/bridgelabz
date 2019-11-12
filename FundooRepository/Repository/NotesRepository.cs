@@ -137,5 +137,279 @@ namespace FundooRepository.Repository
                 return null;
             }
         }
+        /// <summary>
+        /// Archives the specified identifier.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public Task<bool> Archive(int Id,string email)
+        {
+            var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
+            if(result!=null)
+            {
+                if(result.Email.Equals(email))
+                {
+                    result.IsArchive = true;
+                    try
+                    {
+                        var value = Task.Run(() => _context.SaveChanges());
+                    }
+                    catch (Exception)
+                    {
+                        return Task.Run(() => false);
+                    }
+                    //if (value.Equals(1))
+                    //{
+                        return Task.Run(() => true);
+                    //}
+                    //else
+                    //{
+                    //    return Task.Run(() => false);
+                    //}
+                }
+                else
+                {
+                    return Task.Run(() => false);
+                }
+            }
+            else
+            {
+                return Task.Run(() => false);
+            }
+        }
+        /// <summary>
+        /// Uns the archive.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public Task<bool> UnArchive(int Id, string email)
+        {
+            var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
+            if (result != null)
+            {
+                if (result.Email.Equals(email))
+                {
+                    result.IsArchive = false;
+                    try
+                    {
+                        var value = Task.Run(() => _context.SaveChanges());
+                    }
+                    catch (Exception)
+                    {
+                        return Task.Run(() => false);
+                    }
+                    //if (value.Equals(1))
+                    //{
+                    return Task.Run(() => true);
+                    //}
+                    //else
+                    //{
+                    //    return Task.Run(() => false);
+                    //}
+                }
+                else
+                {
+                    return Task.Run(() => false);
+                }
+            }
+            else
+            {
+                return Task.Run(() => false);
+            }
+        }
+        /// <summary>
+        /// Pins the specified identifier.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public Task<bool> Pin(int Id, string email)
+        {
+            var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
+            if (result != null)
+            {
+                if (result.Email.Equals(email))
+                {
+                    result.IsPin = true;
+                    try
+                    {
+                        var value = Task.Run(() => _context.SaveChanges());
+                    }
+                    catch (Exception)
+                    {
+                        return Task.Run(() => false);
+                    }
+                    //if (value.Equals(1))
+                    //{
+                    return Task.Run(() => true);
+                    //}
+                    //else
+                    //{
+                    //    return Task.Run(() => false);
+                    //}
+                }
+                else
+                {
+                    return Task.Run(() => false);
+                }
+            }
+            else
+            {
+                return Task.Run(() => false);
+            }
+        }
+        /// <summary>
+        /// Uns the pin.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public Task<bool> UnPin(int Id, string email)
+        {
+            var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
+            if (result != null)
+            {
+                if (result.Email.Equals(email))
+                {
+                    result.IsPin = false;
+                    try
+                    {
+                        var value = Task.Run(() => _context.SaveChanges());
+                    }
+                    catch (Exception)
+                    {
+                        return Task.Run(() => false);
+                    }
+                    //if (value.Equals(1))
+                    //{
+                    return Task.Run(() => true);
+                    //}
+                    //else
+                    //{
+                    //    return Task.Run(() => false);
+                    //}
+                }
+                else
+                {
+                    return Task.Run(() => false);
+                }
+            }
+            else
+            {
+                return Task.Run(() => false);
+            }
+        }
+        /// <summary>
+        /// Trashes the specified identifier.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public Task<bool> Trash(int Id, string email)
+        {
+            var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
+            if (result != null)
+            {
+                if (result.Email.Equals(email))
+                {
+                    result.IsTrash = true;
+                    try
+                    {
+                        var value = Task.Run(() => _context.SaveChanges());
+                    }
+                    catch (Exception)
+                    {
+                        return Task.Run(() => false);
+                    }
+                    //if (value.Equals(1))
+                    //{
+                    return Task.Run(() => true);
+                    //}
+                    //else
+                    //{
+                    //    return Task.Run(() => false);
+                    //}
+                }
+                else
+                {
+                    return Task.Run(() => false);
+                }
+            }
+            else
+            {
+                return Task.Run(() => false);
+            }
+        }
+        /// <summary>
+        /// Uns the trash.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public Task<bool> RestoreById(int Id, string email)
+        {
+            var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
+            if (result != null)
+            {
+                if (result.Email.Equals(email))
+                {
+                    result.IsTrash = false;
+                    try
+                    {
+                        var value = Task.Run(() => _context.SaveChanges());
+                    }
+                    catch (Exception)
+                    {
+                        return Task.Run(() => false);
+                    }
+                    //if (value.Equals(1))
+                    //{
+                    return Task.Run(() => true);
+                    //}
+                    //else
+                    //{
+                    //    return Task.Run(() => false);
+                    //}
+                }
+                else
+                {
+                    return Task.Run(() => false);
+                }
+            }
+            else
+            {
+                return Task.Run(() => false);
+            }
+        }
+        public Task<bool> DeleteAll(string email)
+        {
+            var result = _context.Notes.Where(i => i.Email == email).First();
+            if(result!=null)
+            {
+                _context.Notes.Remove(result);
+                try
+                {
+                    var value = Task.Run(() => _context.SaveChanges());
+                }
+                catch (Exception)
+                {
+                    return Task.Run(() => false);
+                }
+                //if (value.Equals(1))
+                //{
+                return Task.Run(() => true);
+                //}
+                //else
+                //{
+                //    return Task.Run(() => false);
+                //}
+            }    
+            else
+            {
+                return Task.Run(() => false);
+            }
+        }
     }
 }

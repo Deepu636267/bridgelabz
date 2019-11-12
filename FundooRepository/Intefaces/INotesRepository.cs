@@ -21,6 +21,13 @@ namespace FundooRepository.Intefaces
         Task Delete(int ID, string Email);
         Task Update(NotesModel notes, string Email);
         Task<List<NotesModel>> Show(string Email);
+        Task<bool> Archive(int Id, string email);
+        Task<bool> UnArchive(int Id, string email);
+        Task<bool> Pin(int Id, string email);
+        Task<bool> UnPin(int Id, string email);
+        Task<bool> Trash(int Id, string email);
+        Task<bool> RestoreById(int Id, string email);
+        
 
     }
 }

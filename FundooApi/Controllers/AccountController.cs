@@ -15,7 +15,6 @@ namespace FundooApi.Controllers
     using System.Threading.Tasks;
     using BusinessManager.Interfaces;
     using Common.Models.UserModels;
-    using FundooApi.Cache;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;

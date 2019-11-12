@@ -20,6 +20,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace FundooApi
 {
@@ -45,6 +46,28 @@ namespace FundooApi
             services.AddTransient<INotesManager, NotesManager>();
             services.AddTransient<ILabelRepository, LabelRepository>();
             services.AddTransient<ILabelManager, Labelmanager>();
+
+            //Swagger servicesConfiguration
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "FUNDOO NOTE API",
+                    Description = "ASP.NET Core Web API"
+                });
+                var security = new Dictionary<string, IEnumerable<string>>
+                {
+                    {"Bearer",new string[0]}
+                };
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                { 
+                    Description="JWt Authorization header using the bearer scheme",
+                    Name="Authorization",
+                    In ="header",
+                    Type="apiKey"           
+                });
+                c.AddSecurityRequirement(security);
+            });
 
             //authenticate
             //services.AddDefaultIdentity<UserModel>().AddEntityFrameworkStores<UserContext>();
@@ -91,6 +114,14 @@ namespace FundooApi
             {
                 app.UseHsts();
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sachin");
+            });
+            app.UseCors(x => x
+                      .AllowAnyOrigin()
+                      .AllowAnyHeader().AllowAnyMethod()
+                      );
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();

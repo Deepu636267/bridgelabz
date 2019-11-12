@@ -52,6 +52,8 @@ namespace FundooRepository.Migrations
 
                     b.Property<bool>("IsArchive");
 
+                    b.Property<bool>("IsPin");
+
                     b.Property<bool>("IsTrash");
 
                     b.Property<DateTime?>("ModifiedDate");

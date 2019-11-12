@@ -162,5 +162,188 @@ namespace FundooApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        /// <summary>
+        /// Archives the specified identifier.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Archive")]
+        public async Task<IActionResult> Archive(int Id)
+        {
+            string email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.Archive(Id, email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Uns the archive.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("UnArchive")]
+        public async Task<IActionResult> UnArchive(int Id)
+        {
+            string email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.UnArchive(Id, email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Pins the specified identifier.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Pin")]
+        public async Task<IActionResult> Pin(int Id)
+        {
+            string email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.Pin(Id, email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Uns the pin.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("UnPin")]
+        public async Task<IActionResult> UnPin(int Id)
+        {
+            string email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.UnPin(Id, email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Trashes the specified identifier.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Trash")]
+        public async Task<IActionResult> Trash(int Id)
+        {
+            string email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.Trash(Id, email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Uns the trash.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("RestoreById")]
+        public async Task<IActionResult> RestoreById(int Id)
+        {
+            string email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.RestoreById(Id, email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost]
+        [Route("DeleteAll")]
+        public async Task<IActionResult> DeleteAll()
+        {
+            string email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.DeleteAll(email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

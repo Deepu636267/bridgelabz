@@ -165,6 +165,11 @@ namespace Common.Models.NotesModels
             get { return this.isArchive; }
             set { this.isArchive = value; }
         }
+        public bool IsPin
+        {
+            get { return this.isPin; }
+            set { this.isPin = value; }
+        }
         /// <summary>
         /// Gets or sets a value indicating whether this instance is trash.
         /// </summary>

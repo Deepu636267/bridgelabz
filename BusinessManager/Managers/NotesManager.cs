@@ -91,6 +91,128 @@ namespace BusinessManager.Managers
              await repository.Update(note, Email);
               return "Updated Successfully";
           
-        }        
+        }
+        /// <summary>
+        /// Archives the specified identifier.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public async Task<string> Archive(int Id, string email)
+        {
+            var result = await repository.Archive(Id, email);
+            if(result==true)
+            {
+                return "Archieve Succesfully";
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+        /// <summary>
+        /// Uns the archive.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public async Task<string> UnArchive(int Id, string email)
+        {
+            var result= await repository.UnArchive(Id, email);
+            if (result == true)
+            {
+                return "UnArchieve Succesfully";
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+        /// <summary>
+        /// Pins the specified identifier.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public async Task<string> Pin(int Id, string email)
+        {
+            var result = await repository.Pin(Id, email);
+            if (result == true)
+            {
+                return "Pin Succesfully";
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// Uns the pin.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public async Task<string> UnPin(int Id, string email)
+        {
+            var result = await repository.UnPin(Id, email);
+            if (result == true)
+            {
+                return "UnPin Succesfully";
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// Trashes the specified identifier.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public async Task<string> Trash(int Id, string email)
+        {
+            var result = await repository.Trash(Id, email);
+            if (result == true)
+            {
+                return "Trash Succesfully";
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// Uns the trash.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public async Task<string> RestoreById(int Id, string email)
+        {
+            var result = await repository.RestoreById(Id, email);
+            if (result == true)
+            {
+                return "UnTrash Succesfully";
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public async Task<string> DeleteAll(string email)
+        {
+            var result = await repository.DeleteAll(email);
+            if (result == true)
+            {
+                return "UnTrash Succesfully";
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
