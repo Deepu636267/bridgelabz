@@ -377,5 +377,32 @@ namespace FundooApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        /// <summary>
+        /// Reminder is for to set the Reminder
+        /// </summary>
+        /// <param name="note"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Reminder")]
+        public async Task<IActionResult> Reminder(NotesModel note)
+        {
+            string email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.Reminder(note,email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

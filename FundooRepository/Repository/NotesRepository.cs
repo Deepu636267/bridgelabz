@@ -351,6 +351,11 @@ namespace FundooRepository.Repository
                 return Task.Run(() => false);
             }
         }
+        /// <summary>
+        /// DeleteAll notes with Particular Id
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public Task<bool> DeleteAll(string email)
         {
             IEnumerable<NotesModel> list = _context.Notes.Where(i => i.Email == email).ToList();
@@ -372,6 +377,13 @@ namespace FundooRepository.Repository
                 return Task.Run(() => false);
             }
         }
+        /// <summary>
+        /// ImageUpload in Notes By Using Cloudinary
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="file"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public Task<bool> ImageUpload(int Id, IFormFile file,string email)
         {
             var path = file.OpenReadStream();
@@ -410,11 +422,40 @@ namespace FundooRepository.Repository
             {
                 return Task.Run(() => false);
             }
-
-
         }
-
-        
-
+        /// <summary>
+        /// Reminders the specified note.
+        /// </summary>
+        /// <param name="note">The note.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public Task<bool> Reminder(NotesModel note, string email)
+        {
+            var result = _context.Notes.Where(i => i.Id == note.Id).FirstOrDefault();
+            if (result != null)
+            {
+                if (result.Email.Equals(email))
+                {
+                    result.Reminder = note.Reminder;
+                    try
+                    {
+                        var value = Task.Run(() => _context.SaveChanges());
+                    }
+                    catch (Exception)
+                    {
+                        return Task.Run(() => false);
+                    }
+                    return Task.Run(() => true);
+                }
+                else
+                {
+                    return Task.Run(() => false);
+                }
+            }
+            else
+            {
+                return Task.Run(() => false);
+            }
+        }
     }
 }

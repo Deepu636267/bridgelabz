@@ -232,7 +232,25 @@ namespace BusinessManager.Managers
             var result = await repository.ImageUpload(Id,file,email);
             if (result == true)
             {
-                return "UnTrash Succesfully";
+                return "ImageUpload Succesfully";
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// Reminders the specified note.
+        /// </summary>
+        /// <param name="note">The note.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public async Task<string> Reminder(NotesModel note, string email)
+        { 
+            var result = await repository.Reminder(note,email);
+            if (result == true)
+            {
+                return "Reminder Succesfully";
             }
             else
             {
