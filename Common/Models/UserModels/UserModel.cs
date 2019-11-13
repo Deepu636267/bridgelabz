@@ -20,6 +20,7 @@ namespace Common.Models.UserModels
         private string email;
         private string password;
         private string cardType;
+        private string profilePic;
         /// <summary>
         /// Gets or sets the first name.
         /// </summary>
@@ -112,6 +113,17 @@ namespace Common.Models.UserModels
             set
             {
                 this.cardType = value;
+            }
+        }
+        public string ProfilePic
+        {
+            get
+            {
+                return this.profilePic;
+            }
+            set
+            {
+                this.profilePic = value;
             }
         }
     }

@@ -6,9 +6,12 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace FundooRepository.Repository
 {
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
     using Common.Models.UserModels;
     using FundooRepository.Context;
     using FundooRepository.Intefaces;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
     using StackExchange.Redis;
@@ -56,8 +59,7 @@ namespace FundooRepository.Repository
                     LastName = userm.LastName,
                     Email = userm.Email,
                     Password = userm.Password,
-                    CardType=userm.CardType
-
+                    CardType=userm.CardType         
                 };
                // _context.Users.Add(user);
                return Task.Run(() => _context.SaveChanges());
@@ -196,6 +198,45 @@ namespace FundooRepository.Repository
             catch (Exception)
             {
                 return null;
+            }
+        }
+        /// <summary>
+        /// Profiles the pic upload.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public Task<bool> ProfilePicUpload(IFormFile file, string email)
+        {
+            var path = file.OpenReadStream();
+            var File = file.FileName;
+            CloudinaryDotNet.Account account = new CloudinaryDotNet.Account("dtil5iw6l", "562314371245223", "rvy_ZB_bMoq7pva8whrFXOcBprI");
+            CloudinaryDotNet.Cloudinary cloudinary = new CloudinaryDotNet.Cloudinary(account);
+            var image = new ImageUploadParams()
+            {
+                File = new FileDescription(File)
+            };
+            var uploadResult = cloudinary.Upload(image);
+            if (uploadResult.Error != null)
+                throw new Exception(uploadResult.Error.Message);
+            var result = _context.Users.Where(i => i.Email == email).FirstOrDefault();
+            if (result != null)
+            {
+               result.ProfilePic = uploadResult.Uri.ToString();
+               try
+               {
+                   var value = Task.Run(() => _context.SaveChanges());
+               }
+               catch (Exception)
+               {
+                   return Task.Run(() => false);
+               }
+               return Task.Run(() => true);
+            }
+            else
+            {
+                return Task.Run(() => false);
             }
         }
     }

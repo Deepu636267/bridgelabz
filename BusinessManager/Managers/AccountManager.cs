@@ -9,6 +9,7 @@ namespace BusinessManager.Managers
     using BusinessManager.Interfaces;
     using Common.Models.UserModels;
     using FundooRepository.Intefaces;
+    using Microsoft.AspNetCore.Http;
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -77,6 +78,24 @@ namespace BusinessManager.Managers
         {
             var result =await _repository.FindByEmailAsync(email);
             return result;
+        }
+        /// <summary>
+        /// Profiles the pic upload.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public async Task<string> ProfilePicUpload(IFormFile file, string email)
+        {
+            var result = await _repository.ProfilePicUpload(file, email);
+            if (result == true)
+            {
+                return "ProfilePic Upload Succesfully";
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

@@ -82,6 +82,7 @@ namespace FundooApi.Controllers
         /// <param name="reset">The reset.</param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize]
         [Route("Reset")]
         public async Task<IActionResult> ResetPassword(ResetPasswordModel reset)
         {
@@ -101,6 +102,7 @@ namespace FundooApi.Controllers
         /// <param name="forget">The forget.</param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize]
        // [Cached(600)]
         [Route("Forget")]
         public async Task<IActionResult> ForgetPassword(ForgetPasswordModel forget)
@@ -165,6 +167,34 @@ namespace FundooApi.Controllers
                 result.Password,
                 result.FirstName
             };
+        }
+        /// <summary>
+        /// Profiles the pic upload.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Authorize]
+        [Route("ProfilePic")]
+        public async Task<IActionResult> ProfilePicUpload(IFormFile file)
+        {
+            string email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.ProfilePicUpload(file, email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

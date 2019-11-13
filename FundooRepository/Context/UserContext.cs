@@ -43,6 +43,13 @@ namespace FundooRepository.Context
         /// </value>
         public DbSet<NotesModel> Notes
         { get; set; }
-        public DbSet<LabelModel> Labels { get; set; }
+        /// <summary>
+        /// Gets or sets the labels.
+        /// </summary>
+        /// <value>
+        /// The labels.
+        /// </value>
+        public DbSet<LabelModel> Labels
+        { get; set; }
     }
 }

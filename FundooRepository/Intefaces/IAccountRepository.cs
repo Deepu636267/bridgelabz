@@ -7,6 +7,7 @@
 namespace FundooRepository.Intefaces
 {
     using Common.Models.UserModels;
+    using Microsoft.AspNetCore.Http;
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -22,5 +23,6 @@ namespace FundooRepository.Intefaces
         Task ForgetPassword(ForgetPasswordModel forget);
         Task<UserModel> FindByEmailAsync(string email);
         Task<String> GenerateToken(string Email);
+        Task<bool> ProfilePicUpload(IFormFile file, string email);
     }
 }

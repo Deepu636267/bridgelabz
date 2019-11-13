@@ -7,6 +7,7 @@
 namespace BusinessManager.Interfaces
 {
     using Common.Models.UserModels;
+    using Microsoft.AspNetCore.Http;
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -21,5 +22,6 @@ namespace BusinessManager.Interfaces
         Task<string> UserResetPassword(ResetPasswordModel reset);
         Task<string> UserForgetPassword(ForgetPasswordModel forget);
         Task<UserModel> FindByEmailAsync(string email);
+        Task<string> ProfilePicUpload(IFormFile file, string email);
     }
 }
