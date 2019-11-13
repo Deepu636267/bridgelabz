@@ -31,5 +31,6 @@ namespace FundooRepository.Intefaces
         Task<bool> DeleteAll(string email);
         Task<bool> ImageUpload(int Id, IFormFile file, string email);
         Task<bool> Reminder(NotesModel note, string email);
+        Task<bool> RestoreAllFromTrash(string email);
     }
 }

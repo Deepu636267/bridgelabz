@@ -404,5 +404,31 @@ namespace FundooApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        /// <summary>
+        /// Restores all from trash.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("RestoreAll")]
+        public async Task<IActionResult> RestoreAllFromTrash()
+        {
+            string email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.RestoreAllFromTrash(email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

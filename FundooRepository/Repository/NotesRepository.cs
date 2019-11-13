@@ -352,6 +352,38 @@ namespace FundooRepository.Repository
             }
         }
         /// <summary>
+        /// Restores all from trash.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public Task<bool> RestoreAllFromTrash(string email)
+        {
+            IEnumerable<NotesModel> list = _context.Notes.Where(i => i.Email == email).ToList();
+            if (list != null)
+            {
+                foreach (var i in list)
+                {
+                    if (i.IsTrash == true)
+                    {
+                        i.IsTrash = false;
+                    }
+                }
+                try
+                {
+                    var value = Task.Run(() => _context.SaveChanges());
+                }
+                catch (Exception)
+                {
+                    return Task.Run(() => false);
+                }
+                return Task.Run(() => true);
+            }
+            else
+            {
+                return Task.Run(() => false);
+            }
+        }
+        /// <summary>
         /// DeleteAll notes with Particular Id
         /// </summary>
         /// <param name="email"></param>

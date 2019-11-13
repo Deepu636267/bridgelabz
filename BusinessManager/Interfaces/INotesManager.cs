@@ -31,5 +31,6 @@ namespace BusinessManager.Interfaces
         Task<string> DeleteAll(string email);
         Task<string> ImageUpload(int Id, IFormFile file, string email);
         Task<string> Reminder(NotesModel note, string email);
+        Task<string> RestoreAllFromTrash(string email);
     }
 }

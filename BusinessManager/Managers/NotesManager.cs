@@ -257,5 +257,22 @@ namespace BusinessManager.Managers
                 return null;
             }
         }
+        /// <summary>
+        /// Restores all from trash.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public async Task<string> RestoreAllFromTrash(string email)
+        {
+            var result = await repository.RestoreAllFromTrash(email);
+            if (result == true)
+            {
+                return "Restore Succesfully";
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
