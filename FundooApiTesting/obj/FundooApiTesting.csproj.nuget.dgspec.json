@@ -264,6 +264,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[2.1.10, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[4.0.1, )"
             }
           },
           "imports": [
@@ -318,6 +322,14 @@
       "frameworks": {
         "netcoreapp2.1": {
           "dependencies": {
+            "CloudinaryDotNet": {
+              "target": "Package",
+              "version": "[1.8.0, )"
+            },
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[2.1.1, )"
@@ -343,10 +355,6 @@
               "target": "Package",
               "version": "[2.1.0, )",
               "autoReferenced": true
-            },
-            "StackExchange.Redis": {
-              "target": "Package",
-              "version": "[2.0.601, )"
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",

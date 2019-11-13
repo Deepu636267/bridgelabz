@@ -87,6 +87,5 @@ namespace FundooApiTesting
             Assert.NotNull(data);
             Assert.Pass();
         }
-
     }
 }

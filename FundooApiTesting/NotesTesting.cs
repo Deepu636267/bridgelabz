@@ -46,6 +46,8 @@ namespace FundooApiTesting
         {
             var service = new Mock<INotesManager>();
             var Controller = new NotesController(service.Object);
+            var data = Controller.Show();
+            Assert.NotNull(data);
             Assert.Pass();
         }
         /// <summary>
@@ -74,6 +76,78 @@ namespace FundooApiTesting
                 Description="Meeting"
             };
             var data = Controller.Update(add);
+            Assert.NotNull(data);
+            Assert.Pass();
+        }
+        /// <summary>
+        /// Archieves this instance will be tested.
+        /// </summary>
+        [Test]
+        public void Archieve()
+        {
+            var service = new Mock<INotesManager>();
+            var Controller = new NotesController(service.Object);
+            var data = Controller.Archive(1009);
+            Assert.NotNull(data);
+            Assert.Pass();
+        }
+        /// <summary>
+        /// Uns the archieve will be tested.
+        /// </summary>
+        [Test]
+        public void UnArchieve()
+        {
+            var service = new Mock<INotesManager>();
+            var Controller = new NotesController(service.Object);
+            var data = Controller.UnArchive(1009);
+            Assert.NotNull(data);
+            Assert.Pass();
+        }
+        /// <summary>
+        /// Pins this instance will be tested.
+        /// </summary>
+        [Test]
+        public void Pin()
+        {
+            var service = new Mock<INotesManager>();
+            var Controller = new NotesController(service.Object);
+            var data = Controller.Pin(1009);
+            Assert.NotNull(data);
+            Assert.Pass();
+        }
+        /// <summary>
+        /// Uns the pin will be tested.
+        /// </summary>
+        [Test]
+        public void UnPin()
+        {
+            var service = new Mock<INotesManager>();
+            var Controller = new NotesController(service.Object);
+            var data = Controller.UnPin(1009);
+            Assert.NotNull(data);
+            Assert.Pass();
+        }
+        /// <summary>
+        /// Trashes this instance will be tested.
+        /// </summary>
+        [Test]
+        public void Trash()
+        {
+            var service = new Mock<INotesManager>();
+            var Controller = new NotesController(service.Object);
+            var data = Controller.Trash(1009);
+            Assert.NotNull(data);
+            Assert.Pass();
+        }
+        /// <summary>
+        /// Restores the by identifier will be tested.
+        /// </summary>
+        [Test]
+        public void RestoreById()
+        {
+            var service = new Mock<INotesManager>();
+            var Controller = new NotesController(service.Object);
+            var data = Controller.RestoreById(1009);
             Assert.NotNull(data);
             Assert.Pass();
         }

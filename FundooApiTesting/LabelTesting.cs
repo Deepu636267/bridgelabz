@@ -43,6 +43,8 @@ namespace FundooApiTesting
         {
             var service = new Mock<ILabelManager>();
             var Controller = new LabelController(service.Object);
+            var data = Controller.Show();
+            Assert.NotNull(data);
             Assert.Pass();
         }
         /// <summary>
