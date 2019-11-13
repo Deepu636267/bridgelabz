@@ -274,5 +274,17 @@ namespace BusinessManager.Managers
                 return null;
             }
         }
+        /// <summary>
+        /// Sets the color.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public async Task<string> SetColor(NotesModel model, string email)
+        {
+             await repository.SetColor(model,email);
+             return "ColorSet Succesfully";
+            
+        }
     }
 }

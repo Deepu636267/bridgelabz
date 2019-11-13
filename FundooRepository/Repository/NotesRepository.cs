@@ -424,7 +424,7 @@ namespace FundooRepository.Repository
             CloudinaryDotNet.Cloudinary cloudinary = new CloudinaryDotNet.Cloudinary(account);
             var image = new ImageUploadParams()
             {
-                File = new FileDescription(File)
+                File = new FileDescription(File,path)
             };
             var uploadResult = cloudinary.Upload(image);
             if (uploadResult.Error != null)
@@ -487,6 +487,32 @@ namespace FundooRepository.Repository
             else
             {
                 return Task.Run(() => false);
+            }
+        }
+        /// <summary>
+        /// Sets the color.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public Task SetColor(NotesModel model,string email)
+        {
+            var result = _context.Notes.Where(i => i.Id == model.Id).FirstOrDefault();
+            if(result!=null)
+            {
+                if(result.Email.Equals(email))
+                {
+                    result.Color = model.Color;
+                    return Task.Run(() =>_context.SaveChanges());
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
             }
         }
     }

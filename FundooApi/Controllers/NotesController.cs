@@ -430,5 +430,32 @@ namespace FundooApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        /// <summary>
+        /// SetColor for notes
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("SetColor")]
+        public async Task<IActionResult> SetColor(NotesModel model)
+        {
+            string email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.SetColor(model,email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

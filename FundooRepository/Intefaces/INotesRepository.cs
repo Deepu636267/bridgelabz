@@ -32,5 +32,6 @@ namespace FundooRepository.Intefaces
         Task<bool> ImageUpload(int Id, IFormFile file, string email);
         Task<bool> Reminder(NotesModel note, string email);
         Task<bool> RestoreAllFromTrash(string email);
+        Task SetColor(NotesModel model, string email);
     }
 }
