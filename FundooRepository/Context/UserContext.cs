@@ -6,6 +6,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace FundooRepository.Context
 {
+    using Common.Models.CollaboratorsModel;
     using Common.Models.LabelsModels;
     using Common.Models.NotesModels;
     using Common.Models.UserModels;
@@ -50,6 +51,14 @@ namespace FundooRepository.Context
         /// The labels.
         /// </value>
         public DbSet<LabelModel> Labels
+        { get; set; }
+        /// <summary>
+        /// Gets or sets the collaborators.
+        /// </summary>
+        /// <value>
+        /// The collaborators.
+        /// </value>
+        public DbSet<CollaboratorsModel> collaborators
         { get; set; }
     }
 }

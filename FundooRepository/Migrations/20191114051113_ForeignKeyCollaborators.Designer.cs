@@ -4,14 +4,16 @@ using FundooRepository.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FundooRepository.Migrations
 {
     [DbContext(typeof(UserContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20191114051113_ForeignKeyCollaborators")]
+    partial class ForeignKeyCollaborators
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,8 +29,7 @@ namespace FundooRepository.Migrations
 
                     b.Property<int>("NoteId");
 
-                    b.Property<string>("ReciverEamil")
-                        .IsRequired();
+                    b.Property<string>("ReciverEamil");
 
                     b.Property<string>("SenderEmail");
 
