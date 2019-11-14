@@ -39,5 +39,16 @@ namespace BusinessManager.Managers
             await _repository.AddCollaborator(model, email);
             return "Added Successfully";
         }
+        /// <summary>
+        /// RemoveCollaboraotors is method for removing collaborator 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public async Task<string> RemoveCollaboraotors(CollaboratorsModel model, string email)
+        {
+            await _repository.RemoveCollaborator(model, email);
+            return "Remove Succesfully";
+        }
     }
 }

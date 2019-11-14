@@ -58,5 +58,32 @@ namespace FundooApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        /// <summary>
+        /// Removes the collaborators.
+        /// </summary>
+        /// <param name="collaborators">The collaborators.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Remove")]
+        public async Task<IActionResult> RemoveCollaborators(CollaboratorsModel collaborators)
+        {
+            string email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.RemoveCollaboraotors(collaborators, email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest("Error");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

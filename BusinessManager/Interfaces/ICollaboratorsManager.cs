@@ -17,5 +17,6 @@ namespace BusinessManager.Interfaces
     public interface ICollaboratorsManager
     {
         Task<string> AddCollaboraotors(CollaboratorsModel model, string email);    
+        Task<string> RemoveCollaboraotors(CollaboratorsModel model, string email);    
     }
 }

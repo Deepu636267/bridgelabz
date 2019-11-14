@@ -81,5 +81,25 @@ namespace FundooRepository.Repository
            _context.collaborators.Add(add);
             return Task.Run(()=> true);
         }
+        /// <summary>
+        /// Removes the collaborator.
+        /// </summary>
+        /// <param name="collaborators">The collaborators.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public Task RemoveCollaborator(CollaboratorsModel collaborators, string email)
+        {
+            var result = _context.collaborators.Where(c => (c.NoteId == collaborators.NoteId) && (c.ReciverEamil == collaborators.ReciverEamil)).FirstOrDefault();
+            if(result.SenderEmail.Equals(email))
+            {
+                _context.collaborators.Remove(result);
+                return Task.Run(() => _context.SaveChanges());
+            }
+            else
+            {
+                return null;
+            }
+            
+        }
     }
 }

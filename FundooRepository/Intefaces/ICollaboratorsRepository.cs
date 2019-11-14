@@ -17,5 +17,6 @@ namespace FundooRepository.Intefaces
     public interface ICollaboratorsRepository
     {
         Task AddCollaborator(CollaboratorsModel collaborators, string email);
+        Task RemoveCollaborator(CollaboratorsModel collaborators, string email);
     }
 }
