@@ -405,6 +405,33 @@ namespace FundooApi.Controllers
             }
         }
         /// <summary>
+        /// Removes the reminder.
+        /// </summary>
+        /// <param name="note">The note.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("RemoveReminder")]
+        public async Task<IActionResult> RemoveReminder(NotesModel note)
+        {
+            string email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.RemoveReminder(note, email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
         /// Restores all from trash.
         /// </summary>
         /// <returns></returns>
@@ -443,6 +470,110 @@ namespace FundooApi.Controllers
             try
             {
                 var result = await _manager.SetColor(model,email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Gets the list from trash.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("TrashList")]
+        public async Task<IActionResult> GetListFromTrash()
+        {
+            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.GetListFromTrash(Email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Gets the list from archive.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("ArchiveList")]
+        public async Task<IActionResult> GetListFromArchive()
+        {
+            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.GetListFromArchive(Email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Gets the list from reminder.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("ReminderList")]
+        public async Task<IActionResult> GetListFromReminder()
+        {
+            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.GetListFromReminder(Email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Gets the list from pin.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("PinList")]
+        public async Task<IActionResult> GetListFromPin()
+        {
+            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.GetListFromPin(Email);
                 if (result != null)
                 {
                     return Ok(new { result });

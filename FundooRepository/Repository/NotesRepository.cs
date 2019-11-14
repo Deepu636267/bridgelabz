@@ -133,7 +133,7 @@ namespace FundooRepository.Repository
             bool note = _context.Notes.Any(p => p.Email == Email);
             if (note)
             {
-                return Task.Run(() => _context.Notes.Where(p => p.Email == Email).ToList());
+                return Task.Run(() => _context.Notes.Where(p => (p.Email == Email) && (p.IsArchive==false) &&(p.IsTrash==false)).ToList());
             }
             else
             {
@@ -490,6 +490,40 @@ namespace FundooRepository.Repository
             }
         }
         /// <summary>
+        /// Removes the reminder.
+        /// </summary>
+        /// <param name="note">The note.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public Task<bool> RemoveReminder(NotesModel note, string email)
+        {
+            var result = _context.Notes.Where(i => i.Id == note.Id).FirstOrDefault();
+            if (result != null)
+            {
+                if (result.Email.Equals(email))
+                {
+                    result.Reminder =null;
+                    try
+                    {
+                        var value = Task.Run(() => _context.SaveChanges());
+                    }
+                    catch (Exception)
+                    {
+                        return Task.Run(() => false);
+                    }
+                    return Task.Run(() => true);
+                }
+                else
+                {
+                    return Task.Run(() => false);
+                }
+            }
+            else
+            {
+                return Task.Run(() => false);
+            }
+        }
+        /// <summary>
         /// Sets the color.
         /// </summary>
         /// <param name="model">The model.</param>
@@ -509,6 +543,74 @@ namespace FundooRepository.Repository
                 {
                     return null;
                 }
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// Gets the list from trash.
+        /// </summary>
+        /// <param name="Email">The email.</param>
+        /// <returns></returns>
+        public Task<List<NotesModel>> GetListFromTrash(string Email)
+        {
+            bool note = _context.Notes.Any(p => p.Email == Email);
+            if (note)
+            {
+                return Task.Run(() => _context.Notes.Where(p => (p.Email == Email)  && (p.IsTrash == true)).ToList());
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// Gets the list from archive.
+        /// </summary>
+        /// <param name="Email">The email.</param>
+        /// <returns></returns>
+        public Task<List<NotesModel>> GetListFromArchive(string Email)
+        {
+            bool note = _context.Notes.Any(p => p.Email == Email);
+            if (note)
+            {
+                return Task.Run(() => _context.Notes.Where(p => (p.Email == Email) && (p.IsArchive == true) && (p.IsTrash == false) && (p.IsPin == false)).ToList());
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// Gets the list from reminder.
+        /// </summary>
+        /// <param name="Email">The email.</param>
+        /// <returns></returns>
+        public Task<List<NotesModel>> GetListFromReminder(string Email)
+        {
+            bool note = _context.Notes.Any(p => p.Email == Email);
+            if (note)
+            {
+                return Task.Run(() => _context.Notes.Where(p => (p.Email == Email) && (p.Reminder!=null) && (p.IsTrash == false)).ToList());
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// Gets the list from pin.
+        /// </summary>
+        /// <param name="Email">The email.</param>
+        /// <returns></returns>
+        public Task<List<NotesModel>> GetListFromPin(string Email)
+        {
+            bool note = _context.Notes.Any(p => p.Email == Email);
+            if (note)
+            {
+                return Task.Run(() => _context.Notes.Where(p => (p.Email == Email) && (p.IsPin == true) && (p.IsArchive == false) && (p.IsTrash == false)).ToList());
             }
             else
             {

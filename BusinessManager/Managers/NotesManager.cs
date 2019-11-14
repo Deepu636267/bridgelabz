@@ -258,6 +258,24 @@ namespace BusinessManager.Managers
             }
         }
         /// <summary>
+        /// Removes the reminder.
+        /// </summary>
+        /// <param name="note">The note.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public async Task<string> RemoveReminder(NotesModel note, string email)
+        {
+            var result = await repository.RemoveReminder(note, email);
+            if (result == true)
+            {
+                return "Reminder Succesfully";
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
         /// Restores all from trash.
         /// </summary>
         /// <param name="email">The email.</param>
@@ -285,6 +303,54 @@ namespace BusinessManager.Managers
              await repository.SetColor(model,email);
              return "ColorSet Succesfully";
             
+        }
+        /// <summary>
+        /// Gets the list from trash.
+        /// </summary>
+        /// <param name="Email">The email.</param>
+        /// <returns></returns>
+        public async Task<List<NotesModel>> GetListFromTrash(string Email)
+        {
+
+            var result = await repository.GetListFromTrash(Email);
+            return result;
+
+        }
+        /// <summary>
+        /// Gets the list from archive.
+        /// </summary>
+        /// <param name="Email">The email.</param>
+        /// <returns></returns>
+        public async Task<List<NotesModel>> GetListFromArchive(string Email)
+        {
+
+            var result = await repository.GetListFromArchive(Email);
+            return result;
+
+        }
+        /// <summary>
+        /// Gets the list from reminder.
+        /// </summary>
+        /// <param name="Email">The email.</param>
+        /// <returns></returns>
+        public async Task<List<NotesModel>> GetListFromReminder(string Email)
+        {
+
+            var result = await repository.GetListFromReminder(Email);
+            return result;
+
+        }
+        /// <summary>
+        /// Gets the list from pin.
+        /// </summary>
+        /// <param name="Email">The email.</param>
+        /// <returns></returns>
+        public async Task<List<NotesModel>> GetListFromPin(string Email)
+        {
+
+            var result = await repository.GetListFromPin(Email);
+            return result;
+
         }
     }
 }

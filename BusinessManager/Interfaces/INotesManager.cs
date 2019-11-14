@@ -28,10 +28,15 @@ namespace BusinessManager.Interfaces
         Task<string> UnPin(int Id, string email);
         Task<string> Trash(int Id, string email);
         Task<string> RestoreById(int Id, string email);
+        Task<string> RestoreAllFromTrash(string email);
         Task<string> DeleteAll(string email);
         Task<string> ImageUpload(int Id, IFormFile file, string email);
         Task<string> Reminder(NotesModel note, string email);
-        Task<string> RestoreAllFromTrash(string email);
+        Task<string> RemoveReminder(NotesModel note,string email);
         Task<string> SetColor(NotesModel model, string email);
+        Task<List<NotesModel>> GetListFromTrash(string Email);
+        Task<List<NotesModel>> GetListFromArchive(string Email);
+        Task<List<NotesModel>> GetListFromReminder(string Email);
+        Task<List<NotesModel>> GetListFromPin(string Email);
     }
 }
