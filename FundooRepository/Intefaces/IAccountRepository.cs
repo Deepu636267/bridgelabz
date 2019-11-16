@@ -24,5 +24,6 @@ namespace FundooRepository.Intefaces
         Task<UserModel> FindByEmailAsync(string email);
         Task<String> GenerateToken(string Email);
         Task<bool> ProfilePicUpload(IFormFile file, string email);
+        Task SendPasswordResetEmail(string ToEmail, string UserName);
     }
 }

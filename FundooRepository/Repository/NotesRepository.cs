@@ -15,8 +15,14 @@ namespace FundooRepository.Repository
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using System.Text;
     using System.Threading.Tasks;
+    using System.IO;
+    using System.Web;
+    using Nancy.Json;
+
+
     /// <summary>
     /// NotesRepository is a class which inherited the INotesRepository
     /// </summary>
@@ -45,7 +51,9 @@ namespace FundooRepository.Repository
                 Email = notes.Email,
                 Title = notes.Title,
                 Description = notes.Description,
-                CreatedDate = DateTime.Now
+                CreatedDate = DateTime.Now,
+                IndexValue= AddIndexValue(email)
+
             };
             _context.Notes.Add(note);
             return Task.Run(() => _context.SaveChanges());
@@ -128,12 +136,13 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <param name="Email"></param>
         /// <returns></returns>
-        public Task<List<NotesModel>> Show(string Email)
+        public Task<List<NotesModel>> Show(string email)
         {
-            bool note = _context.Notes.Any(p => p.Email == Email);
+            bool note = _context.Notes.Any(p => p.Email == email);
             if (note)
             {
-                return Task.Run(() => _context.Notes.Where(p => (p.Email == Email) && (p.IsArchive==false) &&(p.IsTrash==false)).ToList());
+                // return Task.Run(() => _context.Notes.Where(p => (p.Email == Email) && (p.IsArchive==false) &&(p.IsTrash==false)).ToList());
+               return Task.Run(()=> _context.Notes.Where(c =>( c.Email ==email) && (c.IsArchive == false) && (c.IsTrash == false)).OrderBy(s => s.IndexValue).ToList());
             }
             else
             {
@@ -617,5 +626,162 @@ namespace FundooRepository.Repository
                 return null;
             }
         }
+        ////Push Notification
+        public Task PushNotification(NotificationModel obj)
+        {
+            try
+            {
+                var applicationID = "AIza---------4GcVJj4dI";
+
+                var senderId = "57-------55";
+
+                string deviceId = "euxqdp------ioIdL87abVL";
+
+                WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+
+                tRequest.Method = "post";
+
+                tRequest.ContentType = "application/json";
+
+                var data = new
+
+                {
+
+                    to = deviceId,
+
+                    notification = new
+
+                    {
+
+                        body = obj.Message,
+
+                        title = obj.Tagmessage,
+
+                        icon = "myicon"
+
+                    }
+                };
+
+                var serializer = new JavaScriptSerializer();
+
+                var json = serializer.Serialize(data);
+
+                Byte[] byteArray = Encoding.UTF8.GetBytes(json);
+
+                tRequest.Headers.Add(string.Format("Authorization: key={0}", applicationID));
+
+                tRequest.Headers.Add(string.Format("Sender: id={0}", senderId));
+
+                tRequest.ContentLength = byteArray.Length;
+
+
+                using (Stream dataStream = tRequest.GetRequestStream())
+                {
+
+                    dataStream.Write(byteArray, 0, byteArray.Length);
+
+
+                    using (WebResponse tResponse = tRequest.GetResponse())
+                    {
+
+                        using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                        {
+
+                            using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                            {
+
+                                String sResponseFromServer = tReader.ReadToEnd();
+
+                                string str = sResponseFromServer;
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+
+                string str = ex.Message;
+
+            }
+            return Task.Run(() => true);
+        }
+        /// <summary>
+        /// AddIndexValue int notes for drag and drop
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public int AddIndexValue(string email)
+        {
+            var result = _context.Notes.Where(i => i.Email == email).ToArray();
+            if(result!=null)
+            {
+                int max = result[0].IndexValue;
+               for(int i=0;i<result.Length;i++)
+               {
+                    if (result[i].IndexValue > max)
+                        max = result[i].IndexValue;
+               }
+                return max + 1;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+        /// <summary>
+        /// DragAndDrop for notes
+        /// </summary>
+        /// <param name="drag"></param>
+        /// <param name="drop"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public Task DragAndDrop(int drag,int drop,string email)
+        {
+            var result = _context.Notes.Where(i => (i.Email == email) &&(i.IndexValue>=drag) &&(i.IndexValue<=drop)).ToArray();
+                       
+            if(result!=null)
+            {
+                if (drag < drop)
+                {
+                    for(int i=0;i<result.Length-1;i++)
+                    {
+                        if (result[i].IndexValue >= drag && result[i].IndexValue <= drop)
+                        {
+                            var temp = result[i].IndexValue;
+                            result[i].IndexValue = result[i+1].IndexValue;
+                            result[i+1].IndexValue = temp;
+                        }
+                    }
+                    return Task.Run(() => _context.SaveChanges());
+                }
+                else
+                {
+                    var result1 = _context.Notes.Where(i => (i.Email == email) && (i.IndexValue <= drag) && (i.IndexValue >= drop)).ToArray();
+                    for (int i = result1.Length - 1; i >0; i--)
+                    {
+                        if (result1[i].IndexValue <= drag && result1[i].IndexValue >= drop)
+                        {
+                            var temp = result1[i].IndexValue;
+                            result1[i].IndexValue = result1[i-1].IndexValue;
+                            result1[i-1].IndexValue = temp;
+                        }
+                    }
+                    return Task.Run(() => _context.SaveChanges());
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+       
+        //public Task<Notes> show(string eamil)
+        //{
+        //    var result = _context.Notes.Where(c => c.Email == "d").OrderBy(s => s.IndexValue).ToList();
+
+        //}
     }
 }

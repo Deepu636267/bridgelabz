@@ -588,5 +588,33 @@ namespace FundooApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        /// <summary>
+        /// Drags the and drop.
+        /// </summary>
+        /// <param name="drag">The drag.</param>
+        /// <param name="drop">The drop.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Drag")]
+        public async Task<IActionResult> DragAndDrop(int drag,int drop)
+        {
+            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.DragAndDrop(drag,drop,Email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

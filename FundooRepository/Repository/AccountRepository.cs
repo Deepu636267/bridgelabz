@@ -129,7 +129,7 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <param name="ToEmail">To email.</param>
         /// <param name="UserName">Name of the user.</param>
-        private void SendPasswordResetEmail(string ToEmail, string UserName)
+        public Task SendPasswordResetEmail(string ToEmail, string UserName)
         {
             // MailMessage class is present is System.Net.Mail namespace
             MailMessage mailMessage = new MailMessage("deepumaurya07@gmail.com", ToEmail);
@@ -153,6 +153,7 @@ namespace FundooRepository.Repository
             smtpClient.EnableSsl = true;
             smtpClient.Send(mailMessage);
             smtpClient.Dispose();
+            return null;
         }
         /// <summary>
         /// Finds the by email asynchronous.

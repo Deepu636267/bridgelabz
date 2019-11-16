@@ -48,6 +48,7 @@ namespace FundooApi
             services.AddTransient<ILabelManager, Labelmanager>();
             services.AddTransient<ICollaboratorsRepository, CollaboratorsRepository>();
             services.AddTransient<ICollaboratorsManager, CollaboraotrsManager>();
+           // services.AddHostedService<Trigger>();
 
             //Swagger servicesConfiguration
             services.AddSwaggerGen(c => {

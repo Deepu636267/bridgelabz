@@ -352,5 +352,19 @@ namespace BusinessManager.Managers
             return result;
 
         }
+        /// <summary>
+        /// Drags the and drop.
+        /// </summary>
+        /// <param name="drag">The drag.</param>
+        /// <param name="drop">The drop.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public async Task<string> DragAndDrop(int drag, int drop, string email)
+        {
+            await repository.DragAndDrop(drag,drop,email);
+            return "DragDrop Succesfully";
+
+        }
+       
     }
 }

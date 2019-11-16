@@ -65,6 +65,10 @@ namespace Common.Models.NotesModels
         /// </summary>
         private string color;
         /// <summary>
+        /// The index value
+        /// </summary>
+        private int indexValue;
+        /// <summary>
         /// Gets or sets the identifier.
         /// </summary>
         /// <value>
@@ -191,6 +195,17 @@ namespace Common.Models.NotesModels
         {
             get { return this.color; }
             set { this.color = value; }
+        }
+        /// <summary>
+        /// Gets or sets the index value.
+        /// </summary>
+        /// <value>
+        /// The index value.
+        /// </value>
+        public int IndexValue
+        {
+            get { return this.indexValue; }
+            set { this.indexValue = value; }
         }
     }
 }
