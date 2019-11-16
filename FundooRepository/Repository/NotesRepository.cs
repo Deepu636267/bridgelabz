@@ -48,6 +48,7 @@ namespace FundooRepository.Repository
             notes.Email = email;
             var note = new NotesModel()
             {
+                Id=notes.Id,
                 Email = notes.Email,
                 Title = notes.Title,
                 Description = notes.Description,
@@ -777,7 +778,26 @@ namespace FundooRepository.Repository
                 return null;
             }
         }
-       
+        /// <summary>
+        /// Search is method for search the word which user has enter its has serarch in title of the notes
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public Task<List<NotesModel>> Search(string searchString, string email)
+        {
+            var listOfItem = _context.Notes.Where(t =>   (t.Email == email) && (t.Title.Contains(searchString)||t.Description.Contains(searchString)) && (t.IsArchive == false) && (t.IsTrash == false)).ToList();
+            // var result = _context.Notes.Where(t => (t.Email == email)).FirstOrDefault();
+            if (listOfItem.Count!=0)
+            {
+                //var listOfItem = _context.Notes.Where(t => t.Title.Contains(searchString) && (t.Email == email) && (t.IsArchive == false) && (t.IsTrash == false)).ToList();
+                return Task.Run(() => listOfItem);
+            }
+            else
+            {
+                return null;
+            }
+        }
         //public Task<Notes> show(string eamil)
         //{
         //    var result = _context.Notes.Where(c => c.Email == "d").OrderBy(s => s.IndexValue).ToList();

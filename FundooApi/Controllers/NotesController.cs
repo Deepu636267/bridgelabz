@@ -616,5 +616,32 @@ namespace FundooApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        /// <summary>
+        /// Searches the specified search string.
+        /// </summary>
+        /// <param name="searchString">The search string.</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("Search")]
+        public async Task<IActionResult> Search(string searchString)
+        {
+            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            try
+            {
+                var result = await _manager.Search(searchString, Email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

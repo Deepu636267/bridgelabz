@@ -365,6 +365,17 @@ namespace BusinessManager.Managers
             return "DragDrop Succesfully";
 
         }
-       
+        /// <summary>
+        /// Searches the specified search string.
+        /// </summary>
+        /// <param name="searchString">The search string.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public async Task<List<NotesModel>> Search(string searchString, string email)
+        {
+            var result=await repository.Search(searchString, email);
+            return result;
+        }
+
     }
 }
