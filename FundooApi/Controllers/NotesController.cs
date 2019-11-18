@@ -65,7 +65,7 @@ namespace FundooApi.Controllers
         [Route("Delete")]
         public async Task<IActionResult> Delete(int ID)
         {
-            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            string Email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.Del(ID, Email);
@@ -92,7 +92,7 @@ namespace FundooApi.Controllers
         [Route("Update")]
         public async Task<IActionResult> Update(NotesModel note)
         {
-            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            string Email = User.Claims.First(c => c.Type ==ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.Update(note, Email);
@@ -145,7 +145,7 @@ namespace FundooApi.Controllers
         [Route("ShowById")]
         public async Task<IActionResult> RetrieveById(int Id)
         {
-            string Email = User.Claims.First(c => c.Type == ClaimTypes.).Value;
+            string Email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.RetrieveById(Id,Email);
@@ -172,7 +172,7 @@ namespace FundooApi.Controllers
         [Route("Archive")]
         public async Task<IActionResult> Archive(int Id)
         {
-            string email = User.Claims.First(c => c.Type == "Email").Value;
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.Archive(Id, email);

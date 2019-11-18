@@ -22,7 +22,7 @@
 //        {
 //            while(!stoppingToken.IsCancellationRequested)
 //            {
-//                _context.Users.Where(i => i.CardType == "advance");
+//               _context.Users.Where(i => i.CardType == "advance");
 //                await Task.Delay(10000, stoppingToken);
 //            }
 //        }

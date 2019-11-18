@@ -21,6 +21,7 @@ namespace FundooRepository.Repository
     using System.IO;
     using System.Web;
     using Nancy.Json;
+    //using System.Messaging;
 
 
     /// <summary>
@@ -99,14 +100,17 @@ namespace FundooRepository.Repository
         /// <param name="Email"></param>
         /// <returns></returns>
         public Task Delete(int ID, string Email)
-        { 
-            var result = _context.Notes.Where(j => j.Id == ID).FirstOrDefault();
-            if (result.Email.Equals(Email))
+        {
+            var value = Test_GetValue(Email.ToUpper());
+            var value1 = value.Find(i => i.Id == ID);
+            //var result = _context.Notes.Where(j => j.Id == ID).FirstOrDefault();
+            if (value1.Email.Equals(Email))
             {
-
-                if (result != null)
+                if (value1 != null)
                 {
-                    _context.Notes.Remove(result);
+                    _context.Notes.Remove(value1);
+                    value.Remove(value1);
+                    _cacheProvider.Set(Email.ToUpper(), value);
                 }
                 return Task.Run(() => _context.SaveChanges());
             }
@@ -123,15 +127,18 @@ namespace FundooRepository.Repository
         /// <returns></returns>
         public Task Update(NotesModel notes, string Email)
         {
-            var result = _context.Notes.Where(j => j.Id == notes.Id).FirstOrDefault();
-            if (result.Email.Equals(Email))
+            var value = Test_GetValue(Email.ToUpper());
+            var value1 = value.Find(i => i.Id == notes.Id);
+            //var result = _context.Notes.Where(j => j.Id == notes.Id).FirstOrDefault();
+            if (value1.Email.Equals(Email))
             {
-                if (result != null)
+                if (value1 != null)
                 {
-                    result.Title = notes.Title;
-                    result.Description = notes.Description;
-                    result.ModifiedDate = DateTime.Now;
-                    _context.Notes.Update(result);
+                    value1.Title = notes.Title;
+                    value1.Description = notes.Description;
+                    value1.ModifiedDate = DateTime.Now;
+                    _context.Notes.Update(value1);
+                    _cacheProvider.Set(Email.ToUpper(), value);
                 }
                 return Task.Run(() => _context.SaveChanges());
             }
@@ -187,15 +194,19 @@ namespace FundooRepository.Repository
         /// <returns></returns>
         public Task<bool> Archive(int Id, string email)
         {
-            var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
-            if (result != null)
+            var value = Test_GetValue(email.ToUpper());
+            var value1 = value.Find(i => i.Id == Id);
+            // var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
+            if (value1 != null)
             {
-                if (result.Email.Equals(email))
+                if (value1.Email.Equals(email))
                 {
-                    result.IsArchive = true;
+                    value1.IsArchive = true;
                     try
                     {
-                        var value = Task.Run(() => _context.SaveChanges());
+                        _context.Notes.Update(value1);
+                        var value2 = Task.Run(() => _context.SaveChanges());
+                        _cacheProvider.Set(email.ToUpper(), value);
                     }
                     catch (Exception)
                     {
@@ -228,15 +239,19 @@ namespace FundooRepository.Repository
         /// <returns></returns>
         public Task<bool> UnArchive(int Id, string email)
         {
-            var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
-            if (result != null)
+            var value = Test_GetValue(email.ToUpper());
+            var value1 = value.Find(i => i.Id == Id);
+            //var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
+            if (value1 != null)
             {
-                if (result.Email.Equals(email))
+                if (value1.Email.Equals(email))
                 {
-                    result.IsArchive = false;
+                    value1.IsArchive = false;
                     try
                     {
-                        var value = Task.Run(() => _context.SaveChanges());
+                        _context.Notes.Update(value1);
+                        var value2 = Task.Run(() => _context.SaveChanges());
+                        _cacheProvider.Set(email.ToUpper(), value);
                     }
                     catch (Exception)
                     {
@@ -262,15 +277,19 @@ namespace FundooRepository.Repository
         /// <returns></returns>
         public Task<bool> Pin(int Id, string email)
         {
-            var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
-            if (result != null)
+            var value = Test_GetValue(email.ToUpper());
+            var value1 = value.Find(i => i.Id == Id);
+            //var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
+            if (value1 != null)
             {
-                if (result.Email.Equals(email))
+                if (value1.Email.Equals(email))
                 {
-                    result.IsPin = true;
+                    value1.IsPin = true;
                     try
                     {
-                        var value = Task.Run(() => _context.SaveChanges());
+                        _context.Notes.Update(value1);
+                        var value2 = Task.Run(() => _context.SaveChanges());
+                        _cacheProvider.Set(email.ToUpper(), value);
                     }
                     catch (Exception)
                     {
@@ -296,15 +315,19 @@ namespace FundooRepository.Repository
         /// <returns></returns>
         public Task<bool> UnPin(int Id, string email)
         {
-            var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
-            if (result != null)
+            var value = Test_GetValue(email.ToUpper());
+            var value1 = value.Find(i => i.Id == Id);
+            // var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
+            if (value1 != null)
             {
-                if (result.Email.Equals(email))
+                if (value1.Email.Equals(email))
                 {
-                    result.IsPin = false;
+                    value1.IsPin = false;
                     try
                     {
-                        var value = Task.Run(() => _context.SaveChanges());
+                        _context.Notes.Update(value1);
+                        var value2 = Task.Run(() => _context.SaveChanges());
+                        _cacheProvider.Set(email.ToUpper(), value);
                     }
                     catch (Exception)
                     {
@@ -330,15 +353,19 @@ namespace FundooRepository.Repository
         /// <returns></returns>
         public Task<bool> Trash(int Id, string email)
         {
-            var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
-            if (result != null)
+            var value = Test_GetValue(email.ToUpper());
+            var value1 = value.Find(i => i.Id == Id);
+            //var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
+            if (value1 != null)
             {
-                if (result.Email.Equals(email))
+                if (value1.Email.Equals(email))
                 {
-                    result.IsTrash = true;
+                    value1.IsTrash = true;
                     try
                     {
-                        var value = Task.Run(() => _context.SaveChanges());
+                        _context.Notes.Update(value1);
+                        var value2 = Task.Run(() => _context.SaveChanges());
+                        _cacheProvider.Set(email.ToUpper(), value);
                     }
                     catch (Exception)
                     {
@@ -364,15 +391,19 @@ namespace FundooRepository.Repository
         /// <returns></returns>
         public Task<bool> RestoreById(int Id, string email)
         {
-            var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
-            if (result != null)
+            var value = Test_GetValue(email.ToUpper());
+            var value1 = value.Find(i => i.Id == Id);
+            // var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
+            if (value1 != null)
             {
-                if (result.Email.Equals(email))
+                if (value1.Email.Equals(email))
                 {
-                    result.IsTrash = false;
+                    value1.IsTrash = false;
                     try
                     {
-                        var value = Task.Run(() => _context.SaveChanges());
+                        _context.Notes.Update(value1);
+                        var value2 = Task.Run(() => _context.SaveChanges());
+                        _cacheProvider.Set(email.ToUpper(), value);
                     }
                     catch (Exception)
                     {
@@ -827,6 +858,24 @@ namespace FundooRepository.Repository
                 return null;
             }
         }
+        //public Task PushMessage(string reminder)
+        //{
+        //    MessageQueue messageQueue = null;
+        //    if (MessageQueue.Exists(@".\Private$\SomeTestName"))
+        //    {
+        //        messageQueue = new MessageQueue(@".\Private$\SomeTestName");
+        //        messageQueue.Label = "Testing Queue";
+        //    }
+        //    else
+        //    {
+        //        // Create the Queue
+        //        MessageQueue.Create(@".\Private$\SomeTestName");
+        //        messageQueue = new MessageQueue(@".\Private$\SomeTestName");
+        //        messageQueue.Label = "Newly Created Queue";
+        //    }
+        //    messageQueue.Send("First ever Message is sent to MSMQ", "Title");
+        //    return Task.Run(()=>_context.SaveChanges());
+        //}
         //public Task<Notes> show(string eamil)
         //{
         //    var result = _context.Notes.Where(c => c.Email == "d").OrderBy(s => s.IndexValue).ToList();
