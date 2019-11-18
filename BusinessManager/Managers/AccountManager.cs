@@ -97,5 +97,24 @@ namespace BusinessManager.Managers
                 return null;
             }
         }
+        /// <summary>
+        /// Logs the out.
+        /// </summary>
+        /// <param name="key1">The key1.</param>
+        /// <param name="key2">The key2.</param>
+        /// <returns></returns>
+/        public async Task<string> LogOut(string key1, string key2)
+        {
+            var result = await _repository.LogOut(key1,key2);
+            if (result == true)
+            {
+                return "LogOut Succesfully";
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 }

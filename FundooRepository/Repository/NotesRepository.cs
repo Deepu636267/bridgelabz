@@ -29,13 +29,15 @@ namespace FundooRepository.Repository
     public class NotesRepository : INotesRepository
     {
         private readonly UserContext _context;
+        private readonly ICacheProvider _cacheProvider;
         /// <summary>
         /// NotesRepository is constructor for initailizing
         /// </summary>
         /// <param name="context"></param>
-        public NotesRepository(UserContext context)
+        public NotesRepository(UserContext context, ICacheProvider cacheProvider)
         {
             _context = context;
+            _cacheProvider = cacheProvider;
         }
         /// <summary>
         /// Create is method for add the data in our notes table  with Jwt Authentication 
@@ -139,16 +141,36 @@ namespace FundooRepository.Repository
         /// <returns></returns>
         public Task<List<NotesModel>> Show(string email)
         {
-            bool note = _context.Notes.Any(p => p.Email == email);
-            if (note)
-            {
-                // return Task.Run(() => _context.Notes.Where(p => (p.Email == Email) && (p.IsArchive==false) &&(p.IsTrash==false)).ToList());
-               return Task.Run(()=> _context.Notes.Where(c =>( c.Email ==email) && (c.IsArchive == false) && (c.IsTrash == false)).OrderBy(s => s.IndexValue).ToList());
-            }
-            else
-            {
-                return null;
-            }
+            //bool note = _context.Notes.Any(p => p.Email == email);
+            //if (note)
+            //{
+            //    // return Task.Run(() => _context.Notes.Where(p => (p.Email == Email) && (p.IsArchive==false) &&(p.IsTrash==false)).ToList());
+            //   return Task.Run(()=> _context.Notes.Where(c =>( c.Email ==email) && (c.IsArchive == false) && (c.IsTrash == false)).OrderBy(s => s.IndexValue).ToList());
+            //}
+            //else
+            //{
+            //    return null;
+            //}
+            //SetValue(email);
+            var key = email.ToUpper();
+            var result = Test_GetValue(key);
+            return Task.Run(()=>result);
+        }
+        //public void SetValue(string email)
+        //{
+        //    var result = _context.Notes.Where(i => i.Email == email).ToList();
+        //    _cacheProvider.Set("Notes", result);
+        //}        
+        /// <summary>
+        /// Tests the get value from the Cache.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
+        public List<NotesModel> Test_GetValue(string key)
+        {
+            var contacts = _cacheProvider.Get<List<NotesModel>>(key);
+            return contacts;
+
         }
         /// <summary>
         /// Archives the specified identifier.

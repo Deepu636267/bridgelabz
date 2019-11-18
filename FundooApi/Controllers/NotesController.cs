@@ -9,6 +9,7 @@ namespace FundooApi.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
     using BusinessManager.Interfaces;
     using Common.Models.NotesModels;
@@ -117,7 +118,7 @@ namespace FundooApi.Controllers
         [Route("Show")]
         public async Task<IActionResult> Show()
         {
-            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            string Email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.Show(Email);

@@ -23,5 +23,6 @@ namespace BusinessManager.Interfaces
         Task<string> UserForgetPassword(ForgetPasswordModel forget);
         Task<UserModel> FindByEmailAsync(string email);
         Task<string> ProfilePicUpload(IFormFile file, string email);
+        Task<string> LogOut(string key1, string key2);
     }
 }

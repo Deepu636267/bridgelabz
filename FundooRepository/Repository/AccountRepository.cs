@@ -35,15 +35,17 @@ namespace FundooRepository.Repository
         /// </summary>
         private readonly UserContext _context;
         private readonly ApplicationSetting _appsetting;
+        private readonly ICacheProvider _cacheProvider;
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountRepository"/> class.
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="appsetting">The appsetting.</param>
-        public AccountRepository(UserContext context, IOptions<ApplicationSetting> appsetting)
+        public AccountRepository(UserContext context, IOptions<ApplicationSetting> appsetting, ICacheProvider cacheProvider)
         {
             _context = context;
             _appsetting = appsetting.Value;
+            _cacheProvider = cacheProvider;
         }
         /// <summary>
         /// Creates the specified userm.
@@ -79,6 +81,8 @@ namespace FundooRepository.Repository
             if(result!=null)
             {
                 var LoginToken = GenerateToken(result.Email);
+                var key = result.Email.ToUpper();
+                SetValue(result.Email, key);
                 return Task.Run(()=> LoginToken);
             }
             else
@@ -179,28 +183,25 @@ namespace FundooRepository.Repository
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
-                        new Claim("Email", Email)
+                        new Claim(ClaimTypes.Email, Email)
                        
                     }),
                     Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appsetting.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
                 };
+                
                 var cacheKey = Email;
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(securityToken);
-                //var userdata = _context.Notes.Where(i => i.Email == Email).FirstOrDefault();
-                //ConnectionMultiplexer connectionMulitplexer = ConnectionMultiplexer.Connect("127.0.0.1:6379");
-                //IDatabase database = connectionMulitplexer.GetDatabase();
-                //database.StringSet(cacheKey, userdata.Id);
-                //database.StringGet(cacheKey);
+                _cacheProvider.Set(Email, token);       
                 return Task.Run(()=>token);              
             }
             catch (Exception)
             {
                 return null;
             }
-        }
+         }
         /// <summary>
         /// Profiles the pic upload.
         /// </summary>
@@ -239,6 +240,35 @@ namespace FundooRepository.Repository
             {
                 return Task.Run(() => false);
             }
+        }
+        /// <summary>
+        /// SetValue the valuein a particular key in redis cache
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="key"></param>
+        public void SetValue(string email,string key)
+        {
+            var result = _context.Notes.Where(i => i.Email == email).ToList();
+            if (result.Count != 0)
+            {
+                _cacheProvider.Set(key, result);
+            }
+            else
+            {
+                return;
+            }
+        }
+        /// <summary>
+        /// LogOut the user and remove its all keys from redis cahche
+        /// </summary>
+        /// <param name="key1"></param>
+        /// <param name="key2"></param>
+        /// <returns></returns>
+        public Task<bool> LogOut(string key1,string key2)
+        {
+            _cacheProvider.Remove(key1);
+            _cacheProvider.Remove(key2);
+            return Task.Run(() => true);
         }
     }
 }

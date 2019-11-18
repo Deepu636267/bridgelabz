@@ -159,7 +159,8 @@ namespace FundooApi.Controllers
         [Route("reg")]
         public async Task<Object> Result()
         {
-            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            string Email = User.Claims.First(c=> c.Type==ClaimTypes.Email).Value;
+            string key = Email.ToUpper();
             var result = await _manager.FindByEmailAsync(Email);
             return new
             {
@@ -182,6 +183,34 @@ namespace FundooApi.Controllers
             try
             {
                 var result = await _manager.ProfilePicUpload(file, email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// LogOut the user from a particular seesion
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Authorize]
+        [Route("LogOut")]
+        public async Task<IActionResult> LogOut()
+        {
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+            string key = email.ToUpper();
+            try
+            {
+                var result = await _manager.LogOut(email,key);
                 if (result != null)
                 {
                     return Ok(new { result });

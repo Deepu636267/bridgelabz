@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessManager.Interfaces;
 using BusinessManager.Managers;
+using Common.Models.NotesModels;
 using Common.Models.UserModels;
 using FundooRepository.Context;
 using FundooRepository.Intefaces;
@@ -36,6 +37,7 @@ namespace FundooApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<RedisSetting>(Configuration.GetSection("RedisSetting"));
             services.Configure<ApplicationSetting>(Configuration.GetSection("ApplicationSetting"));
             services.AddDbContextPool<UserContext>(options => options.UseSqlServer(Configuration.GetConnectionString("UserDBConncetion")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -48,6 +50,7 @@ namespace FundooApi
             services.AddTransient<ILabelManager, Labelmanager>();
             services.AddTransient<ICollaboratorsRepository, CollaboratorsRepository>();
             services.AddTransient<ICollaboratorsManager, CollaboraotrsManager>();
+            services.AddTransient<ICacheProvider, RedisCacheProvider>();
            // services.AddHostedService<Trigger>();
 
             //Swagger servicesConfiguration
