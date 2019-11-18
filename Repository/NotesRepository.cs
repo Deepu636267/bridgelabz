@@ -59,6 +59,9 @@ namespace FundooRepository.Repository
 
             };
             _context.Notes.Add(note);
+            var result = Test_GetValue(email.ToUpper());
+            result.Add(note);
+            _cacheProvider.Set(email.ToUpper(), result);
             return Task.Run(() => _context.SaveChanges());
         }
         /// <summary>
@@ -93,7 +96,7 @@ namespace FundooRepository.Repository
         /// <param name="Email"></param>
         /// <returns></returns>
         public Task Delete(int ID, string Email)
-        {
+        { 
             var result = _context.Notes.Where(j => j.Id == ID).FirstOrDefault();
             if (result.Email.Equals(Email))
             {
