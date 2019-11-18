@@ -69,7 +69,7 @@ namespace BusinessManager.Managers
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public async Task<List<NotesModel>> RetrieveById(int Id, string email)
+        public async Task<NotesModel> RetrieveById(int Id, string email)
         {
             var result = await repository.RetrieveById(Id, email);
             if(result!=null)

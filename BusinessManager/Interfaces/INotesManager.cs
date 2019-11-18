@@ -21,7 +21,7 @@ namespace BusinessManager.Interfaces
         Task<string> Del(int ID, string Email);
         Task<List<NotesModel>> Show(string Email);
         Task<string> Update(NotesModel note, string Email);
-        Task<List<NotesModel>> RetrieveById(int Id, string email);
+        Task<NotesModel> RetrieveById(int Id, string email);
         Task<string> Archive(int Id, string email);
         Task<string> UnArchive(int Id, string email);
         Task<string> Pin(int Id, string email);

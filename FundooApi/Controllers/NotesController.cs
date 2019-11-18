@@ -38,7 +38,7 @@ namespace FundooApi.Controllers
         [Route("Add")]
         public async Task<IActionResult> Create(NotesModel notes)
         {
-            string email = User.Claims.First(c => c.Type == "Email").Value;
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.Create(notes, email);
@@ -145,7 +145,7 @@ namespace FundooApi.Controllers
         [Route("ShowById")]
         public async Task<IActionResult> RetrieveById(int Id)
         {
-            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            string Email = User.Claims.First(c => c.Type == ClaimTypes.).Value;
             try
             {
                 var result = await _manager.RetrieveById(Id,Email);

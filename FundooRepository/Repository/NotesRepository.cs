@@ -59,9 +59,10 @@ namespace FundooRepository.Repository
 
             };
             _context.Notes.Add(note);
-            var result = Test_GetValue(email.ToUpper());
-            result.Add(note);
-            _cacheProvider.Set(email.ToUpper(), result);
+            SetValue(email, email.ToUpper());
+            //var result = Test_GetValue(email.ToUpper());
+            //result.Add(note);
+            // _cacheProvider.Set(email.ToUpper(), result);
             return Task.Run(() => _context.SaveChanges());
         }
         /// <summary>
@@ -70,14 +71,16 @@ namespace FundooRepository.Repository
         /// <param name="Id"></param>
         /// <param name="email"></param>
         /// <returns></returns>
-        public Task<List<NotesModel>> RetrieveById(int Id, string email)
+        public Task<NotesModel> RetrieveById(int Id, string email)
         {
-            var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
-            if (result != null)
+            var value = Test_GetValue(email.ToUpper());
+            var value1 = value.Find(i => i.Id == Id);
+           // var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
+            if (value1 != null)
             {
-                if (result.Email.Equals(email))
+                if (value1.Email.Equals(email))
                 {
-                    return Task.Run(() => _context.Notes.Where(p => p.Id == Id).ToList());
+                    return Task.Run(() => value1);
                 }
                 else
                 {
@@ -157,13 +160,14 @@ namespace FundooRepository.Repository
             //SetValue(email);
             var key = email.ToUpper();
             var result = Test_GetValue(key);
+            
             return Task.Run(()=>result);
         }
-        //public void SetValue(string email)
-        //{
-        //    var result = _context.Notes.Where(i => i.Email == email).ToList();
-        //    _cacheProvider.Set("Notes", result);
-        //}        
+        public void SetValue(string email,string key)
+        {
+            var result = _context.Notes.Where(i => i.Email == email).ToList();
+            _cacheProvider.Set(key, result);
+        }
         /// <summary>
         /// Tests the get value from the Cache.
         /// </summary>
