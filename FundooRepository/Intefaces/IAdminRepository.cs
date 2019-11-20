@@ -8,6 +8,7 @@
 namespace FundooRepository.Intefaces
 {
     using Common.Models.AdminModels;
+    using Common.Models.UserModels;
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -19,5 +20,6 @@ namespace FundooRepository.Intefaces
     public interface IAdminRepository
     {
         Task<bool> AddAdminDetails(AdminModel admin);
+        Task<bool> AddUserDetails(UserModel model, DateTime date);
     }
 }

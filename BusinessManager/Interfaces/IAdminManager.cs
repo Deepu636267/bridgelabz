@@ -8,6 +8,7 @@
 namespace BusinessManager.Interfaces
 {
     using Common.Models.AdminModels;
+    using Common.Models.UserModels;
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -19,5 +20,6 @@ namespace BusinessManager.Interfaces
     public interface IAdminManager
     {
         Task<string> AddAdminDetails(AdminModel admin);
+       
     }
 }

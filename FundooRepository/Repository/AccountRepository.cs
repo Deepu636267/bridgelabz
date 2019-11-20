@@ -36,16 +36,18 @@ namespace FundooRepository.Repository
         private readonly UserContext _context;
         private readonly ApplicationSetting _appsetting;
         private readonly ICacheProvider _cacheProvider;
+        private readonly IAdminRepository _repository;
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountRepository"/> class.
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="appsetting">The appsetting.</param>
-        public AccountRepository(UserContext context, IOptions<ApplicationSetting> appsetting, ICacheProvider cacheProvider)
+        public AccountRepository(UserContext context, IOptions<ApplicationSetting> appsetting, ICacheProvider cacheProvider,IAdminRepository repository)
         {
             _context = context;
             _appsetting = appsetting.Value;
             _cacheProvider = cacheProvider;
+            _repository = repository;
         }
         /// <summary>
         /// Creates the specified userm.
@@ -75,17 +77,18 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <param name="login">The login.</param>
         /// <returns></returns>
-        public Task<string> LogIn(LoginModel login)
+        public async Task<string> LogIn(LoginModel login)
         {
             var result = _context.Users.Where(i => i.Email == login.Email && i.Password == login.Password).FirstOrDefault();
             if(result!=null)
             {
                 result.Status = "Active";
                 _context.SaveChanges();
+                await _repository.AddUserDetails(result, DateTime.Now);
                 var LoginToken = GenerateToken(result.Email);
                 var key = result.Email.ToUpper();
                 SetValue(result.Email, key);
-                return Task.Run(()=> LoginToken);
+                return await Task.Run(()=> LoginToken);
             }
             else
             {

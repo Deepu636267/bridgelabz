@@ -8,6 +8,7 @@
 namespace FundooRepository.Repository
 {
     using Common.Models.AdminModels;
+    using Common.Models.UserModels;
     using FundooRepository.Intefaces;
     using Microsoft.Extensions.Configuration;
     using System;
@@ -50,7 +51,7 @@ namespace FundooRepository.Repository
                 Console.WriteLine(ex.Message);
             }
         }
-
+        
         /// <summary>
         /// AddAdminDetails is method for adding the admin details
         /// </summary>
@@ -71,6 +72,37 @@ namespace FundooRepository.Repository
             if (i >= 1)
             {
                 return Task.Run(()=>true);
+            }
+            else
+            {
+                return Task.Run(() => false);
+            }
+        }
+
+        /// <summary>
+        /// Adds the user details.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <param name="date">The date.</param>
+        /// <returns></returns>
+        public Task<bool> AddUserDetails(UserModel model, DateTime date)
+        {
+            AdminUserDetailsModel admin = new AdminUserDetailsModel();
+            admin.UserEmail = model.Email;
+            admin.Login_Date_Time = date;
+            admin.Service = model.CardType;
+            Connection();
+            SqlCommand com = new SqlCommand("AddUserDetails", con);
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.AddWithValue("@UserEmail", admin.UserEmail);
+            com.Parameters.AddWithValue("@LoginTime", admin.Login_Date_Time);
+            com.Parameters.AddWithValue("@Service", admin.Service);
+            con.Open();
+            int i = com.ExecuteNonQuery();
+            con.Close();
+            if (i >= 1)
+            {
+                return Task.Run(() => true);
             }
             else
             {

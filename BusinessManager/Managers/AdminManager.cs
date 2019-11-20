@@ -9,6 +9,7 @@ namespace BusinessManager.Managers
 {
     using BusinessManager.Interfaces;
     using Common.Models.AdminModels;
+    using Common.Models.UserModels;
     using FundooRepository.Intefaces;
     using System;
     using System.Collections.Generic;

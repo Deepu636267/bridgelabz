@@ -112,11 +112,12 @@ namespace FundooRepository.Repository
         {
             var value = Test_GetValue(Email.ToUpper());
             var value1 = value.Find(i => i.Id == ID);
-            //var result = _context.Notes.Where(j => j.Id == ID).FirstOrDefault();
+            var result = _context.Users.Where(j => j.Email == Email).FirstOrDefault();
             if (value1.Email.Equals(Email))
             {
                 if (value1 != null)
                 {
+                    result.TotalNotes--;
                     _context.Notes.Remove(value1);
                     value.Remove(value1);
                     _cacheProvider.Set(Email.ToUpper(), value);

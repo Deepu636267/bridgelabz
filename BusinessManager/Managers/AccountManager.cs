@@ -47,7 +47,10 @@ namespace BusinessManager.Managers
         public async Task<string> UserLogin(LoginModel login)
         {
            var result= await _repository.LogIn(login);
-            return result;
+            if (result != null)
+                return result;
+           else
+                return null;
         }
         /// <summary>
         /// Users the reset password.
