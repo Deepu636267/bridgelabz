@@ -109,5 +109,33 @@ namespace FundooRepository.Repository
                 return Task.Run(() => false);
             }
         }
+
+        /// <summary>
+        /// AdminLogin is class 
+        /// </summary>
+        /// <param name="loginModel"></param>
+        /// <returns></returns>
+        public Task<bool> AdminLogin(AdminLoginModel loginModel)
+        {
+            Connection();
+            SqlCommand command = new SqlCommand("Login", con);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@Email", loginModel.Email);
+            command.Parameters.AddWithValue("@Password", loginModel.Password);
+            con.Open();
+            DataSet dataSet = new DataSet();
+            SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+            dataAdapter.Fill(dataSet);
+            con.Close();
+            bool loginSuccessful = ((dataSet.Tables.Count > 0) && (dataSet.Tables[0].Rows.Count > 0));
+            if (loginSuccessful && loginModel.Email != "" && loginModel.Password != null)
+            {
+                return Task.Run(()=>true);
+            }
+            else
+            {
+                return Task.Run(()=>false);
+            }
+        }
     }
 }

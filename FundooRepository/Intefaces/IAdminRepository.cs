@@ -21,5 +21,6 @@ namespace FundooRepository.Intefaces
     {
         Task<bool> AddAdminDetails(AdminModel admin);
         Task<bool> AddUserDetails(UserModel model, DateTime date);
+        Task<bool> AdminLogin(AdminLoginModel loginModel);
     }
 }

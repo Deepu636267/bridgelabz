@@ -46,11 +46,35 @@ namespace FundooApi.Controllers
                 if (result != null)
                     return Ok(new { result });
                 else
-                    return BadRequest("error");
+                    return BadRequest("LoginCredential Wrong");
             }catch(Exception ex)
             {
                 return BadRequest(ex.Message);
             }         
+        }
+
+        /// <summary>
+        /// Admins the login.
+        /// </summary>
+        /// <param name="admin">The admin.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Login")]
+        public async Task<IActionResult> AdminLogin(AdminLoginModel admin)
+        {
+
+            try
+            {
+                var result = await _admin.AdminLogin(admin);
+                if (result != null)
+                    return Ok(new { result });
+                else
+                    return BadRequest("error");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

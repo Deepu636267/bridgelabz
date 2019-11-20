@@ -20,6 +20,6 @@ namespace BusinessManager.Interfaces
     public interface IAdminManager
     {
         Task<string> AddAdminDetails(AdminModel admin);
-       
+        Task<string> AdminLogin(AdminLoginModel loginModel);
     }
 }

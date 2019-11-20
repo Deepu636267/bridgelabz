@@ -38,5 +38,19 @@ namespace BusinessManager.Managers
             await _repository.AddAdminDetails(admin);
             return "Added Succesfull";
         }
+
+        /// <summary>
+        /// Admins the login.
+        /// </summary>
+        /// <param name="loginModel">The login model.</param>
+        /// <returns></returns>
+        public async Task<string> AdminLogin(AdminLoginModel loginModel)
+        {
+            var result=await _repository.AdminLogin(loginModel);
+            if (result == true)
+                return "Login SuccesFull";
+            else
+                return null;
+        }
     }
 }
