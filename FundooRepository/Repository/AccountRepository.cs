@@ -63,7 +63,7 @@ namespace FundooRepository.Repository
                     Password = userm.Password,
                     CardType=userm.CardType         
                 };
-               // _context.Users.Add(user);
+               _context.Users.Add(user);
                return Task.Run(() => _context.SaveChanges());
             }catch(SqlException ex)
             {
@@ -80,6 +80,8 @@ namespace FundooRepository.Repository
             var result = _context.Users.Where(i => i.Email == login.Email && i.Password == login.Password).FirstOrDefault();
             if(result!=null)
             {
+                result.Status = "Active";
+                _context.SaveChanges();
                 var LoginToken = GenerateToken(result.Email);
                 var key = result.Email.ToUpper();
                 SetValue(result.Email, key);
@@ -184,6 +186,7 @@ namespace FundooRepository.Repository
                     Subject = new ClaimsIdentity(new Claim[]
                     {
                         new Claim(ClaimTypes.Email, Email)
+                        
                        
                     }),
                     Expires = DateTime.UtcNow.AddDays(1),
@@ -267,6 +270,9 @@ namespace FundooRepository.Repository
         public Task<bool> LogOut(string key1,string key2)
         {
             _cacheProvider.Remove(key1);
+            var result = _context.Users.Where(i => i.Email == key1).FirstOrDefault();
+            result.Status = "In-Active";
+            _context.SaveChanges();
             _cacheProvider.Remove(key2);
             return Task.Run(() => true);
         }

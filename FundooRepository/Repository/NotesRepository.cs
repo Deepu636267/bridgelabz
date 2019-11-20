@@ -48,18 +48,27 @@ namespace FundooRepository.Repository
         /// <returns></returns>
         public Task Create(NotesModel notes, string email)
         {
-            notes.Email = email;
-            var note = new NotesModel()
+            var result = _context.Users.Where(i => i.Email == email).FirstOrDefault();
+            if (result != null)
             {
-                Id=notes.Id,
-                Email = notes.Email,
-                Title = notes.Title,
-                Description = notes.Description,
-                CreatedDate = DateTime.Now,
-                IndexValue= AddIndexValue(email)
+                notes.Email = email;
+                var note = new NotesModel()
+                {
+                    Id = notes.Id,
+                    Email = notes.Email,
+                    Title = notes.Title,
+                    Description = notes.Description,
+                    CreatedDate = DateTime.Now,
+                    IndexValue = AddIndexValue(email)
 
-            };
-            _context.Notes.Add(note);
+                };
+                _context.Notes.Add(note);
+                result.TotalNotes++;
+            }
+            else
+            {
+                return null;
+            }
             SetValue(email, email.ToUpper());
             //var result = Test_GetValue(email.ToUpper());
             //result.Add(note);
@@ -428,8 +437,10 @@ namespace FundooRepository.Repository
         /// <returns></returns>
         public Task<bool> RestoreAllFromTrash(string email)
         {
+            //var value = Test_GetValue(email.ToUpper());
+            //var value1=value.Where(i=>);
             IEnumerable<NotesModel> list = _context.Notes.Where(i => i.Email == email).ToList();
-            if (list != null)
+            if (list !=null)
             {
                 foreach (var i in list)
                 {
