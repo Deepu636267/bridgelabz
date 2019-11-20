@@ -99,5 +99,28 @@ namespace FundooApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        ///Count the no of user login
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Count")]
+        public async Task<IActionResult> Count()
+        {
+
+            try
+            {
+                var result = await _admin.Count();
+                if (result != null)
+                    return Ok(new { result });
+                else
+                    return BadRequest("error");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

@@ -63,5 +63,16 @@ namespace BusinessManager.Managers
             return result;
             
         }
+
+        /// <summary>
+        /// Counts this instance.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> Count()
+        {
+            var result = await _repository.Count();
+            return result;
+
+        }
     }
 }

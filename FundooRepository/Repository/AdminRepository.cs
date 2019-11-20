@@ -167,5 +167,20 @@ namespace FundooRepository.Repository
                        }).ToList();
             return Task.Run(()=> UserList);
         }
+
+        /// <summary>
+        /// Counts this Number Of user Login Through SqlServer Function.
+        /// </summary>
+        /// <returns></returns>
+        public Task<string> Count()
+        {
+            Connection();
+            SqlCommand command = new SqlCommand("Select dbo.Count()", con);
+            command.CommandType = CommandType.Text;
+            con.Open();
+            string i = command.ExecuteScalar().ToString();
+            con.Close();
+            return Task.Run(() => i);
+        }
     }
 }
