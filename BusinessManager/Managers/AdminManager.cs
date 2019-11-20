@@ -52,5 +52,16 @@ namespace BusinessManager.Managers
             else
                 return null;
         }
+
+        /// <summary>
+        /// Detailses this instance.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<AdminUserDetailsModel>> Details()
+        {
+            var result = await _repository.Details();
+            return result;
+            
+        }
     }
 }

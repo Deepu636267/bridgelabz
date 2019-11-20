@@ -17,6 +17,7 @@ namespace FundooRepository.Repository
     using System.Data.SqlClient;
     using System.Text;
     using System.Threading.Tasks;
+    using System.Linq;
 
     /// <summary>
     /// AdminRepository is class for all business logic for all admin api
@@ -87,7 +88,7 @@ namespace FundooRepository.Repository
         /// <returns></returns>
         public Task<bool> AddUserDetails(UserModel model, DateTime date)
         {
-            AdminUserDetailsModel admin = new AdminUserDetailsModel();
+            AdminUserStatisticModel admin = new AdminUserStatisticModel();
             admin.UserEmail = model.Email;
             admin.Login_Date_Time = date;
             admin.Service = model.CardType;
@@ -136,6 +137,35 @@ namespace FundooRepository.Repository
             {
                 return Task.Run(()=>false);
             }
+        }
+
+        /// <summary>
+        /// Details is a method for getting the details of user
+        /// </summary>
+        /// <returns></returns>
+        public Task<List<AdminUserDetailsModel>> Details()
+        {
+            Connection();
+            List<AdminUserDetailsModel> UserList = new List<AdminUserDetailsModel>();
+            SqlCommand command = new SqlCommand("GetEmployees", con);
+            command.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(command);
+            DataTable dt = new DataTable();
+            con.Open();
+            da.Fill(dt);
+            con.Close();
+            UserList = (from DataRow dr in dt.Rows
+                       select new AdminUserDetailsModel()
+                       {
+                           ID= Convert.ToInt32(dr["ID"]),
+                           FirstName= Convert.ToString(dr["FirstName"]),
+                           LastName= Convert.ToString(dr["LastName"]),
+                           Email= Convert.ToString(dr["Email"]),
+                           Service= Convert.ToString(dr["CardType"]),
+                           TotalNotes= Convert.ToInt32(dr["TotalNotes"]),
+                           Status= Convert.ToString(dr["Status"])
+                       }).ToList();
+            return Task.Run(()=> UserList);
         }
     }
 }

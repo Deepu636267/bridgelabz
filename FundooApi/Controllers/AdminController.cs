@@ -76,5 +76,28 @@ namespace FundooApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Detailses this instance.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("List")]
+        public async Task<IActionResult> Details()
+        {
+
+            try
+            {
+                var result = await _admin.Details();
+                if (result != null)
+                    return Ok(new { result });
+                else
+                    return BadRequest("error");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
