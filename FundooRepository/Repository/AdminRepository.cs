@@ -52,7 +52,7 @@ namespace FundooRepository.Repository
                 Console.WriteLine(ex.Message);
             }
         }
-        
+
         /// <summary>
         /// AddAdminDetails is method for adding the admin details
         /// </summary>
@@ -72,7 +72,7 @@ namespace FundooRepository.Repository
             con.Close();
             if (i >= 1)
             {
-                return Task.Run(()=>true);
+                return Task.Run(() => true);
             }
             else
             {
@@ -131,11 +131,11 @@ namespace FundooRepository.Repository
             bool loginSuccessful = ((dataSet.Tables.Count > 0) && (dataSet.Tables[0].Rows.Count > 0));
             if (loginSuccessful && loginModel.Email != "" && loginModel.Password != null)
             {
-                return Task.Run(()=>true);
+                return Task.Run(() => true);
             }
             else
             {
-                return Task.Run(()=>false);
+                return Task.Run(() => false);
             }
         }
 
@@ -155,17 +155,17 @@ namespace FundooRepository.Repository
             da.Fill(dt);
             con.Close();
             UserList = (from DataRow dr in dt.Rows
-                       select new AdminUserDetailsModel()
-                       {
-                           ID= Convert.ToInt32(dr["ID"]),
-                           FirstName= Convert.ToString(dr["FirstName"]),
-                           LastName= Convert.ToString(dr["LastName"]),
-                           Email= Convert.ToString(dr["Email"]),
-                           Service= Convert.ToString(dr["CardType"]),
-                           TotalNotes= Convert.ToInt32(dr["TotalNotes"]),
-                           Status= Convert.ToString(dr["Status"])
-                       }).ToList();
-            return Task.Run(()=> UserList);
+                        select new AdminUserDetailsModel()
+                        {
+                            ID = Convert.ToInt32(dr["ID"]),
+                            FirstName = Convert.ToString(dr["FirstName"]),
+                            LastName = Convert.ToString(dr["LastName"]),
+                            Email = Convert.ToString(dr["Email"]),
+                            Service = Convert.ToString(dr["CardType"]),
+                            TotalNotes = Convert.ToInt32(dr["TotalNotes"]),
+                            Status = Convert.ToString(dr["Status"])
+                        }).ToList();
+            return Task.Run(() => UserList);
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace FundooRepository.Repository
             con.Close();
             return Task.Run(() => i);
         }
-        
+
         /// <summary>
         /// Update the admin details by using Procedure and CURSOR
         /// </summary>
@@ -198,6 +198,29 @@ namespace FundooRepository.Repository
             com.Parameters.AddWithValue("@LastName", admin.LastName);
             //com.Parameters.AddWithValue("@Email", admin.Email);
             //com.Parameters.AddWithValue("@Password", admin.Password);
+            con.Open();
+            int i = com.ExecuteNonQuery();
+            con.Close();
+            if (i >= 1)
+            {
+                return Task.Run(() => true);
+            }
+            else
+            {
+                return Task.Run(() => false);
+            }
+        }
+
+        /// <summary>
+        /// Adds the new column with batches in TSql For test.
+        /// </summary>
+        /// <returns></returns>
+        public Task<bool> AddNewColoumn()
+        {
+            Connection();
+            SqlCommand com = new SqlCommand("AddNewColoumn3", con);
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.AddWithValue("@Address", "123");
             con.Open();
             int i = com.ExecuteNonQuery();
             con.Close();

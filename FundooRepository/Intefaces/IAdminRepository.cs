@@ -25,5 +25,6 @@ namespace FundooRepository.Intefaces
         Task<List<AdminUserDetailsModel>> Details();
         Task<string> Count();
         Task<bool> UpdateAdminDetails(AdminModel admin);
+        Task<bool> AddNewColoumn();
     }
 }

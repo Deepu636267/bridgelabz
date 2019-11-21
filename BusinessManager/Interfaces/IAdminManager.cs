@@ -24,5 +24,6 @@ namespace BusinessManager.Interfaces
         Task<List<AdminUserDetailsModel>> Details();
         Task<string> Count();
         Task<string> UpdateAdminDetails(AdminModel admin);
+        Task<string> AddNewColoumn();
     }
 }

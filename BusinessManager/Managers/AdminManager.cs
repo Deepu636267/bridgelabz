@@ -88,5 +88,18 @@ namespace BusinessManager.Managers
             else
                 return null;
         }
+
+        /// <summary>
+        /// Adds the new column with batches in TSql For test.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> AddNewColoumn()
+        {
+            var result = await _repository.AddNewColoumn();
+            if (result == true)
+                return "New Column Added SuccesFull";
+            else
+                return null;
+        }
     }
 }

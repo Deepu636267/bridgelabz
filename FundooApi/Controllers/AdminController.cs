@@ -129,13 +129,36 @@ namespace FundooApi.Controllers
         /// <param name="model">The model.</param>
         /// <returns></returns>
         [HttpPut]
-        [Route("Count")]
+        [Route("Update")]
         public async Task<IActionResult> UpdateAdminDetails(AdminModel model)
         {
 
             try
             {
                 var result = await _admin.UpdateAdminDetails(model);
+                if (result != null)
+                    return Ok(new { result });
+                else
+                    return BadRequest("error");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Adds the new column with batches in TSql For test.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("NewColumn")]
+        public async Task<IActionResult> AddNewColumn()
+        {
+
+            try
+            {
+                var result = await _admin.AddNewColoumn();
                 if (result != null)
                     return Ok(new { result });
                 else
