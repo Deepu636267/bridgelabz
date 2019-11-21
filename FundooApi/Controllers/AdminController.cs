@@ -7,14 +7,12 @@
 
 namespace FundooApi.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using BusinessManager.Interfaces;
     using Common.Models.AdminModels;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// AdminController is class for taking request from browser to controll all admin related api
@@ -81,22 +79,22 @@ namespace FundooApi.Controllers
         /// Detailses this instance.
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet] 
         [Route("List")]
-        public async Task<IActionResult> Details()
+        public async Task<List<AdminUserDetailsModel>> Details()
         {
 
             try
             {
                 var result = await _admin.Details();
                 if (result != null)
-                    return Ok(new { result });
+                    return result;
                 else
-                    return BadRequest("error");
+                    return null;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return BadRequest(ex.Message);
+                return null;
             }
         }
 

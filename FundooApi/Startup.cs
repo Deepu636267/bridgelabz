@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BusinessManager.Interfaces;
+﻿using BusinessManager.Interfaces;
 using BusinessManager.Managers;
 using Common.Models.NotesModels;
 using Common.Models.UserModels;
@@ -13,15 +8,15 @@ using FundooRepository.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Collections.Generic;
+using System.Text;
 
 namespace FundooApi
 {
@@ -76,7 +71,12 @@ namespace FundooApi
                 });
                 c.AddSecurityRequirement(security);
             });
-
+            services.AddMvc(options => {
+                options.ReturnHttpNotAcceptable = true;
+               // options.RespectBrowserAcceptHeader = true;
+                options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+            });
+           
             //authenticate
             //services.AddDefaultIdentity<UserModel>().AddEntityFrameworkStores<UserContext>();
 
@@ -133,6 +133,7 @@ namespace FundooApi
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
+      
         }
     }
 }

@@ -116,7 +116,7 @@ namespace FundooApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("Show")]
-        public async Task<IActionResult> Show()
+        public async Task<List<NotesModel>> Show()
         {
             string Email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
@@ -124,16 +124,16 @@ namespace FundooApi.Controllers
                 var result = await _manager.Show(Email);
                 if (result != null)
                 {
-                    return Ok(new { result });
+                    return result;
                 }
                 else
                 {
-                    return BadRequest();
+                    return null;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return BadRequest(ex.Message);
+                return null;
             }
         }
         /// <summary>

@@ -45,6 +45,10 @@
       "frameworks": {
         "netcoreapp2.1": {
           "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Formatters.Xml": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
             "Microsoft.NETCore.App": {
               "suppressParent": "All",
               "target": "Package",
@@ -100,6 +104,10 @@
       "frameworks": {
         "netcoreapp2.1": {
           "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Formatters.Xml": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
             "Microsoft.NETCore.App": {
               "suppressParent": "All",
               "target": "Package",
@@ -164,6 +172,10 @@
               "version": "[1.8.0, )"
             },
             "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Formatters.Xml": {
               "target": "Package",
               "version": "[2.1.1, )"
             },
