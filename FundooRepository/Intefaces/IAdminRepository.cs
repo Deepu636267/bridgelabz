@@ -24,5 +24,6 @@ namespace FundooRepository.Intefaces
         Task<bool> AdminLogin(AdminLoginModel loginModel);
         Task<List<AdminUserDetailsModel>> Details();
         Task<string> Count();
+        Task<bool> UpdateAdminDetails(AdminModel admin);
     }
 }

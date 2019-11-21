@@ -122,5 +122,29 @@ namespace FundooApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Updates the admin details by using Procedure and CURSOR.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("Count")]
+        public async Task<IActionResult> UpdateAdminDetails(AdminModel model)
+        {
+
+            try
+            {
+                var result = await _admin.UpdateAdminDetails(model);
+                if (result != null)
+                    return Ok(new { result });
+                else
+                    return BadRequest("error");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

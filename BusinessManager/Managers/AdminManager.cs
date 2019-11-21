@@ -74,5 +74,19 @@ namespace BusinessManager.Managers
             return result;
 
         }
+
+        /// <summary>
+        /// Updates the admin details by using Procedure and CURSOR.
+        /// </summary>
+        /// <param name="loginModel">The login model.</param>
+        /// <returns></returns>
+        public async Task<string> UpdateAdminDetails(AdminModel loginModel)
+        {
+            var result = await _repository.UpdateAdminDetails(loginModel);
+            if (result == true)
+                return "Update SuccesFull";
+            else
+                return null;
+        }
     }
 }

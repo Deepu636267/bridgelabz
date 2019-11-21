@@ -182,5 +182,33 @@ namespace FundooRepository.Repository
             con.Close();
             return Task.Run(() => i);
         }
+        
+        /// <summary>
+        /// Update the admin details by using Procedure and CURSOR
+        /// </summary>
+        /// <param name="admin"></param>
+        /// <returns></returns>
+        public Task<bool> UpdateAdminDetails(AdminModel admin)
+        {
+            Connection();
+            SqlCommand com = new SqlCommand("UpdateTbl", con);
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.AddWithValue("@ID", admin.ID);
+            com.Parameters.AddWithValue("@FirstName", admin.FirstName);
+            com.Parameters.AddWithValue("@LastName", admin.LastName);
+            //com.Parameters.AddWithValue("@Email", admin.Email);
+            //com.Parameters.AddWithValue("@Password", admin.Password);
+            con.Open();
+            int i = com.ExecuteNonQuery();
+            con.Close();
+            if (i >= 1)
+            {
+                return Task.Run(() => true);
+            }
+            else
+            {
+                return Task.Run(() => false);
+            }
+        }
     }
 }

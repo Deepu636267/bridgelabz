@@ -23,5 +23,6 @@ namespace BusinessManager.Interfaces
         Task<string> AdminLogin(AdminLoginModel loginModel);
         Task<List<AdminUserDetailsModel>> Details();
         Task<string> Count();
+        Task<string> UpdateAdminDetails(AdminModel admin);
     }
 }
