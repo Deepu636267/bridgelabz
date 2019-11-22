@@ -58,6 +58,8 @@ namespace FundooRepository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CollaboratorsId");
+
                     b.Property<string>("Color");
 
                     b.Property<DateTime?>("CreatedDate");
@@ -83,6 +85,8 @@ namespace FundooRepository.Migrations
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CollaboratorsId");
 
                     b.ToTable("Notes");
                 });
@@ -116,6 +120,13 @@ namespace FundooRepository.Migrations
                     b.HasKey("Email");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Common.Models.NotesModels.NotesModel", b =>
+                {
+                    b.HasOne("Common.Models.CollaboratorsModel.CollaboratorsModel", "Collaborators")
+                        .WithMany()
+                        .HasForeignKey("CollaboratorsId");
                 });
 #pragma warning restore 612, 618
         }

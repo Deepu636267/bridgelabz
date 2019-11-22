@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Models.NotesModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -37,5 +38,6 @@ namespace Common.Models.CollaboratorsModel
             get { return this.reciverEmail; }
             set { this.reciverEmail = value; }
         }
+     
     }
 }

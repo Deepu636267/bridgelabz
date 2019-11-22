@@ -28,6 +28,14 @@ namespace FundooRepository.Context
         {
 
         }
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{
+        //    builder.Entity<NotesModel>().HasKey(sc => new { sc.Id });
+        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+        }
         /// <summary>
         /// Gets or sets the users.
         /// </summary>

@@ -41,7 +41,7 @@ namespace FundooApi
         {
             services.Configure<RedisSetting>(Configuration.GetSection("RedisSetting"));
             services.Configure<ApplicationSetting>(Configuration.GetSection("ApplicationSetting"));
-            services.AddDbContextPool<UserContext>(options => options.UseSqlServer(Configuration.GetConnectionString("UserDBConncetion")));
+            services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration.GetConnectionString("UserDBConncetion")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddTransient<IAccountRepository, AccountRepository > ();

@@ -104,7 +104,7 @@ namespace FundooApi.Controllers
         [Route("List")]
         public async Task<List<AdminUserDetailsModel>> Details()
         {
-
+            
             try
             {
                 var result = await _admin.Details();

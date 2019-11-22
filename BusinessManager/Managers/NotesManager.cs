@@ -58,7 +58,7 @@ namespace BusinessManager.Managers
         /// <returns></returns>
         public async Task<List<NotesModel>> Show(string Email)
         {
-
+            
             var result = await repository.Show(Email);
             return result;
 

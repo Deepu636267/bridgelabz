@@ -175,9 +175,12 @@ namespace FundooRepository.Repository
             //    return null;
             //}
             //SetValue(email);
-            var key = email.ToUpper();
-            var result = Test_GetValue(key);
-            
+
+
+            //var key = email.ToUpper();
+            //var result = Test_GetValue(key);
+            var result = _context.Notes.Where(i => i.Email == email || i.Collaborators.ReciverEamil==email).ToList();
+
             return Task.Run(()=>result);
         }
         public void SetValue(string email,string key)

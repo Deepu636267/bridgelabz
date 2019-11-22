@@ -11,6 +11,7 @@ namespace Common.Models.NotesModels
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Text;
+    using Common.Models.CollaboratorsModel;
     /// <summary>
     /// NotesModel is class which has basic structure of notes
     /// </summary>
@@ -207,5 +208,12 @@ namespace Common.Models.NotesModels
             get { return this.indexValue; }
             set { this.indexValue = value; }
         }
+        /// <summary>
+        /// Gets or sets the collaborators.
+        /// </summary>
+        /// <value>
+        /// The collaborators.
+        /// </value>
+        public virtual CollaboratorsModel Collaborators { get; set; }
     }
 }
