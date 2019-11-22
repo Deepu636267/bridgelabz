@@ -10,8 +10,10 @@ namespace FundooApi.Controllers
     using BusinessManager.Interfaces;
     using Common.Models.AdminModels;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
     using System;
     using System.Collections.Generic;
+    using System.Resources;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -22,10 +24,14 @@ namespace FundooApi.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
-        private readonly IAdminManager _admin; 
-        public AdminController(IAdminManager admin)
+        private readonly IAdminManager _admin;
+        private readonly ILogger _logger;
+        //private readonly ResourceManager _resourceManager;
+        public AdminController(IAdminManager admin, ILogger<AdminController> logger)//,ResourceManager resourceManager)
         {
             _admin = admin;
+            _logger = logger;
+          //  _resourceManager = resourceManager;
         }
 
         /// <summary>
@@ -41,11 +47,19 @@ namespace FundooApi.Controllers
             try
             {
                 var result = await _admin.AddAdminDetails(admin);
+                var resourceManager = HttpContext.RequestServices.GetService(typeof(ResourceManager)) as ResourceManager;
                 if (result != null)
+                {
+                    _logger.LogInformation("{methodName} request for {message}", nameof(AddNewAdminDetails), resourceManager);
                     return Ok(new { result });
+                }
                 else
-                    return BadRequest("LoginCredential Wrong");
-            }catch(Exception ex)
+                {
+                    _logger.LogError("{methodName} request for {message} not Match", nameof(AddNewAdminDetails), resourceManager);
+                    return BadRequest("error");
+                }
+            }
+            catch(Exception ex)
             {
                 return BadRequest(ex.Message);
             }         
@@ -62,12 +76,19 @@ namespace FundooApi.Controllers
         {
 
             try
-            {
+            {     
                 var result = await _admin.AdminLogin(admin);
+                var resourceManager = HttpContext.RequestServices.GetService(typeof(ResourceManager)) as ResourceManager;
                 if (result != null)
+                {
+                    _logger.LogInformation("{methodName} request for {message}", nameof(AdminLogin), resourceManager);
                     return Ok(new { result });
+                }
                 else
+                {
+                    _logger.LogError("{methodName} request for {message} not Match", nameof(AdminLogin), resourceManager);
                     return BadRequest("error");
+                }
             }
             catch (Exception ex)
             {
@@ -87,10 +108,21 @@ namespace FundooApi.Controllers
             try
             {
                 var result = await _admin.Details();
+
+                var resourceManager = HttpContext.RequestServices.GetService(typeof(ResourceManager)) as ResourceManager;
+                //_logger.LogInformation(BuildLogInfo(nameof(Get), "LoggingGetCustomers"));
                 if (result != null)
+                {
+                    //var resourceManager = new ResourceManager(typeof(A.Properties.Resource));
+
+                    _logger.LogInformation("{methodName} request for {message}", nameof(Details), resourceManager);
                     return result;
+                }
                 else
+                {
+                    _logger.LogError("{methodName} request for {message} not found", nameof(Details), resourceManager);
                     return null;
+                }
             }
             catch (Exception)
             {
@@ -110,10 +142,17 @@ namespace FundooApi.Controllers
             try
             {
                 var result = await _admin.Count();
+                var resourceManager = HttpContext.RequestServices.GetService(typeof(ResourceManager)) as ResourceManager;
                 if (result != null)
+                {
+                    _logger.LogInformation("{methodName} request for {message}", nameof(Count), resourceManager);
                     return Ok(new { result });
+                }
                 else
+                {
+                    _logger.LogError("{methodName} request for {message} no data found", nameof(Count), resourceManager);
                     return BadRequest("error");
+                }
             }
             catch (Exception ex)
             {
@@ -134,10 +173,17 @@ namespace FundooApi.Controllers
             try
             {
                 var result = await _admin.UpdateAdminDetails(model);
+                var resourceManager = HttpContext.RequestServices.GetService(typeof(ResourceManager)) as ResourceManager;
                 if (result != null)
+                {
+                    _logger.LogInformation("{methodName} request for {message}", nameof(UpdateAdminDetails), resourceManager);
                     return Ok(new { result });
+                }
                 else
+                {
+                    _logger.LogError("{methodName} request for {message} not updated", nameof(UpdateAdminDetails), resourceManager);
                     return BadRequest("error");
+                }
             }
             catch (Exception ex)
             {
@@ -157,10 +203,17 @@ namespace FundooApi.Controllers
             try
             {
                 var result = await _admin.AddNewColoumn();
+                var resourceManager = HttpContext.RequestServices.GetService(typeof(ResourceManager)) as ResourceManager;
                 if (result != null)
+                {
+                    _logger.LogInformation("{methodName} request for {message}", nameof(AddNewColumn), resourceManager);
                     return Ok(new { result });
+                }
                 else
+                {
+                    _logger.LogError("{methodName} request for {message} not updated", nameof(AddNewColumn), resourceManager);
                     return BadRequest("error");
+                }
             }
             catch (Exception ex)
             {

@@ -8,15 +8,22 @@ using FundooRepository.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Diagnostics;
+using System.Resources;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace FundooApi
 {
@@ -48,6 +55,8 @@ namespace FundooApi
             services.AddTransient<ICacheProvider, RedisCacheProvider>();
             services.AddTransient<IAdminRepository, AdminRepository>();
             services.AddTransient<IAdminManager, AdminManager>();
+           
+            //services.AddTransient<ResourceManager, ResourceManager>();
            // services.AddHostedService<Trigger>();
 
             //Swagger servicesConfiguration
@@ -112,11 +121,34 @@ namespace FundooApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddDebug();
+            var timingLogger = loggerFactory.CreateLogger("FundooAPI.Startup.TimingMiddleware");
+
+            app.Use(async (HttpContext context, Func<Task> next) =>
+            {
+                // Middleware: Logic to run regarding the request prior to invoking more middleware.
+                //             This logic should be followed by either a call to next() (to invoke the next
+                //             piece of middleware) or to context.Response.WriteAsync/SendFileAsync
+                //             without calling next() (which will end the middleware pipeline and begin
+                //             travelling back up the middleware stack.
+                var timer = new Stopwatch();
+                timer.Start();
+
+                // Middleware: Calling the next delegate will invoke the next piece of middleware
+                await next();
+
+                // Middleware: Code after 'next' will usually run after another piece of middleware
+                //             has written a response, so context.Response should not be written to here.
+                timer.Stop();
+                timingLogger.LogInformation("Request to {RequestMethod}:{RequestPath} processed in {ElapsedMilliseconds} ms", context.Request.Method, context.Request.Path, timer.ElapsedMilliseconds);
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             }
             else
             {
