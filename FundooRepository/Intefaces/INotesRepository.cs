@@ -40,5 +40,8 @@ namespace FundooRepository.Intefaces
         Task<List<NotesModel>> GetListFromPin(string Email);
         Task DragAndDrop(int drag, int drop, string email);
         Task<List<NotesModel>> Search(string searchString, string email);
+        Task<bool> RestoreSelected(string Email, NotesModel[] id, string key);
+        Task<bool> TrashSelected(string Email, NotesModel[] id, string key);
+        Task<bool> DeleteSelected(string Email, NotesModel[] id, string key);
     }
 }

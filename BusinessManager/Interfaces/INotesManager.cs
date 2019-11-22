@@ -40,6 +40,10 @@ namespace BusinessManager.Interfaces
         Task<List<NotesModel>> GetListFromPin(string Email);
         Task<string> DragAndDrop(int drag, int drop, string email);
         Task<List<NotesModel>> Search(string searchString, string email);
-        
+        Task<string> RestoreSelected(string Email, NotesModel[] id, string key);
+        Task<string> TrashSelected(string Email, NotesModel[] id, string key);
+        Task<string> DeleteSelected(string Email, NotesModel[] id, string key);
+
+
     }
 }

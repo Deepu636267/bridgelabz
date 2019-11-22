@@ -377,5 +377,64 @@ namespace BusinessManager.Managers
             return result;
         }
 
+        /// <summary>
+        /// Restores the selected from trash.
+        /// </summary>
+        /// <param name="Email">The email.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
+        public async Task<string> RestoreSelected(string Email, NotesModel[] id, string key)
+        {
+            var result = await repository.RestoreSelected(Email,id,key);
+            if (result == true)
+            {
+                return "Restore Succesfully";
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Trashes the selected.
+        /// </summary>
+        /// <param name="Email">The email.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
+        public async Task<string> TrashSelected(string Email, NotesModel[] id, string key)
+        {
+            var result = await repository.TrashSelected(Email, id, key);
+            if (result == true)
+            {
+                return "Restore Succesfully";
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Deletes the selected.
+        /// </summary>
+        /// <param name="Email">The email.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
+        public async Task<string> DeleteSelected(string Email, NotesModel[] id, string key)
+        {
+            var result = await repository.DeleteSelected(Email, id, key);
+            if (result == true)
+            {
+                return "Restore Succesfully";
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

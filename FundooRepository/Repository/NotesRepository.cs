@@ -379,7 +379,7 @@ namespace FundooRepository.Repository
                     try
                     {
                         _context.Notes.Update(value1);
-                        var value2 = Task.Run(() => _context.SaveChanges());
+                        var value2 = _context.SaveChanges();
                         _cacheProvider.Set(key, value);
                     }
                     catch (Exception)
@@ -809,6 +809,7 @@ namespace FundooRepository.Repository
                 return 1;
             }
         }
+
         /// <summary>
         /// DragAndDrop for notes
         /// </summary>
@@ -855,6 +856,7 @@ namespace FundooRepository.Repository
                 return null;
             }
         }
+
         /// <summary>
         /// Search is method for search the word which user has enter its has serarch in title of the notes
         /// </summary>
@@ -898,5 +900,107 @@ namespace FundooRepository.Repository
         //    var result = _context.Notes.Where(c => c.Email == "d").OrderBy(s => s.IndexValue).ToList();
 
         //}
+
+        /// <summary>
+        /// RestoreSelected is from trash
+        /// </summary>
+        /// <param name="Email"></param>
+        /// <param name="id"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public Task<bool> RestoreSelected(string Email, NotesModel[] id,string key)
+        {
+            var value = Test_GetValue(key);
+            var value1 = value.Where(i => i.Email == Email && i.IsTrash==true).ToList();
+            if (value1.Count != 0)
+            {
+                foreach (var list in value1)
+                {
+                    for (int i = 0; i < id.Length; i++)
+                    {
+                        if (list.Id == id[i].Id)
+                        {
+                            list.IsTrash = false;
+                            _context.Notes.Update(list);
+                            _context.SaveChanges();
+                            _cacheProvider.Set(key, value);
+                        }
+                    }
+                }
+                return Task.Run(()=>true);
+            }
+            else
+            {
+                return Task.Run(() => false);
+            }
+        }
+
+        /// <summary>
+        /// TrashSelected is method for trash the selected Id
+        /// </summary>
+        /// <param name="Email"></param>
+        /// <param name="id"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public Task<bool> TrashSelected(string Email, NotesModel[] id, string key)
+        {
+            var value = Test_GetValue(key);
+            var value1 = value.Where(i => i.Email == Email && i.IsTrash == false).ToList();
+            if (value1.Count != 0)
+            {
+                foreach (var list in value1)
+                {
+                    for (int i = 0; i < id.Length; i++)
+                    {
+                        if (list.Id == id[i].Id)
+                        {
+                            list.IsTrash = true;
+                            _context.Notes.Update(list);
+                            _context.SaveChanges();
+                            _cacheProvider.Set(key, value);
+                        }
+                    }
+                }
+                return Task.Run(() => true);
+            }
+            else
+            {
+                return Task.Run(() => false);
+            }
+        }
+
+        /// <summary>
+        /// DeleteSelected is method for delete the selected Id
+        /// </summary>
+        /// <param name="Email"></param>
+        /// <param name="id"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public Task<bool> DeleteSelected(string Email, NotesModel[] id, string key)
+        {
+            var value = Test_GetValue(key);
+            var value1 = value.Where(i => i.Email == Email && i.IsTrash == true).ToList();
+            if (value1.Count != 0)
+            {
+                foreach (var list in value1)
+                {
+                    for (int i = 0; i < id.Length; i++)
+                    {
+                        if (list.Id == id[i].Id)
+                        {
+                            _context.Notes.Remove(list);
+                            _context.SaveChanges();
+                            value.Remove(list);
+                            _cacheProvider.Set(key, value);
+                        }
+                    }
+                }
+                return Task.Run(() => true);
+            }
+            else
+            {
+                return Task.Run(() => false);
+            }
+        }        
     }
 }

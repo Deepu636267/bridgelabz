@@ -211,7 +211,7 @@ namespace FundooApi.Controllers
         [Route("UnArchive")]
         public async Task<IActionResult> UnArchive(int Id)
         {
-            string email = User.Claims.First(c => c.Type == "Email").Value;
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
             var key = UserId + "_" + email;
             try
@@ -240,7 +240,7 @@ namespace FundooApi.Controllers
         [Route("Pin")]
         public async Task<IActionResult> Pin(int Id)
         {
-            string email = User.Claims.First(c => c.Type == "Email").Value;
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
             var key = UserId + "_" + email;
             try
@@ -269,7 +269,7 @@ namespace FundooApi.Controllers
         [Route("UnPin")]
         public async Task<IActionResult> UnPin(int Id)
         {
-            string email = User.Claims.First(c => c.Type == "Email").Value;
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
             var key = UserId + "_" + email;
             try
@@ -298,7 +298,7 @@ namespace FundooApi.Controllers
         [Route("Trash")]
         public async Task<IActionResult> Trash(int Id)
         {
-            string email = User.Claims.First(c => c.Type == "Email").Value;
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
             var key = UserId + "_" + email;
             try
@@ -327,7 +327,7 @@ namespace FundooApi.Controllers
         [Route("RestoreById")]
         public async Task<IActionResult> RestoreById(int Id)
         {
-            string email = User.Claims.First(c => c.Type == "Email").Value;
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
             var key = UserId + "_" + email;
             try
@@ -355,7 +355,7 @@ namespace FundooApi.Controllers
         [Route("DeleteAll")]
         public async Task<IActionResult> DeleteAll()
         {
-            string email = User.Claims.First(c => c.Type == "Email").Value;
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
             var key = UserId + "_" + email;
             try
@@ -385,7 +385,7 @@ namespace FundooApi.Controllers
         [Route("Image")]
         public async Task<IActionResult> ImageUpload(int Id, IFormFile file)
         {
-            string email = User.Claims.First(c => c.Type == "Email").Value;
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
 
             try
             {
@@ -413,7 +413,7 @@ namespace FundooApi.Controllers
         [Route("Reminder")]
         public async Task<IActionResult> Reminder(NotesModel note)
         {
-            string email = User.Claims.First(c => c.Type == "Email").Value;
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.Reminder(note,email);
@@ -440,7 +440,7 @@ namespace FundooApi.Controllers
         [Route("RemoveReminder")]
         public async Task<IActionResult> RemoveReminder(NotesModel note)
         {
-            string email = User.Claims.First(c => c.Type == "Email").Value;
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.RemoveReminder(note, email);
@@ -466,7 +466,7 @@ namespace FundooApi.Controllers
         [Route("RestoreAll")]
         public async Task<IActionResult> RestoreAllFromTrash()
         {
-            string email = User.Claims.First(c => c.Type == "Email").Value;
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.RestoreAllFromTrash(email);
@@ -493,7 +493,7 @@ namespace FundooApi.Controllers
         [Route("SetColor")]
         public async Task<IActionResult> SetColor(NotesModel model)
         {
-            string email = User.Claims.First(c => c.Type == "Email").Value;
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.SetColor(model,email);
@@ -519,7 +519,7 @@ namespace FundooApi.Controllers
         [Route("TrashList")]
         public async Task<IActionResult> GetListFromTrash()
         {
-            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            string Email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.GetListFromTrash(Email);
@@ -545,7 +545,7 @@ namespace FundooApi.Controllers
         [Route("ArchiveList")]
         public async Task<IActionResult> GetListFromArchive()
         {
-            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            string Email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.GetListFromArchive(Email);
@@ -571,7 +571,7 @@ namespace FundooApi.Controllers
         [Route("ReminderList")]
         public async Task<IActionResult> GetListFromReminder()
         {
-            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            string Email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.GetListFromReminder(Email);
@@ -597,7 +597,7 @@ namespace FundooApi.Controllers
         [Route("PinList")]
         public async Task<IActionResult> GetListFromPin()
         {
-            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            string Email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.GetListFromPin(Email);
@@ -625,7 +625,7 @@ namespace FundooApi.Controllers
         [Route("Drag")]
         public async Task<IActionResult> DragAndDrop(int drag,int drop)
         {
-            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            string Email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.DragAndDrop(drag,drop,Email);
@@ -652,10 +652,100 @@ namespace FundooApi.Controllers
         [Route("Search")]
         public async Task<IActionResult> Search(string searchString)
         {
-            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            string Email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.Search(searchString, Email);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Restores the selected from trash.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("RestoreSelected")]
+        public async Task<IActionResult> RestoreSelected([FromBody]NotesModel[] id)
+        {
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+            string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
+            var key = UserId + "_" + email;
+            try
+            {
+                var result = await _manager.RestoreSelected(email, id, key);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Trashes the selected.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("TrashSelected")]
+        public async Task<IActionResult> TrashSelected([FromBody]NotesModel[] Id)
+        {
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+            string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
+            var key = UserId + "_" + email;
+            try
+            {
+                var result = await _manager.TrashSelected(email, Id, key);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Deletes the selected from trash.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("DeleteSelected")]
+        public async Task<IActionResult> DeleteSelected([FromBody]NotesModel[] Id)
+        {
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+            string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
+            var key = UserId + "_" + email;
+            try
+            {
+                var result = await _manager.DeleteSelected(email, Id, key);
                 if (result != null)
                 {
                     return Ok(new { result });
