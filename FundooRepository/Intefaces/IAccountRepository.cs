@@ -22,7 +22,6 @@ namespace FundooRepository.Intefaces
         Task ResetPassword(ResetPasswordModel reset);
         Task ForgetPassword(ForgetPasswordModel forget);
         Task<UserModel> FindByEmailAsync(string email);
-        Task<String> GenerateToken(string Email);
         Task<bool> ProfilePicUpload(IFormFile file, string email);
         Task SendPasswordResetEmail(string ToEmail, string UserName);
         Task<bool> LogOut(string key1, string key2);

@@ -46,7 +46,7 @@ namespace FundooRepository.Repository
         /// <param name="notes"></param>
         /// <param name="email"></param>
         /// <returns></returns>
-        public Task Create(NotesModel notes, string email)
+        public Task Create(NotesModel notes, string email, string key)
         {
             var result = _context.Users.Where(i => i.Email == email).FirstOrDefault();
             if (result != null)
@@ -63,13 +63,15 @@ namespace FundooRepository.Repository
 
                 };
                 _context.Notes.Add(note);
+                var value= _context.SaveChanges();
+                SetValue(email, key);
                 result.TotalNotes++;
             }
             else
             {
                 return null;
             }
-            SetValue(email, email.ToUpper());
+           
             //var result = Test_GetValue(email.ToUpper());
             //result.Add(note);
             // _cacheProvider.Set(email.ToUpper(), result);
@@ -81,9 +83,9 @@ namespace FundooRepository.Repository
         /// <param name="Id"></param>
         /// <param name="email"></param>
         /// <returns></returns>
-        public Task<NotesModel> RetrieveById(int Id, string email)
+        public Task<NotesModel> RetrieveById(int Id, string email, string key)
         {
-            var value = Test_GetValue(email.ToUpper());
+            var value = Test_GetValue(key);
             var value1 = value.Find(i => i.Id == Id);
            // var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
             if (value1 != null)
@@ -108,9 +110,9 @@ namespace FundooRepository.Repository
         /// <param name="ID"></param>
         /// <param name="Email"></param>
         /// <returns></returns>
-        public Task Delete(int ID, string Email)
+        public Task Delete(int ID, string Email, string key)
         {
-            var value = Test_GetValue(Email.ToUpper());
+            var value = Test_GetValue(key);
             var value1 = value.Find(i => i.Id == ID);
             var result = _context.Users.Where(j => j.Email == Email).FirstOrDefault();
             if (value1.Email.Equals(Email))
@@ -120,7 +122,7 @@ namespace FundooRepository.Repository
                     result.TotalNotes--;
                     _context.Notes.Remove(value1);
                     value.Remove(value1);
-                    _cacheProvider.Set(Email.ToUpper(), value);
+                    _cacheProvider.Set(key, value);
                 }
                 return Task.Run(() => _context.SaveChanges());
             }
@@ -135,9 +137,9 @@ namespace FundooRepository.Repository
         /// <param name="notes"></param>
         /// <param name="Email"></param>
         /// <returns></returns>
-        public Task Update(NotesModel notes, string Email)
+        public Task Update(NotesModel notes, string Email, string key)
         {
-            var value = Test_GetValue(Email.ToUpper());
+            var value = Test_GetValue(key);
             var value1 = value.Find(i => i.Id == notes.Id);
             //var result = _context.Notes.Where(j => j.Id == notes.Id).FirstOrDefault();
             if (value1.Email.Equals(Email))
@@ -148,7 +150,7 @@ namespace FundooRepository.Repository
                     value1.Description = notes.Description;
                     value1.ModifiedDate = DateTime.Now;
                     _context.Notes.Update(value1);
-                    _cacheProvider.Set(Email.ToUpper(), value);
+                    _cacheProvider.Set(key, value);
                 }
                 return Task.Run(() => _context.SaveChanges());
             }
@@ -162,7 +164,7 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <param name="Email"></param>
         /// <returns></returns>
-        public Task<List<NotesModel>> Show(string email)
+        public Task<List<NotesModel>> Show(string email, string key)
         {
             //bool note = _context.Notes.Any(p => p.Email == email);
             //if (note)
@@ -177,9 +179,9 @@ namespace FundooRepository.Repository
             //SetValue(email);
 
 
-            //var key = email.ToUpper();
-            //var result = Test_GetValue(key);
-            var result = _context.Notes.Where(i => i.Email == email || i.Collaborators.ReciverEamil==email).ToList();
+           
+            var result = Test_GetValue(key);
+           // var result = _context.Notes.Where(i => i.Email == email || i.Collaborators.ReciverEamil==email).ToList();
 
             return Task.Run(()=>result);
         }
@@ -205,9 +207,9 @@ namespace FundooRepository.Repository
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public Task<bool> Archive(int Id, string email)
+        public Task<bool> Archive(int Id, string email, string key)
         {
-            var value = Test_GetValue(email.ToUpper());
+            var value = Test_GetValue(key);
             var value1 = value.Find(i => i.Id == Id);
             // var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
             if (value1 != null)
@@ -219,7 +221,7 @@ namespace FundooRepository.Repository
                     {
                         _context.Notes.Update(value1);
                         var value2 = Task.Run(() => _context.SaveChanges());
-                        _cacheProvider.Set(email.ToUpper(), value);
+                        _cacheProvider.Set(key, value);
                     }
                     catch (Exception)
                     {
@@ -250,7 +252,7 @@ namespace FundooRepository.Repository
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public Task<bool> UnArchive(int Id, string email)
+        public Task<bool> UnArchive(int Id, string email, string key)
         {
             var value = Test_GetValue(email.ToUpper());
             var value1 = value.Find(i => i.Id == Id);
@@ -264,7 +266,7 @@ namespace FundooRepository.Repository
                     {
                         _context.Notes.Update(value1);
                         var value2 = Task.Run(() => _context.SaveChanges());
-                        _cacheProvider.Set(email.ToUpper(), value);
+                        _cacheProvider.Set(key, value);
                     }
                     catch (Exception)
                     {
@@ -288,9 +290,9 @@ namespace FundooRepository.Repository
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public Task<bool> Pin(int Id, string email)
+        public Task<bool> Pin(int Id, string email, string key)
         {
-            var value = Test_GetValue(email.ToUpper());
+            var value = Test_GetValue(key);
             var value1 = value.Find(i => i.Id == Id);
             //var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
             if (value1 != null)
@@ -302,7 +304,7 @@ namespace FundooRepository.Repository
                     {
                         _context.Notes.Update(value1);
                         var value2 = Task.Run(() => _context.SaveChanges());
-                        _cacheProvider.Set(email.ToUpper(), value);
+                        _cacheProvider.Set(key, value);
                     }
                     catch (Exception)
                     {
@@ -326,9 +328,9 @@ namespace FundooRepository.Repository
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public Task<bool> UnPin(int Id, string email)
+        public Task<bool> UnPin(int Id, string email, string key)
         {
-            var value = Test_GetValue(email.ToUpper());
+            var value = Test_GetValue(key);
             var value1 = value.Find(i => i.Id == Id);
             // var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
             if (value1 != null)
@@ -340,7 +342,7 @@ namespace FundooRepository.Repository
                     {
                         _context.Notes.Update(value1);
                         var value2 = Task.Run(() => _context.SaveChanges());
-                        _cacheProvider.Set(email.ToUpper(), value);
+                        _cacheProvider.Set(key, value);
                     }
                     catch (Exception)
                     {
@@ -364,9 +366,9 @@ namespace FundooRepository.Repository
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public Task<bool> Trash(int Id, string email)
+        public Task<bool> Trash(int Id, string email, string key)
         {
-            var value = Test_GetValue(email.ToUpper());
+            var value = Test_GetValue(key);
             var value1 = value.Find(i => i.Id == Id);
             //var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
             if (value1 != null)
@@ -378,7 +380,7 @@ namespace FundooRepository.Repository
                     {
                         _context.Notes.Update(value1);
                         var value2 = Task.Run(() => _context.SaveChanges());
-                        _cacheProvider.Set(email.ToUpper(), value);
+                        _cacheProvider.Set(key, value);
                     }
                     catch (Exception)
                     {
@@ -402,9 +404,9 @@ namespace FundooRepository.Repository
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public Task<bool> RestoreById(int Id, string email)
+        public Task<bool> RestoreById(int Id, string email, string key)
         {
-            var value = Test_GetValue(email.ToUpper());
+            var value = Test_GetValue(key);
             var value1 = value.Find(i => i.Id == Id);
             // var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
             if (value1 != null)
@@ -416,7 +418,7 @@ namespace FundooRepository.Repository
                     {
                         _context.Notes.Update(value1);
                         var value2 = Task.Run(() => _context.SaveChanges());
-                        _cacheProvider.Set(email.ToUpper(), value);
+                        _cacheProvider.Set(key, value);
                     }
                     catch (Exception)
                     {

@@ -39,9 +39,11 @@ namespace FundooApi.Controllers
         public async Task<IActionResult> Create(NotesModel notes)
         {
             string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+            string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
+            var key = UserId + "_" + email;
             try
             {
-                var result = await _manager.Create(notes, email);
+                var result = await _manager.Create(notes, email,key);
                 if(result!=null)
                 {
                     return Ok(new { result });
@@ -66,9 +68,11 @@ namespace FundooApi.Controllers
         public async Task<IActionResult> Delete(int ID)
         {
             string Email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+            string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
+            var key = UserId + "_" + Email;
             try
             {
-                var result = await _manager.Del(ID, Email);
+                var result = await _manager.Del(ID, Email,key);
                 if (result != null)
                 {
                     return Ok(new { result });
@@ -92,10 +96,13 @@ namespace FundooApi.Controllers
         [Route("Update")]
         public async Task<IActionResult> Update(NotesModel note)
         {
+
             string Email = User.Claims.First(c => c.Type ==ClaimTypes.Email).Value;
+            string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
+            var key = UserId + "_" + Email;
             try
             {
-                var result = await _manager.Update(note, Email);
+                var result = await _manager.Update(note, Email,key);
                 if (result != null)
                 {
                     return Ok(new { result });
@@ -119,9 +126,11 @@ namespace FundooApi.Controllers
         public async Task<List<NotesModel>> Show()
         {
             string Email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+            string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
+            var key = UserId + "_" + Email;
             try
             {
-                var result = await _manager.Show(Email);
+                var result = await _manager.Show(Email,key);
                 if (result != null)
                 {
                     return result;
@@ -146,9 +155,11 @@ namespace FundooApi.Controllers
         public async Task<IActionResult> RetrieveById(int Id)
         {
             string Email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+            string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
+            var key = UserId + "_" + Email;
             try
             {
-                var result = await _manager.RetrieveById(Id,Email);
+                var result = await _manager.RetrieveById(Id,Email,key);
                 if (result != null)
                 {
                     return Ok(new { result });
@@ -173,9 +184,11 @@ namespace FundooApi.Controllers
         public async Task<IActionResult> Archive(int Id)
         {
             string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+            string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
+            var key = UserId + "_" + email;
             try
             {
-                var result = await _manager.Archive(Id, email);
+                var result = await _manager.Archive(Id, email,key);
                 if (result != null)
                 {
                     return Ok(new { result });
@@ -199,9 +212,11 @@ namespace FundooApi.Controllers
         public async Task<IActionResult> UnArchive(int Id)
         {
             string email = User.Claims.First(c => c.Type == "Email").Value;
+            string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
+            var key = UserId + "_" + email;
             try
             {
-                var result = await _manager.UnArchive(Id, email);
+                var result = await _manager.UnArchive(Id, email,key);
                 if (result != null)
                 {
                     return Ok(new { result });
@@ -226,9 +241,11 @@ namespace FundooApi.Controllers
         public async Task<IActionResult> Pin(int Id)
         {
             string email = User.Claims.First(c => c.Type == "Email").Value;
+            string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
+            var key = UserId + "_" + email;
             try
             {
-                var result = await _manager.Pin(Id, email);
+                var result = await _manager.Pin(Id, email,key);
                 if (result != null)
                 {
                     return Ok(new { result });
@@ -253,9 +270,11 @@ namespace FundooApi.Controllers
         public async Task<IActionResult> UnPin(int Id)
         {
             string email = User.Claims.First(c => c.Type == "Email").Value;
+            string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
+            var key = UserId + "_" + email;
             try
             {
-                var result = await _manager.UnPin(Id, email);
+                var result = await _manager.UnPin(Id, email,key);
                 if (result != null)
                 {
                     return Ok(new { result });
@@ -280,9 +299,11 @@ namespace FundooApi.Controllers
         public async Task<IActionResult> Trash(int Id)
         {
             string email = User.Claims.First(c => c.Type == "Email").Value;
+            string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
+            var key = UserId + "_" + email;
             try
             {
-                var result = await _manager.Trash(Id, email);
+                var result = await _manager.Trash(Id, email,key);
                 if (result != null)
                 {
                     return Ok(new { result });
@@ -307,9 +328,11 @@ namespace FundooApi.Controllers
         public async Task<IActionResult> RestoreById(int Id)
         {
             string email = User.Claims.First(c => c.Type == "Email").Value;
+            string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
+            var key = UserId + "_" + email;
             try
             {
-                var result = await _manager.RestoreById(Id, email);
+                var result = await _manager.RestoreById(Id, email,key);
                 if (result != null)
                 {
                     return Ok(new { result });
@@ -333,6 +356,8 @@ namespace FundooApi.Controllers
         public async Task<IActionResult> DeleteAll()
         {
             string email = User.Claims.First(c => c.Type == "Email").Value;
+            string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
+            var key = UserId + "_" + email;
             try
             {
                 var result = await _manager.DeleteAll(email);
@@ -361,6 +386,7 @@ namespace FundooApi.Controllers
         public async Task<IActionResult> ImageUpload(int Id, IFormFile file)
         {
             string email = User.Claims.First(c => c.Type == "Email").Value;
+
             try
             {
                 var result = await _manager.ImageUpload(Id,file,email);

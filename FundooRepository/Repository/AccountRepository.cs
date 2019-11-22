@@ -66,12 +66,19 @@ namespace FundooRepository.Repository
                     CardType=userm.CardType         
                 };
                _context.Users.Add(user);
-               return Task.Run(() => _context.SaveChanges());
+                var value = _context.SaveChanges();
+                SetCache(userm.Email);
+               return Task.Run(() => value);
             }catch(SqlException ex)
             {
                 return Task.FromException(ex);
             }
         }
+        //public void SetUserValue(string email, string key)
+        //{
+        //    var result = _context.Users.Where(i => i.Email == email).ToList();
+        //    _cacheProvider.Set(key, result);
+        //}
         /// <summary>
         /// Logs the in.
         /// </summary>
@@ -85,8 +92,8 @@ namespace FundooRepository.Repository
                 result.Status = "Active";
                 _context.SaveChanges();
                 await _repository.AddUserDetails(result, DateTime.Now);
-                var LoginToken = GenerateToken(result.Email);
-                var key = result.Email.ToUpper();
+                var LoginToken = GenerateToken(result);
+                var key = result.ID.ToString() +"_"+ result.Email;
                 SetValue(result.Email, key);
                 return await Task.Run(()=> LoginToken);
             }
@@ -180,7 +187,7 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <param name="Email">The email.</param>
         /// <returns></returns>
-        public Task<String> GenerateToken(string Email)
+        public Task<String> GenerateToken(UserModel result)
         {
             try
             {
@@ -188,19 +195,19 @@ namespace FundooRepository.Repository
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
-                        new Claim(ClaimTypes.Email, Email)
-                        
-                       
+                        new Claim(ClaimTypes.Email, result.Email),
+                        new Claim(ClaimTypes.UserData, result.ID.ToString())
+
+
                     }),
                     Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appsetting.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
                 };
                 
-                var cacheKey = Email;
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(securityToken);
-                _cacheProvider.Set(Email, token);       
+                _cacheProvider.Set(result.Email, token);       
                 return Task.Run(()=>token);              
             }
             catch (Exception)
@@ -278,6 +285,23 @@ namespace FundooRepository.Repository
             _context.SaveChanges();
             _cacheProvider.Remove(key2);
             return Task.Run(() => true);
+        }
+        public void SetCache(string email)
+        {
+            if (_cacheProvider.IsInCache("User"))
+            {
+                var result = _context.Users.Where(i => i.Email == email).First();
+                var value = _cacheProvider.Get<List<UserModel>>("User");
+                value.Add(result);
+                _cacheProvider.Set("User", value);
+                return;
+            }
+            else
+            {
+                var result = _context.Users.Where(i => i.Email == email).ToList();
+                _cacheProvider.Set("User", result);
+                return;
+            }
         }
     }
 }

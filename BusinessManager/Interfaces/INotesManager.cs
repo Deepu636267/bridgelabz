@@ -17,17 +17,17 @@ namespace BusinessManager.Interfaces
     /// </summary>
     public interface INotesManager
     {
-        Task<string> Create(NotesModel notes, string email);
-        Task<string> Del(int ID, string Email);
-        Task<List<NotesModel>> Show(string Email);
-        Task<string> Update(NotesModel note, string Email);
-        Task<NotesModel> RetrieveById(int Id, string email);
-        Task<string> Archive(int Id, string email);
-        Task<string> UnArchive(int Id, string email);
-        Task<string> Pin(int Id, string email);
-        Task<string> UnPin(int Id, string email);
-        Task<string> Trash(int Id, string email);
-        Task<string> RestoreById(int Id, string email);
+        Task<string> Create(NotesModel notes, string email,string key);
+        Task<string> Del(int ID, string Email, string key);
+        Task<List<NotesModel>> Show(string Email, string key);
+        Task<string> Update(NotesModel note, string Email, string key);
+        Task<NotesModel> RetrieveById(int Id, string email, string key);
+        Task<string> Archive(int Id, string email, string key);
+        Task<string> UnArchive(int Id, string email, string key);
+        Task<string> Pin(int Id, string email, string key);
+        Task<string> UnPin(int Id, string email, string key);
+        Task<string> Trash(int Id, string email, string key);
+        Task<string> RestoreById(int Id, string email, string key);
         Task<string> RestoreAllFromTrash(string email);
         Task<string> DeleteAll(string email);
         Task<string> ImageUpload(int Id, IFormFile file, string email);

@@ -208,12 +208,12 @@ namespace Common.Models.NotesModels
             get { return this.indexValue; }
             set { this.indexValue = value; }
         }
-        /// <summary>
-        /// Gets or sets the collaborators.
-        /// </summary>
-        /// <value>
-        /// The collaborators.
-        /// </value>
-        public virtual CollaboratorsModel Collaborators { get; set; }
+        ///// <summary>
+        ///// Gets or sets the collaborators.
+        ///// </summary>
+        ///// <value>
+        ///// The collaborators.
+        ///// </value>
+        //public virtual CollaboratorsModel Collaborators { get; set; }
     }
 }

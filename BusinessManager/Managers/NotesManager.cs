@@ -35,9 +35,9 @@ namespace BusinessManager.Managers
         /// <param name="notes">The notes.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public async Task<string> Create(NotesModel notes, string email)
+        public async Task<string> Create(NotesModel notes, string email, string key)
         {
-            await repository.Create(notes, email);
+            await repository.Create(notes, email, key);
             return "Added Succesfully";
         }
         /// <summary>
@@ -46,9 +46,9 @@ namespace BusinessManager.Managers
         /// <param name="ID">The identifier.</param>
         /// <param name="Email">The email.</param>
         /// <returns></returns>
-        public async Task<string> Del(int ID, string Email)
+        public async Task<string> Del(int ID, string Email, string key)
         {
-            await repository.Delete(ID, Email);
+            await repository.Delete(ID, Email, key);
             return "Deleted Successfully";
         }
         /// <summary>
@@ -56,10 +56,10 @@ namespace BusinessManager.Managers
         /// </summary>
         /// <param name="Email">The email.</param>
         /// <returns></returns>
-        public async Task<List<NotesModel>> Show(string Email)
+        public async Task<List<NotesModel>> Show(string Email, string key)
         {
             
-            var result = await repository.Show(Email);
+            var result = await repository.Show(Email, key);
             return result;
 
         }
@@ -69,9 +69,9 @@ namespace BusinessManager.Managers
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public async Task<NotesModel> RetrieveById(int Id, string email)
+        public async Task<NotesModel> RetrieveById(int Id, string email, string key)
         {
-            var result = await repository.RetrieveById(Id, email);
+            var result = await repository.RetrieveById(Id, email, key);
             if(result!=null)
             {
                 return result;
@@ -87,9 +87,9 @@ namespace BusinessManager.Managers
         /// <param name="note">The note.</param>
         /// <param name="Email">The email.</param>
         /// <returns></returns>
-        public async Task<string> Update(NotesModel note, string Email)
+        public async Task<string> Update(NotesModel note, string Email, string key)
         {
-             await repository.Update(note, Email);
+             await repository.Update(note, Email, key);
               return "Updated Successfully";
           
         }
@@ -99,9 +99,9 @@ namespace BusinessManager.Managers
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public async Task<string> Archive(int Id, string email)
+        public async Task<string> Archive(int Id, string email, string key)
         {
-            var result = await repository.Archive(Id, email);
+            var result = await repository.Archive(Id, email, key);
             if(result==true)
             {
                 return "Archieve Succesfully";
@@ -118,9 +118,9 @@ namespace BusinessManager.Managers
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public async Task<string> UnArchive(int Id, string email)
+        public async Task<string> UnArchive(int Id, string email, string key)
         {
-            var result= await repository.UnArchive(Id, email);
+            var result= await repository.UnArchive(Id, email, key);
             if (result == true)
             {
                 return "UnArchieve Succesfully";
@@ -137,9 +137,9 @@ namespace BusinessManager.Managers
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public async Task<string> Pin(int Id, string email)
+        public async Task<string> Pin(int Id, string email, string key)
         {
-            var result = await repository.Pin(Id, email);
+            var result = await repository.Pin(Id, email, key);
             if (result == true)
             {
                 return "Pin Succesfully";
@@ -155,9 +155,9 @@ namespace BusinessManager.Managers
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public async Task<string> UnPin(int Id, string email)
+        public async Task<string> UnPin(int Id, string email, string key)
         {
-            var result = await repository.UnPin(Id, email);
+            var result = await repository.UnPin(Id, email, key);
             if (result == true)
             {
                 return "UnPin Succesfully";
@@ -173,9 +173,9 @@ namespace BusinessManager.Managers
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public async Task<string> Trash(int Id, string email)
+        public async Task<string> Trash(int Id, string email, string key)
         {
-            var result = await repository.Trash(Id, email);
+            var result = await repository.Trash(Id, email, key);
             if (result == true)
             {
                 return "Trash Succesfully";
@@ -191,9 +191,9 @@ namespace BusinessManager.Managers
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public async Task<string> RestoreById(int Id, string email)
+        public async Task<string> RestoreById(int Id, string email, string key)
         {
-            var result = await repository.RestoreById(Id, email);
+            var result = await repository.RestoreById(Id, email, key);
             if (result == true)
             {
                 return "UnTrash Succesfully";

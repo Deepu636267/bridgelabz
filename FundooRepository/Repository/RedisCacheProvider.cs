@@ -38,7 +38,7 @@ namespace FundooRepository.Repository
         /// <param name="value"></param>
         public void Set<T>(string key, T value)
         {
-            this.Set(key, value, TimeSpan.FromMinutes(5));
+            this.SetR(key, value);
         }
         /// <summary>
         /// Set the the value in the provided key and time zone
@@ -47,11 +47,11 @@ namespace FundooRepository.Repository
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <param name="timeout"></param>
-        public void Set<T>(string key, T value, TimeSpan timeout)
+        public void SetR<T>(string key, T value)
         {
             using (RedisClient client = new RedisClient(_endPoint))
             {
-                client.As<T>().SetValue(key, value, timeout);
+                client.As<T>().SetValue(key, value);
             }
         }
         /// <summary>

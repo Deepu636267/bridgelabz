@@ -16,7 +16,7 @@ namespace FundooRepository.Intefaces
     {
         void Set<T>(string key, T value);
 
-        void Set<T>(string key, T value, TimeSpan timeout);
+        void SetR<T>(string key, T value);
 
         T Get<T>(string key);
 
