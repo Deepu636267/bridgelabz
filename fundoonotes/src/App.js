@@ -1,0 +1,29 @@
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import './App.css';
+import Registration from './Pages/Registration';
+import Login from './Pages/Login';
+import ForgotPassword from './Pages/ForgotPassword'
+import Reset from './Pages/Reset';
+import Dashboard from './Pages/DashBoard';
+
+// import ForgotPassword from './Pages/ForgotPassword';
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Router>
+          <Route path='/registration' component={Registration}></Route>
+          <Route path='/login' component={Login}></Route>
+          <Route path='/dashboard' component={Dashboard}></Route>
+          <Route path='/reset' component={Reset}></Route>
+          <Route path ='/forgot' component ={ForgotPassword}></Route>
+          {/* <Route path='/forgot' component={ForgotPassword}></Route> */}
+        </Router>
+      </div>
+    )
+  }
+}
+//import { formatMs } from '@material-ui/core/styles';
+
+export default App;
