@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { TextField, Card, Button,Link,IconButton } from '@material-ui/core'
+import { TextField, Card, Button,Link } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar'
 import {withRouter} from 'react-router-dom'
 import { login } from '../Service/UserService'
+import PropTypes from 'prop-types';
+// import CancelIcon from '@material-ui/icons/Cancel';
  class LoginComponent extends Component {
      constructor(props) {
          super(props)
@@ -15,6 +17,7 @@ import { login } from '../Service/UserService'
             snackbarMsg:''   
         }
     }
+ 
     snackbarOpen=()=>{
         this.setState({
             open:true
@@ -76,7 +79,7 @@ import { login } from '../Service/UserService'
                 console.log("response after login", res);
                 localStorage.setItem(this.state.emailId,res.data.result)
                 // this.props.history.push('/login');
-                this.props.history.push('/dashboard')
+                this.props.history.push('/appbar')
                 this.setState({ snackbarOpen: true, snackbarMsg: "Login done  successfully!!" })
             }).catch(err => {
                 console.log("err in login component ", err);
@@ -148,19 +151,30 @@ import { login } from '../Service/UserService'
                         horizontal: 'center',
                     }}
                     open={this.state.snackbarOpen}
-                    autoHideDuration={2000}
+                    autoHideDuration={4000}
                     onClose={this.snackbarClose}
                     message={<span id="message-id">{this.state.snackbarMsg}</span>}
                     action={[
-                        <IconButton
-                            onClick={this.handleClose}
-                        >
-                            <CloseIcon onClick={this.snackbarClose} />
-                        </IconButton>
+                     <Button key="undo" color="secondary" size="small" >
+                     <CloseIcon onClick={this.snackbarClose} />
+                      </Button>
+                    //   <IconButton
+                    //     key="close"
+                    //     aria-label="Close"
+                    //     color="inherit"
+                    //     onClick={this.handleClose}
+                    //   >
+                     
+                    //   </IconButton>
                     ]}
-                />          
+                    /> 
+                    
+                       
             </div>
-        )
+        );
     }
+}
+LoginComponent.propTypes={
+    classes: PropTypes.object,
 }
 export default withRouter (LoginComponent)

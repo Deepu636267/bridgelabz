@@ -6,7 +6,10 @@ import Login from './Pages/Login';
 import ForgotPassword from './Pages/ForgotPassword'
 import Reset from './Pages/Reset';
 import Dashboard from './Pages/DashBoard';
-
+import AppBar from './Pages/AppBar';
+import Drwaer from './Pages/Drawer';
+import ProfilePic from './Pages/ProfilePic'
+//import { Drawer } from '@material-ui/core';
 // import ForgotPassword from './Pages/ForgotPassword';
 class App extends Component {
   render() {
@@ -18,6 +21,9 @@ class App extends Component {
           <Route path='/dashboard' component={Dashboard}></Route>
           <Route path='/reset' component={Reset}></Route>
           <Route path ='/forgot' component ={ForgotPassword}></Route>
+          <Route path ='/appbar' component ={AppBar}></Route>
+          <Route path='/drawer' component={Drwaer}></Route>
+          <Route path='/profile' component={ProfilePic}></Route>
           {/* <Route path='/forgot' component={ForgotPassword}></Route> */}
         </Router>
       </div>

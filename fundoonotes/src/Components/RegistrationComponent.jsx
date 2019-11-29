@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TextField, Card, Button, IconButton } from '@material-ui/core'
+import { TextField, Card, Button } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar'
 import { registration } from '../Service/UserService'
@@ -217,7 +217,8 @@ import {withRouter} from 'react-router-dom'
                                 color="secondary" variant="outlined" style={{fontSize:18,fontFamily:'TimesNewRoman'}} ><b>Sign Up</b></Button>
                             </div>
                          </div>                  
-                </Card>  
+                </Card> 
+                <div> 
                 <Snackbar
                     anchorOrigin={{
                         vertical: 'bottom',
@@ -228,13 +229,12 @@ import {withRouter} from 'react-router-dom'
                     onClose={this.snackbarClose}
                     message={<span id="message-id">{this.state.snackbarMsg}</span>}
                     action={[
-                        <IconButton
-                            onClick={this.handleClose}
-                        >
-                            <CloseIcon onClick={this.snackbarClose} />
-                        </IconButton>
+                        <Button key="undo" color="secondary" size="small" >
+                     <CloseIcon onClick={this.snackbarClose} />
+                      </Button>
                     ]}
-                />   
+                /> 
+                </div>  
             </div>
         )
     }

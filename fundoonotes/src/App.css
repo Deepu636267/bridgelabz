@@ -176,3 +176,119 @@
   justify-content: flex-start;
   margin-inline-start: 10px;
 }
+
+/* ---------------------------------AppBar--------------------------------- */
+
+.whole{
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+
+}
+.responsive{
+  width: 100%;
+  height: auto;
+}
+/* .drawr_Search{
+  display: flex;
+    align-items: center;
+} */
+.title {
+  font-family: 'Product Sans',Arial,sans-serif;
+    font-size: 18px;
+    position: relative;
+    color: #5f6368;
+}
+.searchIcon{
+  display: flex;
+  
+    justify-content: space-around;
+}
+.main_menu_image_name{
+  display: flex;
+  align-items: center;
+  padding: 0px 10px 0px 0px;
+}
+ .menu_image
+{
+  display: flex;
+  align-items: center;
+} 
+.menu_image>img
+{
+  height:44px;
+}
+.search {
+ 
+    display: flex;
+    align-items: center;
+    width: 50%;
+    padding: 10px;
+    background-color: whitesmoke;
+    border-radius: 11px;
+}
+.searchField{
+  width: 100%;
+}
+.ref_Acc{
+  display: flex;
+    align-items: center;
+    margin-right: 5px;
+}
+.sectionDesktop{
+  padding: 0px 25px 0px 0px;
+}
+.listView{
+  padding: 0px 10px 0px 0px;
+}
+
+/* ---------------------------------Drawer--------------------------------- */
+.iconName{
+  padding: 0px 0px 0px 32px;
+  font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+}
+.Label
+{
+  color: #5f6368;
+  cursor: default;
+  letter-spacing: .07272727em;
+  font-family: Roboto,Arial,sans-serif;
+  font-size: .6875rem;
+  font-weight: 500;
+  line-height: 1rem;
+  text-transform: uppercase;
+  padding: 15px 24px 10px;
+}
+.DrawerIcons{
+  padding-bottom: 7px;
+  padding-top: 7px;
+  border-radius: 30px;
+}
+.DrawerIcons:hover{
+ background-color: khaki;
+  border-collapse: collapse;
+
+}
+.mainDrawerIcon{
+  
+}
+
+.img_name_email{
+  display: flex;
+  height: 90px;
+  width: 190px;
+  align-items: center;
+  justify-content: SPACE-AROUND
+}
+/* .bigAvatar {
+  width: 60;
+  height: 60;
+  
+}
+.imageroot{
+  display: 'flex',
+    '& > *': {
+      margin: theme.spacing(1),
+    }
+} */

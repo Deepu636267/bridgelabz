@@ -31,3 +31,11 @@ export function reset (data){
         }
     })
 }
+export function getUser()
+{
+    return axios.get(baseURL+'account/reg',{
+        headers:{
+        "Authorization" : 'Bearer '+localStorage.getItem('FundooUserToken')
+        }
+    })
+}
