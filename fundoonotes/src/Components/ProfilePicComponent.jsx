@@ -5,6 +5,7 @@ import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import {getUser } from '../Service/UserService'
+import{Button} from '@material-ui/core'
 export class ProfilePicComponent extends Component {
     state = {
         anchorEl: null,
@@ -23,48 +24,62 @@ export class ProfilePicComponent extends Component {
               };
     getUserData=()=>{
         getUser()
-            .then(result=>
+            .then(async result=>
                 {
-                    console.log(result);
-                    this.setState({
-                        user:result
+                    console.log("result before setstate",result);
+
+                   await this.setState({
+                        user:result.data
                     })
+                    console.log("==========================",this.state.user)
+                   
                 })
                 .catch(err => {
                     console.log("Erroe occur while taking all notes", err);
                 });
     }
+    componentDidMount(){
+      this.getUserData();
+    }
+    handleSubmitSignOut=()=>{
+      localStorage.clear();
+      this.props.history.push('/login')
+    }
     render() {
         const { anchorEl, open, placement } = this.state;
+      
         return (
-            <div>
+            <div className="profile_Root">
                  <Popper open={open} anchorEl={anchorEl} placement={placement} transition>
               {({ TransitionProps }) => (
                 <Fade {...TransitionProps} timeout={350}>
                   <Paper>
                    <div className='img_name_email'>
                        <div>
-                       <Avatar alt="Remy Sharp" src={require('../Assets/dog.jpg')}  />
+                       <Avatar alt="Remy Sharp" src={this.state.user.profilePic}  className='profile_Big_Avatar'/>
                        </div>
                        <div>
                        <div>
-                          firstname
+                          {this.state.user.firstName}{this.state.user.lastName}
                        </div>
                        <div>
                          
-                               email
+                               {this.state.user.email}
                         
                        </div>
                        </div>
                    </div>
                    <div>
-                       signout
+                   <Button
+                      onClick={this.handleSubmitSignOut}
+                      color='primary' style={{fontSize:18,fontFamily:'TimesNewRoman'}} variant="outlined">SignOut</Button>
+
                    </div>
                   </Paper>
                 </Fade>
               )}
             </Popper>
-            <Avatar alt="Remy Sharp" src={require('../Assets/dog.jpg')} onClick={this.handleClick('bottom')}/>
+            <Avatar alt="Remy Sharp" src={this.state.user.profilePic} onClick={this.handleClick('bottom')}/>
           </div>
         )
     }

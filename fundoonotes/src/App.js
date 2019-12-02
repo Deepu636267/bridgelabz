@@ -8,7 +8,8 @@ import Reset from './Pages/Reset';
 import Dashboard from './Pages/DashBoard';
 import AppBar from './Pages/AppBar';
 import Drwaer from './Pages/Drawer';
-import ProfilePic from './Pages/ProfilePic'
+import ProfilePic from './Pages/ProfilePic';
+import ServiceCard from './Pages/ServiceCard';
 //import { Drawer } from '@material-ui/core';
 // import ForgotPassword from './Pages/ForgotPassword';
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
           <Route path ='/appbar' component ={AppBar}></Route>
           <Route path='/drawer' component={Drwaer}></Route>
           <Route path='/profile' component={ProfilePic}></Route>
+          <Route path='/card' component={ServiceCard}></Route>
           {/* <Route path='/forgot' component={ForgotPassword}></Route> */}
         </Router>
       </div>

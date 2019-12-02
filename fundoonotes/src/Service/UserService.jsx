@@ -17,6 +17,22 @@ export function login (data){
         }
     })
 }
+export function facebookLogin (data){
+    return axios.post (baseURL+'account/FacebookLogin', data,{
+            headers:{
+            "Authorization" : localStorage.getItem('token')
+        }
+    })
+}
+
+export function googleLogin (data){
+    return axios.post (baseURL+'account/SocialLogin', data,{
+            headers:{
+            "Authorization" : localStorage.getItem('token')
+        }
+    })
+}
+
 export function forgot (data){
     return axios.post (baseURL+'account/Forgot', data,{
             headers:{

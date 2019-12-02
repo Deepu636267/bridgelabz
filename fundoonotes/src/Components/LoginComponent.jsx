@@ -3,8 +3,10 @@ import { TextField, Card, Button,Link } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar'
 import {withRouter} from 'react-router-dom'
-import { login } from '../Service/UserService'
+import { login,facebookLogin,googleLogin } from '../Service/UserService'
 import PropTypes from 'prop-types';
+import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
 // import CancelIcon from '@material-ui/icons/Cancel';
  class LoginComponent extends Component {
      constructor(props) {
@@ -77,7 +79,7 @@ import PropTypes from 'prop-types';
 
             login(data).then((res) => {
                 console.log("response after login", res);
-                localStorage.setItem(this.state.emailId,res.data.result)
+                localStorage.setItem('FundooUserToken',res.data.result)
                 // this.props.history.push('/login');
                 this.props.history.push('/appbar')
                 this.setState({ snackbarOpen: true, snackbarMsg: "Login done  successfully!!" })
@@ -92,6 +94,53 @@ import PropTypes from 'prop-types';
     handleLinkForgotPassword=()=>{
         this.props.history.push('/forgot')
     }
+    responseFacebook=(response)=>
+    {
+        console.log(response);
+        
+        console.log("Login True");
+            let data = {
+                'Email': response.email,
+                'FirstName':response.first_name,
+                'LastName':response.last_name,
+                'Password':"notNeccessary",
+                'CardType':"Not-Selected"
+            }
+            console.log("data to passsing to backend--------", data);
+
+            facebookLogin(data).then((res) => {
+                console.log("response after login", res);
+                localStorage.setItem('FundooUserToken',res.data.result)
+                // this.props.history.push('/login');
+                this.props.history.push('/appbar')
+                this.setState({ snackbarOpen: true, snackbarMsg: "Login done  successfully!!" })
+            }).catch(err => {
+                console.log("err in login component ", err);
+            })
+    }
+    responseGoogle= (response)=>
+    {
+        console.log("Login True");
+            let data = {
+                'Email': response.w3.U3,
+                'FirstName':response.w3.ofa,
+                'LastName':response.w3.wea,
+                'Password':"notNeccessary",
+                'CardType':"Not-Selected"
+            }
+            console.log("data to passsing to backend--------", data);
+
+            googleLogin(data).then((res) => {
+                console.log("response after login", res);
+                localStorage.setItem('FundooUserToken',res.data.result)
+                // this.props.history.push('/login');
+                this.props.history.push('/appbar')
+                this.setState({ snackbarOpen: true, snackbarMsg: "Login done  successfully!!" })
+            }).catch(err => {
+                console.log("err in login component ", err);
+            })
+    }
+    componentClicked=()=>console.log('click');
     render() {
         return (
             <div className='login_Container'>
@@ -139,9 +188,23 @@ import PropTypes from 'prop-types';
                                <Link  onClick={this.handleLinkRegistration} color='secondary'>Don't have account CreateAccount</Link>
                             </div>
                             <div className='login_forget'>
-                                <Link onClick={this.handleLinkForgotPassword} color='secondary'>Froget Password</Link>
+                                <Link onClick={this.handleLinkForgotPassword} color='secondary'>Forget Password</Link>
                             </div>
 
+                        </div>
+                        <div className="social_Login">
+                            <FacebookLogin
+                                appId="661318081065034"
+                                fields="first_name,last_name,email,picture"
+                                onClick={this.componentClicked}
+                                callback={this.responseFacebook} 
+                                className="fblogin"></FacebookLogin>
+                             <GoogleLogin
+                                clientId="692728348395-8nsi59p8ctp4lvmej9ed6vp3uaqcls3p.apps.googleusercontent.com"
+                                onSuccess={this.responseGoogle}
+                                onFailure={this.responseGoogle}
+                                 className="googlelogin"                              
+                                />
                         </div>
                     </div>
                 </Card>     
