@@ -3,10 +3,10 @@
 {
   display: flex;
   justify-content: center;
-  margin-top: 123px; 
+  margin-top: 24px;
 }
 .reg_card{
-  height: 24em;
+  height: 36em;
   width: 29em;
 }
 .Reg_Title{
@@ -36,7 +36,7 @@
 {
   display:flex;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 248px;
   display:flex;
   justify-content: space-evenly;
 }
@@ -352,13 +352,12 @@ background-color: darkgreen;
   height: 19pc;
   width: 18pc;
   background-color: gray;
-  /* position: relative; */
+  position: relative;
 }
 .front{
   height: 19pc;
     width: 18pc;
-    background-color: antiquewhite;
-    /* position: absolute; */
+    position: absolute;
 }
 .secondcard{
     display: flex;
@@ -404,14 +403,14 @@ background-color: darkgreen;
 }
 
 .front:hover {
-  transform: scale(1.3);
+  transform: scale(1.1);
   box-shadow: 20px 20px orange;
 }
 
-.front:active {
+/* .front:active {
   transform: scale(1.3);
   box-shadow: 20px 20px orange;
-}
+} */
 .front1:hover {
   transform: scale(1.3);
   box-shadow: 20px 20px orange;
@@ -420,4 +419,50 @@ background-color: darkgreen;
 .front1:active {
   transform: scale(1.3);
   box-shadow: 20px 20px orange;
+}
+.CardComponent{
+  display: flex;
+  justify-content: space-evenly
+}
+.CardComponent1{
+  height: 10px;
+  transform: scale(0.5);
+  pointer-events: none;
+  display: flex;
+ justify-content: space-around;
+}
+
+/* ---------------------------------CreateNotes--------------------------------- */
+.CreatecardNoteswithoutOpen{
+  border-radius: 9px;
+ 
+}
+.mainIcon{
+  
+  display: flex;
+    justify-content: space-between;
+    padding: 12px
+}
+.imageIcon{
+  padding: 5px;
+}
+.editOutlinedIcon{
+  padding: 5px;
+}
+.checkboxIcon{
+  padding: 5px;
+}
+.desciptionNotes{
+  padding: 5px;
+}
+.wholeIconwithoutOpen{
+  display: flex;
+}
+.CreatecardNotesOpen{
+  width: 289px;
+    height: 124px;
+}
+.wholeIconOpen{
+  display: flex;
+  justify-content: space-around;
 }

@@ -3,7 +3,8 @@ import { TextField, Card, Button } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar'
 import { registration } from '../Service/UserService'
-import {withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom';
+import ServiceCardComponent from './ServiceCardComponent'
  class RegistrationComponent extends Component {
     constructor(props) {
         super(props)
@@ -124,7 +125,7 @@ import {withRouter} from 'react-router-dom'
                 let data = {
                     "FirstName": this.state.firstName,
                     "LastName": this.state.lastName,
-                    'CardType': this.state.service,
+                    'CardType':  this.props.location.state.card,
                     'Email': this.state.emailId,
                     'Password': this.state.password
                 }
@@ -141,6 +142,15 @@ import {withRouter} from 'react-router-dom'
             }
         }
     render() {
+        var card="",color="",status=""
+        if (this.props.location.state !== undefined) {
+        card= this.props.location.state.card
+        color=this.props.location.state.color
+        status=this.props.location.state.status
+        localStorage.setItem("ServiceCard",card)
+        localStorage.setItem("ServiceCardColor",color)
+        localStorage.setItem("ServiceCardStatus",status)
+        }
         return (
             <div className='registrationContainer'>
                 <Card className="reg_card">
@@ -201,22 +211,24 @@ import {withRouter} from 'react-router-dom'
                                     required
                                                                         
                                 />
-                                 <TextField
-                                    id="Service"
-                                    value={this.state.service}
-                                    onChange={this.handleServiceChange}
-                                    label="Service"
-                                    required
-                                                                        
-                                />
+                                
                             </div>
+                            <div className="serviceCard">
+                             <ServiceCardComponent
+                             cartProps={true}
+                             color={color}
+                             status={status}
+                             card={card}
+                             />
+                             </div> 
                             <div className='resgistrationButton'>
                                 <Button color="primary" variant="outlined" style={{fontSize:18,fontFamily:'TimesNewRoman'}} href='http://localhost:3000/login' ><b>Sign In</b></Button>
                                 <Button 
                                 onClick={this.handleSubmit}
                                 color="secondary" variant="outlined" style={{fontSize:18,fontFamily:'TimesNewRoman'}} ><b>Sign Up</b></Button>
                             </div>
-                         </div>                  
+                         </div>   
+                                      
                 </Card> 
                 <div> 
                 <Snackbar
