@@ -8,7 +8,9 @@ import {withRouter} from 'react-router-dom';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ViewStreamIcon from '@material-ui/icons/ViewStream';
 import DrawerComponent from '../Components/DrawerComponent';
-import ProfilePicComponent from '../Components/ProfilePicComponent' 
+import ProfilePicComponent from '../Components/ProfilePicComponent'; 
+import GetAllNotesComponent from '../Components/GetAllNotesComponent';
+import CreateNoteComponent from '../Components/CreateNoteComponent'
  class AppBarComponent extends Component
 { 
   constructor(props) {
@@ -29,8 +31,10 @@ import ProfilePicComponent from '../Components/ProfilePicComponent'
   render() 
   {
     return (
+    
      <div className='root'>
-      <AppBar style={{backgroundColor :"#fff",color:'inherit'}}>
+       <div>
+      <AppBar style={{backgroundColor :"#fff",color:'inherit'}} position='static'>
         <div className="whole">
           <div className='main_menu_image_name'>
             <div className='menuButton'> 
@@ -80,8 +84,16 @@ import ProfilePicComponent from '../Components/ProfilePicComponent'
           </div>
         </div>
       </AppBar>
-     
       </div>
+      <div className='CreateNoteComp_AppBar'>
+        <CreateNoteComponent></CreateNoteComponent>
+      </div>
+      <div className="GetNotComp_Appbar">
+        <GetAllNotesComponent></GetAllNotesComponent>
+        </div>
+         
+      </div>
+     
     )
   }
 }

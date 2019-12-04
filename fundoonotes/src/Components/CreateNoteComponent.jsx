@@ -9,6 +9,9 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import ColorLensIcon from "@material-ui/icons/ColorLens";
 import ArchiveIcon from "@material-ui/icons/Archive";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import UndoIcon from '@material-ui/icons/Undo';
+import RedoIcon from '@material-ui/icons/Redo';
+import {createNotes} from '../Service/NotesServices'
 class CreateNoteComponent extends Component {
   constructor(props) {
     super(props);
@@ -31,6 +34,31 @@ class CreateNoteComponent extends Component {
       open: true
     });
   };
+  handleTitle=(e)=>{
+    this.setState({
+      title:e.target.value
+    })
+  }
+  handleClose=()=>{
+    let data={
+      "Title":this.state.title,
+      'Description':this.state.description
+    }
+    createNotes(data).then((result) => {
+          console.log("result in create note component for add notes", result);
+      
+                this.setState({
+                    open: false,
+                    title:"",
+                    description:"",
+                })
+               
+          
+        }). catch (err=> {
+            console.log("Error occur during back-end hitting", err);
+
+        })
+  }
 
   render() {
     return !this.state.open ? (
@@ -60,25 +88,32 @@ class CreateNoteComponent extends Component {
     ) : (
       <div className="createNotesOpen">
         <Card className="CreateNotecard">
-          <div>
+      
             <div className="input_field">
-              <div>
+              <div className='pin_Title'>
+              <div classNmae='inputBase' >
                 <InputBase
                   placeholder="Title"
                   multiline
                   onChange={this.handleTitle}
+                  className='title_field'
                 />
+              </div>
+              <div>
+              <img src={require('../Assets/pin.svg')} />  
+              </div>
               </div>
               <div>
                 <InputBase
                   placeholder="Take a note...."
                   multiline
                   onChange={this.handleDescription}
+                  className='description_Field'
                 />
               </div>
             </div>
-            <div>
-              <div>
+            <div className='button_icon'>
+              <div className='noteIcon'>
                 <div>
                   <AddAlertIcon className="icon" />
                 </div>
@@ -89,7 +124,7 @@ class CreateNoteComponent extends Component {
                   <ColorLensIcon />
                 </div>
                 <div>
-                  <ImageIcon className="icon" />
+                  <ImageOutlinedIcon className="icon" />
                 </div>
                 <div>
                   <ArchiveIcon className="icon" />
@@ -103,7 +138,7 @@ class CreateNoteComponent extends Component {
                 <div>
                   <RedoIcon className="icon" />
                 </div>
-              </div>
+                </div>
               <div className="closeButton">
                 <Button
                   style={{ margin: "spacing.unit" }}
@@ -112,8 +147,9 @@ class CreateNoteComponent extends Component {
                   Close
                 </Button>
               </div>
+           
             </div>
-          </div>
+          
         </Card>
       </div>
     );

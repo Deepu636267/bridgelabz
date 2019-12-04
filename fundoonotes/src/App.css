@@ -458,11 +458,82 @@ background-color: darkgreen;
 .wholeIconwithoutOpen{
   display: flex;
 }
-.CreatecardNotesOpen{
-  width: 289px;
-    height: 124px;
-}
 .wholeIconOpen{
   display: flex;
   justify-content: space-around;
+}
+.createNotesOpen{
+ 
+  width: 41%;
+  min-width: 500px;
+
+}
+.CreateNotecard{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.input_field{
+  
+}
+.button_icon{
+  display: flex;
+  justify-content: space-between;
+ 
+  align-items: center
+}
+.noteIcon{
+  display: flex;
+    justify-content: space-between;
+    width: 320px
+}
+.icon{
+  color: #202124;
+  opacity: 0.71;
+}
+.input_field{
+  padding: 10px;
+}
+.pin_Title{
+  display: flex;
+}
+
+.title_field{
+  width: 100%
+}
+.description_Field{
+  width: 100%
+}
+/* ---------------------------------GetAllNotes--------------------------------- */
+
+.get_cards1{
+  height: auto;
+    width: 220px;
+    padding: 10px;
+    min-height: 100px;
+    margin: 11px;
+    display: block
+}
+.getNoteAllcard{
+  
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap
+}
+
+
+
+
+
+
+
+
+
+
+
+.GetNotComp_Appbar{
+ 
+    height: 100vh;
+    display: flex;
+    justify-content: center
 }

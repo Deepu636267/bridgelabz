@@ -6,21 +6,21 @@ export function registration (data){
     return axios.post (baseURL+'account/Add', data,{
         headers:{
             
-            "Authorization" : localStorage.getItem('token')
+            "Authorization" :  'Bearer '+localStorage.getItem('FundooUserToken')
         }
     })
 }
 export function login (data){
     return axios.post (baseURL+'account/Login', data,{
             headers:{
-            "Authorization" : localStorage.getItem('token')
+            "Authorization" :  'Bearer '+localStorage.getItem('FundooUserToken')
         }
     })
 }
 export function facebookLogin (data){
     return axios.post (baseURL+'account/FacebookLogin', data,{
             headers:{
-            "Authorization" : localStorage.getItem('token')
+            "Authorization" :  'Bearer '+localStorage.getItem('FundooUserToken')
         }
     })
 }
@@ -28,7 +28,7 @@ export function facebookLogin (data){
 export function googleLogin (data){
     return axios.post (baseURL+'account/SocialLogin', data,{
             headers:{
-            "Authorization" : localStorage.getItem('token')
+            "Authorization" :  'Bearer '+localStorage.getItem('FundooUserToken')
         }
     })
 }
@@ -36,7 +36,7 @@ export function googleLogin (data){
 export function forgot (data){
     return axios.post (baseURL+'account/Forgot', data,{
             headers:{
-            "Authorization" : localStorage.getItem('token')
+            "Authorization" : 'Bearer '+localStorage.getItem('FundooUserToken')
         }
     })
 }
