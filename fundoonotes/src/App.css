@@ -435,7 +435,19 @@ background-color: darkgreen;
 /* ---------------------------------CreateNotes--------------------------------- */
 .CreatecardNoteswithoutOpen{
   border-radius: 9px;
- 
+  width: 37em;
+}
+.CreatemainNotesOpen{
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.createNote_Icons{
+  display: flex;
+  justify-content: space-around;
+  width: 300px
 }
 .mainIcon{
   
@@ -477,22 +489,18 @@ background-color: darkgreen;
   
 }
 .button_icon{
-  display: flex;
-  justify-content: space-between;
- 
-  align-items: center
+
 }
 .noteIcon{
   display: flex;
-    justify-content: space-between;
-    width: 320px
+  justify-content: space-between
 }
 .icon{
   color: #202124;
   opacity: 0.71;
 }
 .input_field{
-  padding: 10px;
+  
 }
 .pin_Title{
   display: flex;
@@ -502,7 +510,13 @@ background-color: darkgreen;
   width: 100%
 }
 .description_Field{
-  width: 100%
+  width: 100%;
+  margin-bottom: 5px;
+}
+.wholedivCreateNote{
+  width: 35em;
+    height: 27vh;
+    padding: 10px
 }
 /* ---------------------------------GetAllNotes--------------------------------- */
 
@@ -520,8 +534,13 @@ background-color: darkgreen;
     display: flex;
     flex-wrap: wrap
 }
-
-
+.descriptionDetails{
+  margin-bottom: 9px;
+}
+.WholeGetIcon{
+  display: flex;
+    justify-content: SPACE-AROUND;
+}
 
 
 
@@ -537,3 +556,17 @@ background-color: darkgreen;
     display: flex;
     justify-content: center
 }
+
+
+/* ---------------------------------SetReminder--------------------------------- */
+
+.setreminder_Value{
+  display:flex;
+  margin-right: 23px
+}
+.Remindertitle{
+  margin-left:15px
+}
+
+
+

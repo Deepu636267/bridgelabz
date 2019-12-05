@@ -16,3 +16,27 @@ export function GetAllNotes (){
         }
     })
 }
+export function SetReminder (data){
+    return axios.post (baseURL+'notes/Reminder',data,{
+        headers:{
+            
+            "Authorization" :  'Bearer '+localStorage.getItem('FundooUserToken')
+        }
+    })
+}
+export function Archive (data){
+    return axios.post (baseURL+'notes/Archive',data,{
+        headers:{
+            
+            "Authorization" :  'Bearer '+localStorage.getItem('FundooUserToken')
+        }
+    })
+}
+export function DeleteNote (data){
+    return axios.post (baseURL+'notes/Trash',data,{
+        headers:{
+            
+            "Authorization" :  'Bearer '+localStorage.getItem('FundooUserToken')
+        }
+    })
+}

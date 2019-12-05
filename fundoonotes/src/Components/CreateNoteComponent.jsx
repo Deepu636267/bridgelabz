@@ -11,7 +11,8 @@ import ArchiveIcon from "@material-ui/icons/Archive";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import UndoIcon from '@material-ui/icons/Undo';
 import RedoIcon from '@material-ui/icons/Redo';
-import {createNotes} from '../Service/NotesServices'
+import {createNotes} from '../Service/NotesServices';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 class CreateNoteComponent extends Component {
   constructor(props) {
     super(props);
@@ -59,9 +60,16 @@ class CreateNoteComponent extends Component {
 
         })
   }
+  handleClickAway = () => {
+    console.log("dhfhdjshf");
+    this.setState({
+      open:false
+    })
+  };
 
   render() {
     return !this.state.open ? (
+      // <ClickAwayListener onClickAway={handleClickAway}>
       <div className="CreatemainNotesOpen">
         <Card className="CreatecardNoteswithoutOpen">
           <div className="mainIcon">
@@ -85,12 +93,14 @@ class CreateNoteComponent extends Component {
           </div>
         </Card>
       </div>
+   
     ) : (
-      <div className="createNotesOpen">
+     
+      <div className="CreatemainNotesOpen">
         <Card className="CreateNotecard">
-      
+      <div className='wholedivCreateNote'>
             <div className="input_field">
-              <div className='pin_Title'>
+           
               <div classNmae='inputBase' >
                 <InputBase
                   placeholder="Title"
@@ -99,10 +109,10 @@ class CreateNoteComponent extends Component {
                   className='title_field'
                 />
               </div>
-              <div>
+              {/* <div>
               <img src={require('../Assets/pin.svg')} />  
-              </div>
-              </div>
+              </div> */}
+             
               <div>
                 <InputBase
                   placeholder="Take a note...."
@@ -112,8 +122,10 @@ class CreateNoteComponent extends Component {
                 />
               </div>
             </div>
-            <div className='button_icon'>
+         
               <div className='noteIcon'>
+            
+            <div className="createNote_Icons">
                 <div>
                   <AddAlertIcon className="icon" />
                 </div>
@@ -132,14 +144,9 @@ class CreateNoteComponent extends Component {
                 <div>
                   <MoreVertIcon className="icon" />
                 </div>
-                <div>
-                  <UndoIcon className="iconEffect" />
                 </div>
-                <div>
-                  <RedoIcon className="icon" />
-                </div>
-                </div>
-              <div className="closeButton">
+
+                <div className="closeButton">
                 <Button
                   style={{ margin: "spacing.unit" }}
                   onClick={this.handleClose}
@@ -147,12 +154,19 @@ class CreateNoteComponent extends Component {
                   Close
                 </Button>
               </div>
+
+                </div>
            
-            </div>
-          
+           
+           
+                </div> 
         </Card>
       </div>
-    );
+    
+      // </ClickAwayListener>
+     
+    )
+    
   }
 }
 export default withRouter(CreateNoteComponent);

@@ -11,6 +11,7 @@ import DrawerComponent from '../Components/DrawerComponent';
 import ProfilePicComponent from '../Components/ProfilePicComponent'; 
 import GetAllNotesComponent from '../Components/GetAllNotesComponent';
 import CreateNoteComponent from '../Components/CreateNoteComponent'
+
  class AppBarComponent extends Component
 { 
   constructor(props) {

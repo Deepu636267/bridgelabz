@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
 import {withRouter} from 'react-router-dom'
 import { Card } from '@material-ui/core'
-import {InputBase} from '@material-ui/core'
+import {InputBase,Tooltip,Chip } from '@material-ui/core'
 import {GetAllNotes} from '../Service/NotesServices'
+import ReminderCompnent from '../Components/ReminderCompnent'
+import ArchiveComponent from '../Components/ArchiveComponent'
+import AddImageComponent from '../Components/AddImageComponent'
+import ChangeColorComponent from '../Components/ChangeColorComponent'
+import CollaboratorComponent from '../Components/CollaboratorComponent'
+import MoreComponent  from '../Components/MoreComponent'
  class GetAllNotesComponent extends Component {
      constructor(props) {
          super(props)
@@ -37,7 +43,6 @@ import {GetAllNotes} from '../Service/NotesServices'
                             console.log("create note final data", data);
 
                             return (
-                              
                                 <div className="get_Whole_Card">
                                     <div className="get_card_effect">
                                         <Card className="get_cards1">
@@ -50,8 +55,45 @@ import {GetAllNotes} from '../Service/NotesServices'
                                                 </InputBase>
                                                 <InputBase value={data.description}
                                                     multiline  
+                                                    className='descriptionDetails'
                                                 >
                                                 </InputBase>
+                                            </div>
+                                            
+                                            <div>
+                                                {data.reminder!=null?(                                      
+                                                       <Tooltip title="Reminder">
+                                                            <Chip style={{ backgroundColor: "rgba(0,0,0,0.08)" }} className="chip"
+                                                                label={data.reminder.slice(0,21)} >
+                                                            </Chip>
+                                                        </Tooltip>
+                                                )
+                                                :
+                                                null
+                                                }
+                                                  
+                                            </div>
+                                            <div className='WholeGetIcon'>
+                                            <div>
+                                                <ReminderCompnent reminderNoteId={data.id} ></ReminderCompnent>
+                                            </div>
+                                            <div>
+                                                <CollaboratorComponent/>
+                                            </div>
+                                            <div>
+                                                <ChangeColorComponent/>
+                                            </div>
+                                            <div>
+                                            </div>
+                                                <AddImageComponent/>
+                                            <div>
+                                            <ArchiveComponent archeiveId={data.id}></ArchiveComponent>
+                                            </div>
+                                            <div>
+                                            <MoreComponent
+                                            deleteNotesId={data.id}
+                                            />
+                                            </div>
                                             </div>
                                         </Card>
                                     </div>

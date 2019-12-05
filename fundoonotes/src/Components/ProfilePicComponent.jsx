@@ -38,7 +38,7 @@ export class ProfilePicComponent extends Component {
                     console.log("Erroe occur while taking all notes", err);
                 });
     }
-    componentDidMount(){
+    componentDidMount(){ 
       this.getUserData();
     }
     handleSubmitSignOut=()=>{
