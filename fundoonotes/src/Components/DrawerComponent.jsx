@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Drawer from '@material-ui/core/Drawer'
-// import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { MenuItem, MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import EmojiObjectsOutlineIcon from '@material-ui/icons/EmojiObjectsOutlined';
 import AddAlertOutlineIcon from '@material-ui/icons/AddAlertOutlined';
@@ -8,6 +8,7 @@ import AddAlertOutlineIcon from '@material-ui/icons/AddAlertOutlined';
 import ArchiveOutlineIcon from '@material-ui/icons/ArchiveOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import EditOutlineIcon from '@material-ui/icons/EditOutlined';
+import PropTypes from 'prop-types';
 // import { getArchiveNotes } from '../services/notesServices';
 var theme = createMuiTheme({
     overrides: {
@@ -50,9 +51,23 @@ export class DrawerComponent extends Component {
     handleDraweropen = () => {
         this.setState({
             open: !this.state.open
+        
         })
+   
     }
-    
+    handleGetAllNotes=()=>{
+        this.props.history.push('/dashboard')
+    }
+    handleGetReminder=()=>{
+       
+        this.props.history.push('/getReminder')
+    }
+    handleGetArchive=()=>{
+        this.props.history.push('/getArchive')
+    }
+    handleGetTrash=()=>{
+        this.props.history.push('/getTrash')
+    }
     render() {
         console.log("open ", this.state.open);
         return (
@@ -71,8 +86,8 @@ export class DrawerComponent extends Component {
                             <div className="mainDrawerIcon">
                                 <div >
                                     <ul type="none" style={{ borderBottom: "1px solid #ddd" ,  margin: 0,padding: 0,borderBlockStart:"1px solid #ddd" }} >
-                                        <li className="DrawerIcons"> <MenuItem style={{backgroundColor:"transparent"}}><EmojiObjectsOutlineIcon  className="Icon"/><div className="iconName">Notes</div></MenuItem></li>
-                                        <li className="DrawerIcons"><MenuItem style={{backgroundColor:"transparent"}}><AddAlertOutlineIcon className="Icon"/><div className="iconName">Reminder</div></MenuItem></li>
+                                        <li className="DrawerIcons"> <MenuItem style={{backgroundColor:"transparent"}}onClick={this.handleGetAllNotes}><EmojiObjectsOutlineIcon  className="Icon"/><div className="iconName">Notes</div></MenuItem></li>
+                                        <li className="DrawerIcons"><MenuItem style={{backgroundColor:"transparent"}} onClick={this.handleGetReminder}> <AddAlertOutlineIcon className="Icon"/><div className="iconName">Reminder</div></MenuItem></li>
                                     </ul>
 
                                     <ul type="none" style={{ borderBottom: "1px solid #ddd",margin: 0,padding: 0}}>
@@ -80,8 +95,8 @@ export class DrawerComponent extends Component {
                                         <li className="DrawerIcons"> <MenuItem style={{backgroundColor:"transparent"}}><EditOutlineIcon className="Icon"/><div className="iconName">Edit Label</div></MenuItem></li>
                                     </ul>
                                     <ul type="none" style={{margin: 0,padding: 0 }}>
-                                    <li className="DrawerIcons"> <MenuItem style={{backgroundColor:"transparent"}}><ArchiveOutlineIcon className="Icon"/><div className="iconName">Archive</div></MenuItem></li>
-                                        <li className="DrawerIcons"><MenuItem style={{backgroundColor:"transparent"}}><DeleteOutlineIcon className="Icon"/><div className="iconName">Trash</div></MenuItem></li>
+                                    <li className="DrawerIcons"> <MenuItem style={{backgroundColor:"transparent"}} onClick={this.handleGetArchive}><ArchiveOutlineIcon className="Icon"/><div className="iconName">Archive</div></MenuItem></li>
+                                        <li className="DrawerIcons"><MenuItem style={{backgroundColor:"transparent"}} onClick={this.handleGetTrash}><DeleteOutlineIcon className="Icon"/><div className="iconName">Trash</div></MenuItem></li>
                                     </ul>
                                 </div>
                             </div>
@@ -94,4 +109,4 @@ export class DrawerComponent extends Component {
     }
 }
 
-export default DrawerComponent
+export default withRouter(DrawerComponent)

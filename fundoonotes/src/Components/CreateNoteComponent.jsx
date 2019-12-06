@@ -20,7 +20,10 @@ class CreateNoteComponent extends Component {
     this.state = {
       title: "",
       description: "",
-      open: false
+      open: false,
+      reminder:"",
+      color:"",
+     
     };
   }
   handleDescription = e => {
@@ -43,7 +46,11 @@ class CreateNoteComponent extends Component {
   handleClose=()=>{
     let data={
       "Title":this.state.title,
-      'Description':this.state.description
+      'Description':this.state.description,
+      "Reminder":this.state.reminder,
+      "Color":this.state.color,
+     
+   
     }
     createNotes(data).then((result) => {
           console.log("result in create note component for add notes", result);
@@ -97,6 +104,7 @@ class CreateNoteComponent extends Component {
     ) : (
      
       <div className="CreatemainNotesOpen">
+       <ClickAwayListener onClickAway={this.handleClickAway}>
         <Card className="CreateNotecard">
       <div className='wholedivCreateNote'>
             <div className="input_field">
@@ -161,6 +169,7 @@ class CreateNoteComponent extends Component {
            
                 </div> 
         </Card>
+        </ClickAwayListener>
       </div>
     
       // </ClickAwayListener>

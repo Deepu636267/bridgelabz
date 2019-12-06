@@ -15,7 +15,8 @@ import MoreComponent  from '../Components/MoreComponent'
      
          this.state = {
               notes:[],
-              openNote: false
+              openNote: false,
+              shiftDrawer:false
          }
      }
      componentDidMount() {
@@ -32,20 +33,45 @@ import MoreComponent  from '../Components/MoreComponent'
              console.log("after putting value",this.state.notes)
          })
      }
-     
+     handleRefreshArchive = () => {
+        if (true) {
+            this.getNotes()
+        }
+    }
+    handleRefreshDelete = () => {
+        if (true) {
+            this.getNotes()
+        }
+    }
+    //  handleDrawerOpen=()=>{
+    //     this. setState({
+    //          shiftDrawer : true
+    //      })
+    //  }
     render() {
+       
+   
+//    !this.state.shiftDrawer?  "transition_right" : {handleDrawerOpen}
+   
+   
+//         if(!this.state.shiftDrawer){
+//             "transition_right"
+//         }else if (()=>{this.handleDrawerOpen}){
+//             "transition_left"
+//         }
         return (
             !this.state.openNote ?
                 (
                     // get-container
-                    <div className='getNoteAllcard'>
+                    <div className="getNoteAllcard">
                         {this.state.notes.map((data) => {
                             console.log("create note final data", data);
 
                             return (
                                 <div className="get_Whole_Card">
+                                      { data.isArchive==false && data.isTrash==false? (
                                     <div className="get_card_effect">
-                                        <Card className="get_cards1">
+                                        <Card className="get_cards1" >
                                             <div className="get-cardDetails"
                                                 onClick={this.handleClickOpen}>
                                                 <InputBase
@@ -87,16 +113,19 @@ import MoreComponent  from '../Components/MoreComponent'
                                             </div>
                                                 <AddImageComponent/>
                                             <div>
-                                            <ArchiveComponent archeiveId={data.id}></ArchiveComponent>
+                                            <ArchiveComponent archeiveId={data.id}
+                                            refreshArchive={this.handleRefreshArchive} ></ArchiveComponent>
                                             </div>
                                             <div>
                                             <MoreComponent
                                             deleteNotesId={data.id}
+                                            refreshDelete={this.handleRefreshDelete}
                                             />
                                             </div>
                                             </div>
                                         </Card>
                                     </div>
+                                    ) : null}
                                 </div>
                             )
                         })}

@@ -19,6 +19,8 @@ class ArchiveComponent extends Component {
           console.log("Archive",data);
         Archive(data).then((result) => {
             console.log("Archive",result);
+            this.props.refreshArchive(true)
+
         }).catch((err) => {
             console.log("error Archieve", err)
         });

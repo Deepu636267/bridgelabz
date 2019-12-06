@@ -9,6 +9,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import ViewStreamIcon from '@material-ui/icons/ViewStream';
 import DrawerComponent from '../Components/DrawerComponent';
 import ProfilePicComponent from '../Components/ProfilePicComponent'; 
+import transitions from '@material-ui/core/styles/transitions';
 import GetAllNotesComponent from '../Components/GetAllNotesComponent';
 import CreateNoteComponent from '../Components/CreateNoteComponent'
 
@@ -31,71 +32,124 @@ import CreateNoteComponent from '../Components/CreateNoteComponent'
 }
   render() 
   {
-    return (
-    
-     <div className='root'>
-       <div>
-      <AppBar style={{backgroundColor :"#fff",color:'inherit'}} position='static'>
-        <div className="whole">
-          <div className='main_menu_image_name'>
-            <div className='menuButton'> 
-              <IconButton className='menuButton'
-                                edge="start"
-                                color="inherit"
-                                aria-label="open drawer"
-                                onClick={this.handleMenu}
-                            >
+    var transitions= this.state.menu ? "transition_left" : "transition_right"
+    return this.props.showProps !== true ? (
+      <div className="root">
+        <div>
+          <AppBar
+            style={{ backgroundColor: "#fff", color: "inherit" }}
+            position="static"
+          >
+            <div className="whole">
+              <div className="main_menu_image_name">
+                <div className="menuButton">
+                  <IconButton
+                    className="menuButton"
+                    edge="start"
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={this.handleMenu}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                  <DrawerComponent menuSelect={this.state.menu} />
+                </div>
 
-                                <MenuIcon />
-                            </IconButton>             
-                            <DrawerComponent menuSelect={this.state.menu}/>
+                <div className="menu_image" aria-label="FundooNotes">
+                  <img src={require("../Assets/Fundoo.png")} />
+                </div>
+                <div className="title">
+                  <span>FundooNotes</span>
+                </div>
+              </div>
 
+              <div className="search">
+                <div className="searchIcon">
+                  <SearchIcon className="searchIcon" />
+                </div>
+                <InputBase placeholder="Search…" className="searchField" />
+              </div>
+              <div className="ref_Acc">
+                <div className="refresh">
+                  <RefreshIcon />
+                </div>
+                <div className="setting">
+                  <SettingsIcon />
+                </div>
+                <div className="listView">
+                  <ViewStreamIcon />
+                </div>
+                <div className="sectionDesktop">
+                  <ProfilePicComponent />
+                </div>
+              </div>
             </div>
-         
-            <div className='menu_image' aria-label="FundooNotes">
-              <img src={require('../Assets/Fundoo.png')} />  
-            </div>
-            <div className='title'>
-              <span >FundooNotes</span>
-            </div>
+          </AppBar>
+        </div>
+        <div className={transitions}>
+          <div className="CreateNoteComp_AppBar">
+            <CreateNoteComponent></CreateNoteComponent>
           </div>
-        
-          <div className='search'>
-            <div className='searchIcon'>
-              <SearchIcon className='searchIcon'/>
-            </div>
-            <InputBase
-              placeholder="Search…"
-              className='searchField'
-            />
-          </div>
-          <div className="ref_Acc">
-            <div className='refresh'>
-              <RefreshIcon/>
-            </div>
-            <div className='setting'>
-              <SettingsIcon/>
-            </div>
-            <div className='listView'>
-              <ViewStreamIcon/>
-            </div>
-            <div className='sectionDesktop'>
-             <ProfilePicComponent />
-            </div>
+          <div className="GetNotComp_Appbar">
+            <GetAllNotesComponent></GetAllNotesComponent>
           </div>
         </div>
-      </AppBar>
       </div>
-      <div className='CreateNoteComp_AppBar'>
-        <CreateNoteComponent></CreateNoteComponent>
-      </div>
-      <div className="GetNotComp_Appbar">
-        <GetAllNotesComponent></GetAllNotesComponent>
+    ) : (
+      <div className="root">
+        <div>
+          <AppBar
+            style={{ backgroundColor: "#fff", color: "inherit" }}
+            position="static"
+          >
+            <div className="whole">
+              <div className="main_menu_image_name">
+                <div className="menuButton">
+                  <IconButton
+                    className="menuButton"
+                    edge="start"
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={this.handleMenu}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                  <DrawerComponent menuSelect={this.state.menu} />
+                </div>
+
+                <div className="menu_image" aria-label="FundooNotes">
+                  <img src={require("../Assets/Fundoo.png")} />
+                </div>
+                <div className="title">
+                  <span>FundooNotes</span>
+                </div>
+              </div>
+
+              <div className="search">
+                <div className="searchIcon">
+                  <SearchIcon className="searchIcon" />
+                </div>
+                <InputBase placeholder="Search…" className="searchField" />
+              </div>
+              <div className="ref_Acc">
+                <div className="refresh">
+                  <RefreshIcon />
+                </div>
+                <div className="setting">
+                  <SettingsIcon />
+                </div>
+                <div className="listView">
+                  <ViewStreamIcon />
+                </div>
+                <div className="sectionDesktop">
+                  <ProfilePicComponent />
+                </div>
+              </div>
+            </div>
+          </AppBar>
         </div>
-         
       </div>
-     
-    )
+    );
   }
 }
 export default withRouter (AppBarComponent)

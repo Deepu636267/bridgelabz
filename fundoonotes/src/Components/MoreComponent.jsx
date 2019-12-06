@@ -11,6 +11,7 @@ import {DeleteNote} from '../Service/NotesServices'
         anchorEl: null,
         open: false,
         placement: null,
+       
      
     }
 }
@@ -30,10 +31,12 @@ handleClickAway = () => {
       };
       deleteNote=()=>{
           let data={
+              'IsTrash':true,
               'Id':this.props.deleteNotesId
           }
           DeleteNote(data).then((result) => {
               console.log("Delete Data",result)
+              this.props.refreshDelete(true)
           }).catch((err) => {
               console.log("Delete Error",err)
           });

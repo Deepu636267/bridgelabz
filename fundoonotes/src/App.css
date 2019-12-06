@@ -529,10 +529,26 @@ background-color: darkgreen;
     display: block
 }
 .getNoteAllcard{
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  width: 60em;
+}
+.transition_left{
   
     justify-content: center;
     display: flex;
-    flex-wrap: wrap
+    flex-wrap: wrap;
+    width: 60em;
+    margin-left: 10%;
+}
+.transition_right{
+  
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  width: 60em;
+  
 }
 .descriptionDetails{
   margin-bottom: 9px;
@@ -540,6 +556,9 @@ background-color: darkgreen;
 .WholeGetIcon{
   display: flex;
     justify-content: SPACE-AROUND;
+}
+.get_Whole_Card{
+  height: auto
 }
 
 
@@ -568,5 +587,11 @@ background-color: darkgreen;
   margin-left:15px
 }
 
-
+/* ----------------------------------drawer-Shift--------------------------------- */
+/* #transition-left{
+  margin-left: 5%;
+}
+#transition-right{
+  margin-left: 5%;
+} */
 

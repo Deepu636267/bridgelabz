@@ -1,20 +1,21 @@
 import React, { Component } from 'react'
-import {Card} from '@material-ui/core'
+import AppBarComponent from '../Components/AppBarComponent'
 import {withRouter} from 'react-router-dom'
+import GetAllNotesComponent from '../Components/GetAllNotesComponent';
+import CreateNoteComponent from '../Components/CreateNoteComponent'
  class DashboardComponent extends Component {
     render() {
         return (
             <div className='dashboard_Container'>
-                <Card>
-                <div className='dashboard_Header'>
-                    <h1>Fundoo</h1>
-                </div>
-                </Card>
-                <Card>
-                <div className='dashboard_MainContent'>
-                <h1>Fundoo Content</h1> 
-                </div>
-                </Card>
+                <div>
+              <AppBarComponent></AppBarComponent>
+              </div>
+              <div className='CreateNoteComp_AppBar'>
+        <CreateNoteComponent></CreateNoteComponent>
+      </div>
+      <div className="GetNotComp_Appbar">
+        <GetAllNotesComponent></GetAllNotesComponent>
+        </div>
             </div>
         )
     }
