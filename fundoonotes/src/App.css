@@ -515,7 +515,7 @@ background-color: darkgreen;
 }
 .wholedivCreateNote{
   width: 35em;
-    height: 27vh;
+   
     padding: 10px
 }
 /* ---------------------------------GetAllNotes--------------------------------- */
@@ -526,7 +526,7 @@ background-color: darkgreen;
     padding: 10px;
     min-height: 100px;
     margin: 11px;
-    display: block
+    display: block;
 }
 .getNoteAllcard{
   justify-content: center;
@@ -539,7 +539,7 @@ background-color: darkgreen;
     justify-content: center;
     display: flex;
     flex-wrap: wrap;
-    width: 60em;
+    /* width: 60em; */
     margin-left: 10%;
 }
 .transition_right{
@@ -547,7 +547,8 @@ background-color: darkgreen;
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
-  width: 60em;
+  /* width: 60em; */
+  /* margin-left: 15%; */
   
 }
 .descriptionDetails{
@@ -573,7 +574,8 @@ background-color: darkgreen;
  
     height: 100vh;
     display: flex;
-    justify-content: center
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 
@@ -595,3 +597,9 @@ background-color: darkgreen;
   margin-left: 5%;
 } */
 
+.color_div{
+  display: flex;
+    width: 200px;
+    height: 130px;
+    flex-wrap: wrap
+}

@@ -86,15 +86,15 @@ import CreateNoteComponent from '../Components/CreateNoteComponent'
             </div>
           </AppBar>
         </div>
-        <div className={transitions}>
-          <div className="CreateNoteComp_AppBar">
+        {/* <div className={transitions}> */}
+          <div className={transitions}>
             <CreateNoteComponent></CreateNoteComponent>
           </div>
-          <div className="GetNotComp_Appbar">
+          <div className={transitions}>
             <GetAllNotesComponent></GetAllNotesComponent>
           </div>
         </div>
-      </div>
+      // </div>
     ) : (
       <div className="root">
         <div>

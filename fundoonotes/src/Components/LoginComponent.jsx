@@ -146,7 +146,7 @@ import GoogleLogin from 'react-google-login';
             <div className='login_Container'>
                 <Card className='login_Card'>
                     <div className='login_title'>
-                        <div style={{display:"flex", justifyContent:"center"}}>
+                        <div style={{display:"flex", justifyContent:"center" }}>
                             <span style={{ color: 'blue', fontFamily: 'TimesNewRoman', fontSize: 25 }}>F</span>
                             <span style={{ color: 'red', fontFamily: 'TimesNewRoman', fontSize: 25 }}>u</span>
                             <span style={{ color: 'orange', fontFamily: 'TimesNewRoman', fontSize: 25 }}>n</span>

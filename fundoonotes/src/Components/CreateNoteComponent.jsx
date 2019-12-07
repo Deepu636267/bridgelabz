@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { TextField, Card, Button, InputBase } from "@material-ui/core";
+import { TextField, Card, Button, InputBase,Paper, Popper, MenuItem,Fade  } from "@material-ui/core";
 import CheckBoxOutlinedIcon from "@material-ui/icons/CheckBoxOutlined";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined";
@@ -23,6 +23,9 @@ class CreateNoteComponent extends Component {
       open: false,
       reminder:"",
       color:"",
+      openAlert:false,
+      anchorEl: null,
+      placement: null,
      
     };
   }
@@ -69,10 +72,51 @@ class CreateNoteComponent extends Component {
   }
   handleClickAway = () => {
     console.log("dhfhdjshf");
-    this.setState({
-      open:false
+   
+      this.setState({
+     open:false
     })
   };
+  handleAlert=()=>{
+    console.log("reminder")
+  }
+  handleDFGH  = placement => event => {
+    const { currentTarget } = event;
+    this.setState(state => ({
+      anchorEl: currentTarget,
+      openAlert: state.placement !== placement || !state.openAlert,
+      placement,
+    }));
+  };
+    setLaterToday=()=>{
+           var d = new Date();
+            d.setHours(20,0,0);
+            console.log("date",d)
+            this.setState({
+              reminder:d.toString(),
+              openAlert:false
+            })
+            console.log("Reminder",this.state.reminder)
+          
+      }
+      setTomorrow=()=>{
+        var d = new Date();
+        d.setDate(d.getDate() + 1);
+        d.setHours(8,0,0);
+        this.setState({
+          reminder:d.toString()
+        })
+       
+      }
+      setNextWeek=()=>{
+        var d = new Date();
+        d.setDate(d.getDate() + 7);
+        d.setHours(8,0,0);
+        this.setState({
+          reminder:d.toString()
+        })
+         
+      }
 
   render() {
     return !this.state.open ? (
@@ -102,14 +146,14 @@ class CreateNoteComponent extends Component {
       </div>
    
     ) : (
-     
+      <ClickAwayListener onClickAway={!this.state.openAlert?this.handleClickAway:this.handleAlert}>
       <div className="CreatemainNotesOpen">
-       <ClickAwayListener onClickAway={this.handleClickAway}>
+       
         <Card className="CreateNotecard">
       <div className='wholedivCreateNote'>
             <div className="input_field">
            
-              <div classNmae='inputBase' >
+              <div className='inputBase' >
                 <InputBase
                   placeholder="Title"
                   multiline
@@ -135,7 +179,25 @@ class CreateNoteComponent extends Component {
             
             <div className="createNote_Icons">
                 <div>
-                  <AddAlertIcon className="icon" />
+                <div>                      
+                    <AddAlertIcon className='getNotesIcon' onClick={this.handleDFGH('bottom')}/>
+                     {this.state.openAlert?(
+                     <Popper open={this.state.openAlert} anchorEl={this.state.anchorEl} placement={this.state.placement} transition>
+                         {({ TransitionProps }) => (
+                         <Fade {...TransitionProps} timeout={350}>
+                            <Paper className='Paper_reminder'>
+                            <div className='Remindertitle'> Reminder </div>
+                            <div>
+                                <MenuItem onClick={this.setLaterToday}><div className="setreminder_Value">LaterToday </div><div>20:00</div></MenuItem>
+                                <MenuItem onClick={this.setTomorrow}><div className="setreminder_Value">Tomorrow</div><div>08:00</div></MenuItem>
+                                <MenuItem onClick={this.setNextWeek}>Next-Week</MenuItem>
+                            </div>
+                        </Paper>
+                        </Fade>
+                        )}
+                    </Popper>
+                    ):null}
+                     </div>
                 </div>
                 <div>
                   <PersonAddIcon className="icon" />
@@ -169,8 +231,9 @@ class CreateNoteComponent extends Component {
            
                 </div> 
         </Card>
-        </ClickAwayListener>
+     
       </div>
+      </ClickAwayListener>
     
       // </ClickAwayListener>
      

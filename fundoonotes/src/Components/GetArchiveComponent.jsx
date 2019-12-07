@@ -6,7 +6,7 @@ import {GetAllNotes,UnArchive} from '../Service/NotesServices'
 import ReminderCompnent from '../Components/ReminderCompnent'
 import UnArchiveComponent from '../Components/UnArchiveComponent'
 import AddImageComponent from '../Components/AddImageComponent'
-import ChangeColorComponent from '../Components/ChangeColorComponent'
+import ColorComponent from '../Components/ColorComponent'
 import CollaboratorComponent from '../Components/CollaboratorComponent'
 import MoreComponent  from '../Components/MoreComponent'
 import CreateNoteComponent from '../Components/CreateNoteComponent'
@@ -100,7 +100,7 @@ import AppBarComponent from '../Components/AppBarComponent'
                             <CollaboratorComponent />
                           </div>
                           <div>
-                            <ChangeColorComponent />
+                            <ColorComponent />
                           </div>
                           <div></div>
                           <AddImageComponent />

@@ -55,3 +55,25 @@ export function DeleteAll (){
         }
     })
 }
+export function RemoveRminder (data){
+    return axios.post (baseURL+'notes/RemoveReminder',data,{
+        headers:{
+            "Authorization" :  'Bearer '+localStorage.getItem('FundooUserToken')
+        }
+    })
+}
+export function UpdateNotes (data){
+    return axios.put (baseURL+'notes/Update',data,{
+        headers:{
+            "Authorization" :  'Bearer '+localStorage.getItem('FundooUserToken')
+        }
+    })
+}
+export function SetColor (data){
+    return axios.post (baseURL+'notes/SetColor',data,{
+        headers:{
+            "Authorization" :  'Bearer '+localStorage.getItem('FundooUserToken')
+        }
+    })
+}
+
