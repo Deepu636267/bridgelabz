@@ -46,7 +46,7 @@ function Transition(props) {
              console.log("after putting value",this.state.notes)
          })
      }
-     handleRefreshArchive = () => {
+     handleRefresh = () => {
         if (true) {
             this.getNotes()
         }
@@ -147,7 +147,7 @@ function Transition(props) {
                                 <div className="get_Whole_Card">
                                       { data.isArchive==false && data.isTrash==false? (
                                     <div className="get_card_effect">
-                                        <Card className="get_cards1" style={{backgroundColor:data.color }}>
+                                        <Card className="get_cards1" style={{backgroundColor:data.color}}>
                                             <div className="get-cardDetails"
                                                  onClick={() =>this.handleClickOpen(data)}>
                                                 <InputBase
@@ -190,7 +190,10 @@ function Transition(props) {
                                                 <ReminderCompnent reminderNoteId={data.id} ></ReminderCompnent>
                                             </div>
                                             <div>
-                                                <CollaboratorComponent/>
+                                                <CollaboratorComponent propsCollabList={data.collaborators}
+                                                ownerEamil={data.email}
+                                                noteId={data.id}
+                                                refresh={this.handleRefresh}/>
                                             </div>
                                             <div>
                                                 <ColorComponent
@@ -204,7 +207,7 @@ function Transition(props) {
                                                 </div>
                                             <div>
                                             <ArchiveComponent archeiveId={data.id}
-                                            refreshArchive={this.handleRefreshArchive} ></ArchiveComponent>
+                                            refresh={this.handleRefresh} ></ArchiveComponent>
                                             </div>
                                             <div>
                                             <MoreComponent

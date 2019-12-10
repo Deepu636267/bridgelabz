@@ -527,6 +527,7 @@ background-color: darkgreen;
     min-height: 100px;
     margin: 11px;
     display: block;
+    box-shadow: 2px 2px 12px 0px; 
 }
 .getNoteAllcard{
   justify-content: center;
@@ -602,4 +603,34 @@ background-color: darkgreen;
     width: 200px;
     height: 130px;
     flex-wrap: wrap
+}
+.Dialog{
+  width: -webkit-fill-available;
+}
+.collaboratorReciverEmail{
+  display: flex;
+ 
+  width: 281px;
+  align-items: center;
+  justify-content: SPACE-AROUND
+}
+.collaboratorOwnerDetails{
+  display: flex;
+  height: 56px;
+  width: 281px;
+  align-items: center;
+  justify-content: SPACE-AROUND
+}
+.collaboratorAvatarReciver{
+ color:  blue;
+}
+.recevierEmail{
+  margin-left: 12px;
+}
+.emailOrImage{
+  display: flex;
+  align-items: center;
+}
+.inputFieldCollaborator{
+  width: 100%;
 }

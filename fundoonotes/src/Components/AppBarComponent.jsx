@@ -37,6 +37,8 @@ import CreateNoteComponent from '../Components/CreateNoteComponent'
       <div className="root">
         <div>
           <AppBar
+
+
             style={{ backgroundColor: "#fff", color: "inherit" }}
             position="static"
           >

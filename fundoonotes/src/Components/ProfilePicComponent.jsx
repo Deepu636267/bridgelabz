@@ -32,6 +32,9 @@ export class ProfilePicComponent extends Component {
                         user:result.data
                     })
                     console.log("==========================",this.state.user)
+                    localStorage.setItem("UserProfile",this.state.user.profilePic);
+                    localStorage.setItem("UserFirstName",this.state.user.firstName);
+                    localStorage.setItem("UserLastName",this.state.user.lastName);
                    
                 })
                 .catch(err => {

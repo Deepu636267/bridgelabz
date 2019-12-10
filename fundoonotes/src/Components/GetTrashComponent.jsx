@@ -58,10 +58,7 @@ import RestoreComponent from '../Components/RestoreComponent'
                   {  data.isTrash===true? (
                     
                     <div className="get_card_effect">
-                      <div>
-                      Notes in the Recycle Bin are deleted after 7 days.
-                      <Button onClick={this.DeleteAllNotesFromTrash} className='emptybin'>Empty Bin</Button>
-                    </div>
+                   
                       <Card className="get_cards1">
                         <div
                           className="get-cardDetails"

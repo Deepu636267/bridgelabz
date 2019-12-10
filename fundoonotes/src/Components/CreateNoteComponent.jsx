@@ -26,6 +26,7 @@ class CreateNoteComponent extends Component {
       openAlert:false,
       anchorEl: null,
       placement: null,
+      date:"2019-12-24T10:30"
      
     };
   }
@@ -79,6 +80,14 @@ class CreateNoteComponent extends Component {
   };
   handleAlert=()=>{
     console.log("reminder")
+  }
+  handleCustomizedDate=(e)=>{
+    console.log("data",e.target.value)
+    const data=e.target.value
+    this.setState({
+      date:data
+    })
+    console.log("data",this.state.date)
   }
   handleDFGH  = placement => event => {
     const { currentTarget } = event;
@@ -191,6 +200,19 @@ class CreateNoteComponent extends Component {
                                 <MenuItem onClick={this.setLaterToday}><div className="setreminder_Value">LaterToday </div><div>20:00</div></MenuItem>
                                 <MenuItem onClick={this.setTomorrow}><div className="setreminder_Value">Tomorrow</div><div>08:00</div></MenuItem>
                                 <MenuItem onClick={this.setNextWeek}>Next-Week</MenuItem>
+                                <MenuItem>
+                                <TextField
+                                    id="datetime-local"
+                                    label="Customized Date Time"
+                                    type="datetime-local"
+                                    defaultValue={this.state.date}
+                                    onChange={this.handleCustomizedDate}
+                                    // className={classes.textField}
+                                    InputLabelProps={{
+                                    shrink: true,
+                                    }}
+                                />
+                                </MenuItem>
                             </div>
                         </Paper>
                         </Fade>
