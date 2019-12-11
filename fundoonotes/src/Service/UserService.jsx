@@ -55,3 +55,11 @@ export function getUser()
         }
     })
 }
+export function ProfilePicUpload(data)
+{
+    return axios.post(baseURL+'account/ProfilePic',data,{
+        headers:{
+        "Authorization" : 'Bearer '+localStorage.getItem('FundooUserToken')
+        }
+    })
+}

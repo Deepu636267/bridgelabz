@@ -9,14 +9,13 @@ import AddImageComponent from '../Components/AddImageComponent'
 import ColorComponent from '../Components/ColorComponent'
 import CollaboratorComponent from '../Components/CollaboratorComponent'
 import MoreComponent  from '../Components/MoreComponent';
-import PinComponent from '../Components/PinComponent'
+import UnPinComponent from '../Components/UnPinComponent'
 import CloseIcon from '@material-ui/icons/Close';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
-import PinDisplayComponent from '../Components/PinDisplayComponent'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'; 
 const theme = createMuiTheme({
     overrides: {
@@ -42,7 +41,7 @@ const theme = createMuiTheme({
 function Transition(props) {
     return <Slide direction="up" {...props} />;
 }
- class GetAllNotesComponent extends Component {
+export default class PinDisplayComponent extends Component {
      constructor(props) {
          super(props)
      
@@ -164,19 +163,18 @@ function Transition(props) {
                 (
                     // get-container
                     <div className="getNoteAllcard">
-                       Pinned
                         {this.state.notes.map((data) => {
                             console.log("create note final data", data);
 
                             return (
                                 <div className="get_Whole_Card">
-                                      { data.isArchive==false && data.isTrash==false && data.isPin==false? (
+                                      { data.isArchive==false && data.isTrash==false && data.isPin==true? (
                                     <div className="get_card_effect">
-                                        {/* {data.isPin==true?(<PinDisplayComponent propsPin={data.id}></PinDisplayComponent>):( */}
                                         <Card className="get_cards1" style={{backgroundColor:data.color}}>
+                                            <div className="pinNotes">
                                             <div className="get-cardDetails"
                                                  onClick={() =>this.handleClickOpen(data)}>
-                                                     <div className="pinNotes">
+                                                 
                                                 <InputBase
                                                  value={data.title}
                                                     multiline  
@@ -185,14 +183,16 @@ function Transition(props) {
                                                     {/* <div className="pinGet"aria-label="pinNotes" onClick={this.handle}>
                                                         <img src={require("../Assets/pin.svg")} />
                                                     </div> */}
-                                                    <PinComponent propsNoteId={data.id}></PinComponent>
-                                                </div>
+                                                   
+                                              
                                                 <InputBase value={data.description}
                                                     multiline  
                                                     className='descriptionDetails'
                                                     onClick={() =>this.handleUpdate(data)}
                                                 >
                                                 </InputBase>
+                                            </div>
+                                            <UnPinComponent propsNoteId={data.id} refresh={this.handleRefresh}></UnPinComponent>
                                             </div>
                                             
                                             <div>
@@ -249,7 +249,6 @@ function Transition(props) {
                                             </div>
                                             </div>
                                         </Card>
-                                        {/* )} */}
                                     </div>
                                     ) : null}
                                 </div>
@@ -294,4 +293,3 @@ function Transition(props) {
         )
     }
 }
-export default withRouter (GetAllNotesComponent)

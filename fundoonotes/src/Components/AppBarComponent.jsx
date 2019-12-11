@@ -11,7 +11,8 @@ import DrawerComponent from '../Components/DrawerComponent';
 import ProfilePicComponent from '../Components/ProfilePicComponent'; 
 import transitions from '@material-ui/core/styles/transitions';
 import GetAllNotesComponent from '../Components/GetAllNotesComponent';
-import CreateNoteComponent from '../Components/CreateNoteComponent'
+import CreateNoteComponent from '../Components/CreateNoteComponent';
+import PinDisplayComponent from '../Components/PinDisplayComponent';
 
  class AppBarComponent extends Component
 { 
@@ -91,6 +92,9 @@ import CreateNoteComponent from '../Components/CreateNoteComponent'
         {/* <div className={transitions}> */}
           <div className={transitions}>
             <CreateNoteComponent></CreateNoteComponent>
+          </div>
+          <div className={transitions}>
+            <PinDisplayComponent></PinDisplayComponent>
           </div>
           <div className={transitions}>
             <GetAllNotesComponent></GetAllNotesComponent>

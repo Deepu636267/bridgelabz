@@ -9,6 +9,28 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import {createNotes,removeCollaborators} from '../Service/CollaboratorServices';
 import CloseIcon from '@material-ui/icons/Close';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'; 
+const theme = createMuiTheme({
+    overrides: {
+        MuiDialogTitle:{
+            root:{
+                padding: "0px"
+            }
+        },
+        MuiDialog:{
+            paper:{
+                margin:"0px",
+                width: "45%"
+            }
+        },
+        MuiList:{
+            padding:{
+                paddingTop: "0px",
+                paddingBottom: "0px"
+            }
+        }
+    }
+});
 function Transition(props) {
     return <Slide direction="up" {...props} />;
 }
@@ -35,7 +57,7 @@ function Transition(props) {
          console.log("recv",this.state.receiverEmail);
          
      }
-     handleDeleteReminder=(collabId,notesId,recEmail)=>{
+     handleRemoveCollaborator=(collabId,notesId,recEmail)=>{
          let data={
             "NoteId":notesId,
             "Id":collabId,
@@ -60,7 +82,8 @@ function Transition(props) {
             console.log(" Collaborator Added",result)
             this.setState({
                 openCollab:false,
-              
+                 receiverEmail:""
+                
             })
             this.props.refresh(true)
         }).catch((err) => {
@@ -80,7 +103,7 @@ function Transition(props) {
                 <PersonAddIcon onClick={this.handleClick}/>
             </div>
             ):(
-               
+                <MuiThemeProvider theme={theme}>
                 <Dialog
                 open={this.state.openCollab}
                 TransitionComponent={Transition}
@@ -90,9 +113,11 @@ function Transition(props) {
                 aria-describedby="alert-dialog-slide-description"
            
                  >
+                         <MuiThemeProvider theme={theme}>
                 <DialogTitle id="alert-dialog-slide-title">
                     {"Collaborators"}
                 </DialogTitle>
+                </MuiThemeProvider>
                 <DialogContent>
                 <div className='collaboratorOwnerDetails'>
                        <div>
@@ -131,7 +156,7 @@ function Transition(props) {
                                                         </div>
                                                      </div>
                                                      <div>
-                                                   <CloseIcon onClick={() => this.handleDeleteReminder(data.id,data.noteId,data.reciverEamil)}></CloseIcon>
+                                                   <CloseIcon onClick={() => this.handleRemoveCollaborator(data.id,data.noteId,data.reciverEamil)}></CloseIcon>
                                                         
                                                      </div>
                                                      </div>
@@ -167,12 +192,12 @@ function Transition(props) {
                     </div>
                 
                 </DialogContent>
-                <DialogActions>
+                <DialogActions style={{backgroundColor:"#ded7d7"}}>
                 <Button onClick={this.handleCancel} color="primary">Cancel</Button>
                     <Button onClick={this.handleSave} color="primary">Save</Button>
                 </DialogActions>
             </Dialog>
-       
+            </MuiThemeProvider>
             )
         )
     }

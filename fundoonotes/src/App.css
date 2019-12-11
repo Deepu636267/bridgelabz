@@ -292,7 +292,7 @@
 .img_name_email{
   display: flex;
   height: 130px;
-  width: 281px;
+  width: 331px;
   align-items: center;
   justify-content: SPACE-AROUND
 }
@@ -300,8 +300,8 @@
   top: 16px;
 }
 .profile_Big_Avatar{
-  height:100%;
-  width:120%
+  height:100px;
+  width:100px;
 }
 /* .bigAvatar {
   width: 60;
@@ -519,7 +519,11 @@ background-color: darkgreen;
     padding: 10px
 }
 /* ---------------------------------GetAllNotes--------------------------------- */
-
+/* .get_card_effect{
+  box-shadow: 1px 1px 17px 3px;
+  border-radius: 11px;
+  width: 240px;
+} */
 .get_cards1{
   height: auto;
     width: 220px;
@@ -527,6 +531,7 @@ background-color: darkgreen;
     min-height: 100px;
     margin: 11px;
     display: block;
+    
     box-shadow: 2px 2px 12px 0px; 
 }
 .getNoteAllcard{
@@ -562,6 +567,19 @@ background-color: darkgreen;
 .get_Whole_Card{
   height: auto
 }
+.pinNotes{
+  display: flex;
+    justify-content: SPACE-BETWEEN;
+}
+.pinGet:hover{
+  background-color: grey;
+}
+.pinGet{
+  border-radius: 19px;
+    /* align-items: center; */
+    display: flex;
+    align-items: center
+}
 
 
 
@@ -570,14 +588,13 @@ background-color: darkgreen;
 
 
 
-
-.GetNotComp_Appbar{
+/* .GetNotComp_Appbar{
  
     height: 100vh;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-}
+} */
 
 
 /* ---------------------------------SetReminder--------------------------------- */
@@ -597,29 +614,30 @@ background-color: darkgreen;
 #transition-right{
   margin-left: 5%;
 } */
-
+/* ----------------------------------Color-Component--------------------------------- */
 .color_div{
   display: flex;
     width: 200px;
     height: 130px;
     flex-wrap: wrap
 }
-.Dialog{
+/* .Dialog{
   width: -webkit-fill-available;
-}
+} */
+/* ----------------------------------Collaborator-Component--------------------------------- */
 .collaboratorReciverEmail{
   display: flex;
- 
-  width: 281px;
+  height: 56px;
+  width: 100%;
   align-items: center;
-  justify-content: SPACE-AROUND
+  justify-content: SPACE-BETWEEN
 }
 .collaboratorOwnerDetails{
   display: flex;
   height: 56px;
-  width: 281px;
+  width: 286px;
   align-items: center;
-  justify-content: SPACE-AROUND
+  justify-content: SPACE-BETWEEN
 }
 .collaboratorAvatarReciver{
  color:  blue;

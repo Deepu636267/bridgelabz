@@ -76,4 +76,11 @@ export function SetColor (data){
         }
     })
 }
+export function SetPin (data){
+    return axios.post (baseURL+'notes/Pin?Id='+data,"",{
+        headers:{
+            "Authorization" :  'Bearer '+localStorage.getItem('FundooUserToken')
+        }
+    })
+}
 
