@@ -652,3 +652,17 @@ background-color: darkgreen;
 .inputFieldCollaborator{
   width: 100%;
 }
+
+
+
+
+
+.Paper_reminder1{
+  max-width: 30px;
+}
+.labelEdit{
+  padding: 0px 0px 0px 32px;
+  font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    display: flex;
+}

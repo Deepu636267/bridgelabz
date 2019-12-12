@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import {SetPin} from '../Service/NotesServices'
+import {SetUnPin} from '../Service/NotesServices'
 export default class UnPinComponent extends Component {
     handle=()=>{
         
             
        
-        SetPin(this.props.propsNoteId).then((result) => {
+        SetUnPin(this.props.propsNoteId).then((result) => {
             console.log("pin Result",result)
             this.props.refresh(true)
         }).catch((err) => {

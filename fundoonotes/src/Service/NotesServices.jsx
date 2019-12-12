@@ -83,4 +83,11 @@ export function SetPin (data){
         }
     })
 }
+export function SetUnPin (data){
+    return axios.post (baseURL+'notes/UnPin?Id='+data,"",{
+        headers:{
+            "Authorization" :  'Bearer '+localStorage.getItem('FundooUserToken')
+        }
+    })
+}
 

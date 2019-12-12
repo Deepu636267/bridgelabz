@@ -8,6 +8,7 @@ import AddAlertOutlineIcon from '@material-ui/icons/AddAlertOutlined';
 import ArchiveOutlineIcon from '@material-ui/icons/ArchiveOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import EditOutlineIcon from '@material-ui/icons/EditOutlined';
+import EditLabelComponent from '../Components/EditLabelComponent'
 import PropTypes from 'prop-types';
 // import { getArchiveNotes } from '../services/notesServices';
 var theme = createMuiTheme({
@@ -92,7 +93,7 @@ export class DrawerComponent extends Component {
 
                                     <ul type="none" style={{ borderBottom: "1px solid #ddd",margin: 0,padding: 0}}>
                                         <div className="Label">LABELS</div>
-                                        <li className="DrawerIcons"> <MenuItem style={{backgroundColor:"transparent"}}><EditOutlineIcon className="Icon"/><div className="iconName">Edit Label</div></MenuItem></li>
+                                        <li > <EditLabelComponent /></li>
                                     </ul>
                                     <ul type="none" style={{margin: 0,padding: 0 }}>
                                     <li className="DrawerIcons"> <MenuItem style={{backgroundColor:"transparent"}} onClick={this.handleGetArchive}><ArchiveOutlineIcon className="Icon"/><div className="iconName">Archive</div></MenuItem></li>

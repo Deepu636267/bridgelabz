@@ -164,7 +164,7 @@ function Transition(props) {
                 (
                     // get-container
                     <div className="getNoteAllcard">
-                       Pinned
+                       
                         {this.state.notes.map((data) => {
                             console.log("create note final data", data);
 
@@ -244,7 +244,9 @@ function Transition(props) {
                                             <div>
                                             <MoreComponent
                                             deleteNotesId={data.id}
+                                            notesId={data.id}
                                             refreshDelete={this.handleRefreshDelete}
+                                            createlabelPropsToMore={this.handleRefresh}
                                             />
                                             </div>
                                             </div>
