@@ -285,6 +285,7 @@
   border-collapse: collapse;
 
 }
+
 .mainDrawerIcon{
   
 }
@@ -433,16 +434,87 @@ background-color: darkgreen;
 }
 
 /* ---------------------------------CreateNotes--------------------------------- */
-.CreatecardNoteswithoutOpen{
-  border-radius: 9px;
-  width: 37em;
-}
-.CreatemainNotesOpen{
+
+@media screen and (max-width: 550px) {
+  .CreatecardNoteswithoutOpen {
+    min-width: 24em;
+        border-radius: 18px
+  }
+  .CreatemainNotesOpen{
   display: flex;
   justify-content: center;
-  margin-top: 15px;
+  margin-top: 18%;
   margin-bottom: 15px;
+  }
 }
+@media screen and (max-width: 400px) {
+  .CreatecardNoteswithoutOpen {
+    min-width: 20em;
+        border-radius: 18px
+  }
+  .CreatemainNotesOpen{
+  display: flex;
+  justify-content: center;
+  margin-top: 24%;
+  margin-bottom: 15px;
+  }
+}
+@media screen and (min-width: 550px) and (max-width: 750px) {
+ .CreatemainNotesOpen{
+  display: flex;
+  justify-content: center;
+  margin-top: 16%;
+  margin-bottom: 15px;
+  }
+  
+ }
+ @media screen and (min-width: 550px) and (max-width: 2000px) {
+  .CreatecardNoteswithoutOpen {
+    min-width: 34em;
+        border-radius: 18px
+  }
+  
+ }
+ @media screen and (min-width: 750px) and (max-width: 2000px) {
+  .CreatemainNotesOpen{
+  display: flex;
+  justify-content: center;
+  margin-top: 9%;
+  margin-bottom: 15px;
+  }
+}
+/* @media screen and (max-width: 850px) {
+  .CreatemainNotesOpen{
+  display: flex;
+  justify-content: center;
+  margin-top: 24%;
+  margin-bottom: 15px;
+  }
+}
+   */
+/* @media screen and (max-width: 2000px) {
+  .CreatecardNoteswithoutOpen {
+    min-width: 34em;
+  }
+} */
+/* @media screen and (min-width: 400px) {
+  .CreatecardNoteswithoutOpen {
+    width: 20em;
+  }
+}
+@media screen and (min-width: 300px) {
+  .CreatecardNoteswithoutOpen {
+    width: 20em;
+  }
+} */
+
+
+
+/* .CreatecardNoteswithoutOpen{
+  border-radius: 9px;
+  min-width: 37em;
+} */
+
 
 .createNote_Icons{
   display: flex;
@@ -524,6 +596,17 @@ background-color: darkgreen;
   border-radius: 11px;
   width: 240px;
 } */
+
+.get_Whole_Card:hover .WholeGetIcon {
+  visibility:visible;
+}
+
+.WholeGetIcon{
+  display: flex;
+    justify-content: SPACE-AROUND;
+    visibility:hidden;
+}
+
 .get_cards1{
   height: auto;
     width: 220px;
@@ -560,10 +643,7 @@ background-color: darkgreen;
 .descriptionDetails{
   margin-bottom: 9px;
 }
-.WholeGetIcon{
-  display: flex;
-    justify-content: SPACE-AROUND;
-}
+
 .get_Whole_Card{
   height: auto
 }
@@ -578,8 +658,15 @@ background-color: darkgreen;
   border-radius: 19px;
     /* align-items: center; */
     display: flex;
-    align-items: center
+    align-items: center;visibility:hidden;
 }
+.get_Whole_Card:hover .pinGet{
+  visibility:visible;
+}
+.get_Whole_Card:hover .checkIConBulk{
+  visibility:visible
+}
+
 
 
 
@@ -660,9 +747,95 @@ background-color: darkgreen;
 .Paper_reminder1{
   max-width: 30px;
 }
+
+
+
+/* ----------------------------------Label-Component--------------------------------- */
+
 .labelEdit{
   padding: 0px 0px 0px 32px;
   font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
     font-size: 14px;
     display: flex;
+}
+.LabelIcons{
+  padding-bottom: 7px;
+  padding-top: 7px;
+  border-radius: 30px;
+}
+.MenuLabelIcon{
+  width: 27px;
+    height: 23px;
+  background-image: url("../src/Assets/LabelIcon.svg");
+}
+.MenuLabelIcon:hover{
+  
+ 
+  background-image: url("../src/Assets/DeleteLabelIcon.svg");
+}
+.DialogEditLabel{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+  padding: 5px 0px 5px 0px
+}
+.menuiconName{
+
+  font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+    font-size: 17px;
+    width: 114px
+}
+.labelEdit{
+  padding-bottom: 7px;
+  padding-top: 7px;
+}
+.editLabelField{
+  display: flex;
+  width: 258px
+}
+.labelEditCreateField{
+  width: 27px;
+  height: 23px;
+  background-image: url("../src/Assets/LabelEditCreate.svg");
+}
+
+/* ----------------------------------LabelDisplay-Component--------------------------------- */
+.Labeldiv{
+  display: flex;
+    flex-wrap: wrap;
+    justify-content: center
+}
+.labelMainDiv{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center
+}
+
+/* ----------------------------------BulkTrash-Component--------------------------------- */
+.checkIConBulk{
+margin-block-end: -29px;
+    /* margin-inline-start: 5px; */
+    visibility:hidden;
+    border-radius:4px;
+       
+}
+/* ----------------------------------BulkTrashAppBar-Component--------------------------------- */
+.bulkAppWhole{
+  
+display: flex;
+    justify-content: space-between;
+    padding: 14px;
+}
+.closeIconSelected{
+  display: flex;
+   align-items: center
+}
+.closeBulk{
+    height: 20px
+}
+.bulkSelectedNotes{
+  margin-left: 17px;
+    font-size: 21px
 }

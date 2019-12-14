@@ -18,3 +18,19 @@ export function CreateLabel (data){
         }
     })
 }
+export function DeleteLabel (data){
+    return axios.delete (baseURL+'label/LabelDelete?label='+data,{
+        headers:{
+            
+            "Authorization" :  'Bearer '+localStorage.getItem('FundooUserToken')
+        }
+    })
+}
+export function RenameLabel (data,id){
+    return axios.put (baseURL+'label/LabelUpdate?label='+data+'&id='+id,"",{
+        headers:{
+            
+            "Authorization" :  'Bearer '+localStorage.getItem('FundooUserToken')
+        }
+    })
+}

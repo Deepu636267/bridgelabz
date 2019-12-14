@@ -169,12 +169,12 @@ export default class PinDisplayComponent extends Component {
                             console.log("create note final data", data);
 
                             return (
-                                <div className="get_Whole_Card">
+                                <div className="get_Whole_Card" key={data.id}>
                                      
                                       { data.isArchive==false && data.isTrash==false && data.isPin==true? (
-                                          
+                                
                                     <div className="get_card_effect">
-                                      
+                                                
                                         <Card className="get_cards1" style={{backgroundColor:data.color}}>
                                             <div className="pinNotes">
                                             <div className="get-cardDetails"

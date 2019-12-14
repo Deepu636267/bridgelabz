@@ -13,6 +13,7 @@ import transitions from '@material-ui/core/styles/transitions';
 import GetAllNotesComponent from '../Components/GetAllNotesComponent';
 import CreateNoteComponent from '../Components/CreateNoteComponent';
 import PinDisplayComponent from '../Components/PinDisplayComponent';
+import BulkTrashAppBarComponent from '../Components/BulkTrashAppBarComponent'
 
  class AppBarComponent extends Component
 { 
@@ -20,7 +21,10 @@ import PinDisplayComponent from '../Components/PinDisplayComponent';
     super(props)
   
     this.state = {
-       menu  : false
+       menu  : false,
+       openAppBar:false,
+       value:0,
+       
     }
   }
   handleMenu = async () => {
@@ -31,17 +35,55 @@ import PinDisplayComponent from '../Components/PinDisplayComponent';
     // this.props.transition(this.state.menu);
     console.log("state ", this.state.menu);
 }
+
+handleBulkAppBarOpen=()=>{
+  this.setState({
+      value:this.refs.child.handleCount()
+  })
+ 
+  console.log("sdbfjgsdfhg",this.state.value)
+  if(this.state.value>0)
+  {
+    this.setState({
+      openAppBar:true
+    })
+  }
+  else{
+    this.setState({
+      openAppBar:false
+    })
+  }
+}
+handleDeleteSelectedCard=()=>{
+  console.log("dfjgdfjgdhfg");
+  this.refs.child.handleBulkCardDelete(1)
+  this.setState({
+    value:0,
+    openAppBar:false
+  })
+}
+handleCloseAppBar=()=>{
+  this.refs.child.handleCloseBulkIcon()
+  this.setState({
+    value:0,
+    openAppBar:false
+  })
+}
+
   render() 
   {
     var transitions= this.state.menu ? "transition_left" : "transition_right"
     return this.props.showProps !== true ? (
       <div className="root">
+      
         <div>
+    {!this.state.openAppBar?(<div>
+
+
+
           <AppBar
-
-
             style={{ backgroundColor: "#fff", color: "inherit" }}
-            position="static"
+            position="fixed"
           >
             <div className="whole">
               <div className="main_menu_image_name">
@@ -59,10 +101,10 @@ import PinDisplayComponent from '../Components/PinDisplayComponent';
                 </div>
 
                 <div className="menu_image" aria-label="FundooNotes">
-                  <img src={require("../Assets/Fundoo.png")} />
+                  <img src={("https://www.gstatic.com/images/branding/product/1x/keep_48dp.png")} />
                 </div>
                 <div className="title">
-                  <span>FundooNotes</span>
+                  <span>Fundoo</span>
                 </div>
               </div>
 
@@ -80,7 +122,7 @@ import PinDisplayComponent from '../Components/PinDisplayComponent';
                   <SettingsIcon />
                 </div>
                 <div className="listView">
-                  <ViewStreamIcon />
+                   <ViewStreamIcon />
                 </div>
                 <div className="sectionDesktop">
                   <ProfilePicComponent />
@@ -88,8 +130,18 @@ import PinDisplayComponent from '../Components/PinDisplayComponent';
               </div>
             </div>
           </AppBar>
+
+    </div>):(
+      <BulkTrashAppBarComponent CountNumber={this.state.value}
+       handlePropsDelete={this.handleDeleteSelectedCard}
+       handlePropsAppBarBulkClose={this.handleCloseAppBar}></BulkTrashAppBarComponent>
+   )}
+          
+           
         </div>
+       
         {/* <div className={transitions}> */}
+      <div className="AppBarDiv">
           <div className={transitions}>
             <CreateNoteComponent></CreateNoteComponent>
           </div>
@@ -97,16 +149,17 @@ import PinDisplayComponent from '../Components/PinDisplayComponent';
             <PinDisplayComponent></PinDisplayComponent>
           </div>
           <div className={transitions}>
-            <GetAllNotesComponent></GetAllNotesComponent>
+            <GetAllNotesComponent handleBulkButton={this.handleBulkAppBarOpen}  ref='child'></GetAllNotesComponent>
+          </div>
           </div>
         </div>
-      // </div>
+  
     ) : (
       <div className="root">
         <div>
           <AppBar
             style={{ backgroundColor: "#fff", color: "inherit" }}
-            position="static"
+            position="fixed"
           >
             <div className="whole">
               <div className="main_menu_image_name">

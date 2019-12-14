@@ -90,4 +90,12 @@ export function SetUnPin (data){
         }
     })
 }
+export function BulkDelete (data:[]){
+    console.log("dbfdhgf",data)
+    return axios.post (baseURL+'notes/TrashSelected',data,{
+        headers:{
+            "Authorization" :  'Bearer '+localStorage.getItem('FundooUserToken')
+        }
+    })
+}
 

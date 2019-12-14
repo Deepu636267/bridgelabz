@@ -10,12 +10,7 @@ import CreateNoteComponent from '../Components/CreateNoteComponent'
                 <div>
               <AppBarComponent></AppBarComponent>
               </div>
-              <div className='CreateNoteComp_AppBar'>
-        <CreateNoteComponent></CreateNoteComponent>
-      </div>
-      <div className="GetNotComp_Appbar">
-        <GetAllNotesComponent></GetAllNotesComponent>
-        </div>
+             
             </div>
         )
     }

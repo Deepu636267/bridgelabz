@@ -92,7 +92,7 @@ export class DrawerComponent extends Component {
                                     </ul>
 
                                     <ul type="none" style={{ borderBottom: "1px solid #ddd",margin: 0,padding: 0}}>
-                                        <div className="Label">LABELS</div>
+                                        <div className="Label" key="123_Label">LABELS</div>
                                         <li > <EditLabelComponent /></li>
                                     </ul>
                                     <ul type="none" style={{margin: 0,padding: 0 }}>

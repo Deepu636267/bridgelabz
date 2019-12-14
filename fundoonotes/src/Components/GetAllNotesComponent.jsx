@@ -2,14 +2,15 @@ import React, { Component } from 'react'
 import {withRouter} from 'react-router-dom'
 import { Card } from '@material-ui/core'
 import {InputBase,Tooltip,Chip,Button } from '@material-ui/core'
-import {GetAllNotes,RemoveRminder,UpdateNotes,SetColor} from '../Service/NotesServices'
+import {GetAllNotes,RemoveRminder,UpdateNotes,SetColor,BulkDelete} from '../Service/NotesServices'
 import ReminderCompnent from '../Components/ReminderCompnent'
 import ArchiveComponent from '../Components/ArchiveComponent'
 import AddImageComponent from '../Components/AddImageComponent'
 import ColorComponent from '../Components/ColorComponent'
 import CollaboratorComponent from '../Components/CollaboratorComponent'
 import MoreComponent  from '../Components/MoreComponent';
-import PinComponent from '../Components/PinComponent'
+import PinComponent from '../Components/PinComponent';
+import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -18,6 +19,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import PinDisplayComponent from '../Components/PinDisplayComponent'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'; 
+import BulkTrashComponent from '../Components/BulkTrashComponent';
 const theme = createMuiTheme({
     overrides: {
         MuiDialogTitle:{
@@ -47,13 +49,18 @@ function Transition(props) {
          super(props)
      
          this.state = {
-              notes:[],
+               notes:[],
               openNote: false,
               shiftDrawer:false,
               title:"",
               description:"",
               notesId:"",
-              color:""
+              color:"",
+              count:0,
+              borderColor:"",
+              bulkTrashId:"",
+              values:[]
+
          }
      }
      componentDidMount() {
@@ -65,9 +72,14 @@ function Transition(props) {
          GetAllNotes().then(result=>{
              console.log("data" ,result)
              this.setState({
-                 notes:result.data
+                   
+                 notes:result.data,
+                   
+                  
              })
              console.log("after putting value",this.state.notes)
+               console.log("after putting value in get",this.state.values)
+
          })
      }
      handleRefresh = () => {
@@ -143,14 +155,95 @@ function Transition(props) {
             console.log("error occur while hetting back-end", err);
         })
     }
-    //  handleDrawerOpen=()=>{
-    //     this. setState({
-    //          shiftDrawer : true
-    //      })
-    //  }
+  
+
+    async handleBulkSelect(ide){
+    const {notes}=this.state
+   
+    console.log("fdsdgf",notes[ide])
+    notes[ide].selected=!notes[ide].selected
+    if(notes[ide].selected===true)
+    {
+        
+       await this.setStateAsync({
+            count:this.state.count+1
+        })
+        console.log("bulk Count",this.state.count)
+    }
+    else{
+         console.log("bulk Count",this.state.count)
+       await  this.setStateAsync({
+            count:this.state.count-1
+        })
+    }
+    this.setState({
+        notes,
+        borderColor:"black",
+        bulkTrashId:ide
+
+    })
+    console.log("dsfdghf",this.state.notes)
+    this.props.handleBulkButton(true);
+    
+}
+ setStateAsync(state){
+     return new Promise((resolve)=>{
+         this.setState(state,resolve)
+     })
+ }
+
+    handleBulkCardDelete=(data)=>{
+       
+    this.state.notes.map((note,index)=>{
+        console.log("selected",note.selected)
+        if(note.selected)
+        {
+           
+           this.state.values.push(note)     
+        }
+        return null
+    })
+    BulkDelete(this.state.values).then((result) => {
+        console.log("Bulk Delted Success",result)
+        this.setState({
+            count:0
+        })
+        this.getNotes();
+    }).catch((err) => {
+        console.log("Bulk Delted error",err)
+    })
+    console.log("dfghsdgf",this.state.values)
+   
+    }
+
+    handleCount=()=>{
+        return(
+            this.state.count
+        )
+    }
+    handleCloseBulkIcon=()=>{
+        this.setState({
+            count:0
+        })
+         this.state.notes.map((note,index)=>{
+        console.log("selected",note.selected)
+        if(note.selected)
+        {
+           note.selected=false
+                
+        }
+        return null
+    })
+    }
+
+
+
+
+
+
     render() {
        
-   
+    values:this.state.notes.map(data=>{return{...data,selected:false}}) 
 //    !this.state.shiftDrawer?  "transition_right" : {handleDrawerOpen}
    
    
@@ -164,16 +257,20 @@ function Transition(props) {
                 (
                     // get-container
                     <div className="getNoteAllcard">
-                       
-                        {this.state.notes.map((data) => {
+                      
+                        {this.state.notes.map((data,index) => {
                             console.log("create note final data", data);
 
                             return (
-                                <div className="get_Whole_Card">
+                                <div className="get_Whole_Card" key={data.id}>
                                       { data.isArchive==false && data.isTrash==false && data.isPin==false? (
+                                          <div>
+                                          <BulkTrashComponent handleBulkColor={()=>this.handleBulkSelect(index)}></BulkTrashComponent>
                                     <div className="get_card_effect">
+                                        
                                         {/* {data.isPin==true?(<PinDisplayComponent propsPin={data.id}></PinDisplayComponent>):( */}
-                                        <Card className="get_cards1" style={{backgroundColor:data.color}}>
+                                        <Card className="get_cards1" style={{backgroundColor:data.color, borderColor:data.selected?"red":null,border:"1px solid"}} onClick={this.handleGHFj}>
+                                           
                                             <div className="get-cardDetails"
                                                  onClick={() =>this.handleClickOpen(data)}>
                                                      <div className="pinNotes">
@@ -185,7 +282,7 @@ function Transition(props) {
                                                     {/* <div className="pinGet"aria-label="pinNotes" onClick={this.handle}>
                                                         <img src={require("../Assets/pin.svg")} />
                                                     </div> */}
-                                                    <PinComponent propsNoteId={data.id}></PinComponent>
+                                                    <PinComponent propsNoteId={data.id} className="PinIcon"></PinComponent>
                                                 </div>
                                                 <InputBase value={data.description}
                                                     multiline  
@@ -217,6 +314,7 @@ function Transition(props) {
                                                 }
                                                   
                                             </div>
+                                            <div className="onHoverVisible">
                                             <div className='WholeGetIcon'>
                                             <div>
                                                 <ReminderCompnent reminderNoteId={data.id} ></ReminderCompnent>
@@ -235,7 +333,7 @@ function Transition(props) {
                                             </div>
                                             <div>
                                             
-                                                <AddImageComponent/>
+                                                <AddImageComponent />
                                                 </div>
                                             <div>
                                             <ArchiveComponent archeiveId={data.id}
@@ -250,8 +348,10 @@ function Transition(props) {
                                             />
                                             </div>
                                             </div>
+                                            </div>
                                         </Card>
                                         {/* )} */}
+                                    </div>
                                     </div>
                                     ) : null}
                                 </div>
@@ -296,4 +396,4 @@ function Transition(props) {
         )
     }
 }
-export default withRouter (GetAllNotesComponent)
+export default  GetAllNotesComponent

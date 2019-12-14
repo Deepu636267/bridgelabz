@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Paper, Popper, ClickAwayListener, InputBase, Button, List, Checkbox ,MenuItem} from '@material-ui/core';
-import {  getLabel,CreateLabel } from '../Service/LabelServices';
+import { Paper, Popper, ClickAwayListener,Input, InputBase, Button, List, Checkbox ,MenuItem} from '@material-ui/core';
+import {  getLabel,CreateLabel,DeleteLabel,RenameLabel } from '../Service/LabelServices';
 import DoneIcon from '@material-ui/icons/Done';
 import EditOutlineIcon from '@material-ui/icons/EditOutlined';
 import Dialog from '@material-ui/core/Dialog';
@@ -9,6 +9,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import EditIcon from '@material-ui/icons/Edit';
+import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
 function Transition(props) {
     return <Slide direction="up" {...props} />;
 }
@@ -22,7 +24,10 @@ function Transition(props) {
             open: false,
             placement:null,
             allLabels: [],
-            openNote:false
+            openNote:false,
+            renamelabel:false,
+            renamelabelData:"",
+            labelid:""
         }
     }
     componentDidMount() {
@@ -89,7 +94,8 @@ function Transition(props) {
         CreateLabel(data).then((res) => {
             console.log("response coming from note label back-end aApi", res);
             this.setState({
-                anchorEl:false
+                anchorEl:false,
+              
             })
             this.props.createlabelPropsToMore(true)
             
@@ -99,36 +105,108 @@ function Transition(props) {
     }
     handleDoneLabel=()=>{
         this.setState({
-            openNote:false
+            openNote:false, 
+            renamelabel:false,
         })
+    }
+    handleDeleteLabel=(label)=>{
+        DeleteLabel(label).then((result) => {
+            console.log("LabelDeleteReulst",result);
+            this.getLabel();
+        }).catch((err) => {
+            console.log("label error",err)
+        });
+    }
+    handleRenameLabelOpen=(data)=>{
+        this.setState({
+            renamelabel:true,
+            labelid:data
+            // renamelabelData:label
+        })
+        console.log("gdsfgjsdf",data)
+    }
+    handleRenameLabel=(e)=>{
+        this.setState({
+            renamelabelData:e.target.value
+        })
+        console.log("labelRename",this.state.renamelabelData)
+    }
+    handleRenameLabelUpdate=()=>{
+        console.log("sdhfkhsdkjfgdf",this.state.labelid)
+        RenameLabel(this.state.renamelabelData,this.state.labelid).then((result) => {
+            console.log("Raname label Succes",result)
+            this.setState({
+                renamelabelData:"",
+                renamelabel:false
+            })
+            this.getLabel()
+        }).catch((err) => {
+            console.log("Rename Label Error",err)
+        });
+    }
+    handlePushLabelPage=(label)=>{
+        this.props.history.push('/labelDisplay',label)
     }
     render() {
         var allLabelData = this.state.allLabels.map((key) => {
             return (
-                <div>
-                    <List>
-                        <Checkbox
-                            value={key.label}
-                            onClick={() => this.CheckedNotes(key.label)}>
-                        </Checkbox>
-                        {key.label}
-                    </List>
-                </div>
+                <div key={key.id}>
+                             <ul type="none"  style={{ margin: 0,padding: 0 }}>
+                             <li className="labelEdit" style={{ margin: 0,padding: 0 }} key={key.id}>
+                             <MenuItem style={{backgroundColor:"transparent"}}>
+                          <div className="MenuLabelIcon"  onClick={()=>this.handleDeleteLabel(key.label)} > </div>
+                          </MenuItem>
+                          {!this.state.renamelabel?(
+                             
+                                <MenuItem style={{backgroundColor:"transparent"}}>  
+                            <MenuItem style={{backgroundColor:"transparent"}}>  
+                            <div className="menuiconName">{key.label}</div>
+                               </MenuItem>
+                             
+                            <MenuItem style={{backgroundColor:"transparent"}}>     
+                             <div className="labelEdit_Close_Icon">
+                                 <EditIcon onClick={()=>this.handleRenameLabelOpen(key.id)}/>
+                                 </div>
+                            </MenuItem>
+                            
+                            </MenuItem>
+                              ):(
+                                 
+                                 <MenuItem style={{backgroundColor:"transparent"}}> 
+                                <MenuItem style={{backgroundColor:"transparent"}}>
+                                <Input
+                                    placeholder="LabelName"
+                                    multiline
+                                    spellCheck={true}
+                                    defaultValue={key.label}
+                                    //value={this.state.renamelabelData}
+                                    onChange={this.handleRenameLabel}
+                                    
+                                />
+                                </MenuItem>
+                                <MenuItem style={{backgroundColor:"transparent"}}>
+                                <DoneIcon onClick={this.handleRenameLabelUpdate}/>
+                                </MenuItem>
+                                </MenuItem>
+                             
+                                )}
+                            </li> 
+                            </ul> 
+                        </div>
             )
         }
         )
+        
         return (
-            !this.state.openNote ?
-            (
                 <div>
                     {this.state.allLabels.map((key)=>
-                        <div >
+                        <div key={key.id}>
                             <ul type="none"  style={{ margin: 0,padding: 0 }}>
                             
-                            <li className="DrawerIcons">
+                            <li className="DrawerIcons" key={key.id}>
                             <MenuItem style={{backgroundColor:"transparent"}}>
-                            <div className="Icon">   <img src={require("../Assets/LabelIcon.svg")} /></div>
-                            <div className="iconName">{key.label}</div> 
+                             <LabelOutlinedIcon className="Icon"/>
+                            <div className="iconName" onClick={()=>this.handlePushLabelPage(key.label)}>{key.label}</div> 
                             </MenuItem>
                             </li> 
                             </ul>  
@@ -138,15 +216,15 @@ function Transition(props) {
                   <div >
                         <ul type="none"  style={{ margin: 0,padding: 0 }}>
                            
-                        <li className="DrawerIcons">
+                        <li className="DrawerIcons" key="1234_Icon">
                         <MenuItem style={{backgroundColor:"transparent"}}>
                          <EditOutlineIcon className="Icon"/> <div onClick={this.handleAddLabel} className="iconName">Edit Label</div>
                          </MenuItem>
                          </li> 
                         </ul>  
                     </div>
-                    </div>
-                ):(
+                   
+                
                     <Dialog
                     open={this.state.openNote}
                     TransitionComponent={Transition}
@@ -155,31 +233,37 @@ function Transition(props) {
                     aria-labelledby="alert-dialog-slide-title"
                     aria-describedby="alert-dialog-slide-description" >
                     <DialogTitle id="alert-dialog-slide-title">
-                        {"Update Note"}
+                        {"Edit Label"}
                     </DialogTitle>
                     <DialogContent>
-                        <div>{"Label note ?"}</div>
-                        <div>
+                        <div className="editLabelField">
+                        <MenuItem style={{backgroundColor:"transparent"}}>     <div className="labelEditCreateField"></div></MenuItem>
+                        <MenuItem style={{backgroundColor:"transparent"}}>
                             <InputBase
-                                placeholder="Enter Label name"
+                                placeholder="LabelName"
                                 multiline
                                 spellCheck={true}
                                 value={this.state.labelData}
                                 onChange={this.handleChangeCreateLabel}
+                                
                             />
-                            <DoneIcon />
+                            </MenuItem>
+                            <MenuItem style={{backgroundColor:"transparent"}}>
+                            <DoneIcon onClick={this.handleCreateLabel}/>
+                            </MenuItem>
                         </div>
                         {allLabelData}
+                      
                         </DialogContent>
                         <DialogActions>
-                        <div >
+                        <div className="ButtonEditlabel" >
                             <Button onClick={this.handleDoneLabel}><span>Done</span></Button>
                         </div>
                         </DialogActions>
                 </Dialog>
-                 
+                </div>
             
-            )
+          
         )
     }
 }

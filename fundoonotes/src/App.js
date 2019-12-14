@@ -15,6 +15,7 @@ import GetAllNotes from './Pages/GetAllNotes';
 import GetReminder from './Pages/GetReminder';
 import GetArchive from './Pages/GetArchive';
 import GetTrash from './Pages/GetTrash';
+import LabelDisplay from './Pages/LabelDisplay'
 //import { Drawer } from '@material-ui/core';
 // import ForgotPassword from './Pages/ForgotPassword';
 class App extends Component {
@@ -36,6 +37,7 @@ class App extends Component {
           <Route path='/getReminder' component={GetReminder}></Route>
           <Route path='/getArchive' component={GetArchive}></Route>
           <Route path='/getTrash' component={GetTrash}></Route>
+          <Route path='/labelDisplay' component={LabelDisplay}></Route>
           {/* <Route path='/forgot' component={ForgotPassword}></Route> */}
         </Router>
       </div>
