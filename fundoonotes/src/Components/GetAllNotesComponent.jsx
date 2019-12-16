@@ -38,7 +38,17 @@ const theme = createMuiTheme({
                 paddingTop: "0px",
                 paddingBottom: "0px"
             }
-        }
+        },
+        MuiPaper:{
+            rounded:{
+                  borderRadius: "16px"
+  
+          },
+          elevation1:{
+            boxShadow: "1px 6px 6px 5px rgba(0,0,0,0.2), 2px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)"
+          }
+          }
+         
     }
 });
 function Transition(props) {
@@ -262,7 +272,9 @@ function Transition(props) {
                             console.log("create note final data", data);
 
                             return (
+                                <MuiThemeProvider theme={theme}>
                                 <div className="get_Whole_Card" key={data.id}>
+                                     
                                       { data.isArchive==false && data.isTrash==false && data.isPin==false? (
                                           <div>
                                           <BulkTrashComponent handleBulkColor={()=>this.handleBulkSelect(index)}></BulkTrashComponent>
@@ -333,7 +345,8 @@ function Transition(props) {
                                             </div>
                                             <div>
                                             
-                                                <AddImageComponent />
+                                                <AddImageComponent
+                                                propsNoteId={data.id} />
                                                 </div>
                                             <div>
                                             <ArchiveComponent archeiveId={data.id}
@@ -355,9 +368,12 @@ function Transition(props) {
                                     </div>
                                     ) : null}
                                 </div>
+                                </MuiThemeProvider>
                             )
                         })}
+                        
                     </div>
+                    
                 )
                 :
                 (
