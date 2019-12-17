@@ -106,4 +106,11 @@ export function ImageUpload (data,Id){
         }
     })
 }
+export function dragAndDrop (dragId,dropId){
+    return axios.post (baseURL+'notes/Drag?drag='+dragId+'&drop='+dropId,"",{
+        headers:{
+            "Authorization" :  'Bearer '+localStorage.getItem('FundooUserToken')
+        }
+    })
+}
 

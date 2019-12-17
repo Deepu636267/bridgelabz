@@ -116,7 +116,8 @@ export class ProfilePicComponent extends Component {
         return (
          
             <div className="profile_Root">
-                 <Popper open={open} anchorEl={anchorEl} placement={placement} transition >
+              <div className="openFileView">
+             <Popper open={open} anchorEl={anchorEl} placement={placement} transition >
               {({ TransitionProps }) => (
                  !this.state.openNote?(
                 <Fade {...TransitionProps} timeout={350}>
@@ -124,25 +125,25 @@ export class ProfilePicComponent extends Component {
 
                    <div className='img_name_email'>
                    
-                       <div>
-                       <Avatar alt="Remy Sharp" src={this.state.user.profilePic} style={{width:"100px", height:"100px"}}onClick={this.handleOpenDialog}/>
+                       <div className="imgIcon">
+                       <Avatar alt="Remy Sharp" src={this.state.user.profilePic} style={{width:"100px", height:"100px"}} onClick={this.handleOpenDialog}/>
                        </div>
                       
                        <div>
-                       <div>
+                       <div className="profileName">
                           {this.state.user.firstName}{this.state.user.lastName}
                        </div>
-                       <div>
+                       <div className="profileEmail">
                          
                                {this.state.user.email}
                         
                        </div>
                        </div>
                    </div>
-                   <div>
-                   <Button
+                   <div className="profilePic_SignOut_Button">
+                   <Button style={{background: "5f5fc1",color: "red",width:"98%"}}
                       onClick={this.handleSubmitSignOut}
-                      color='primary' style={{fontSize:18,fontFamily:'TimesNewRoman'}} variant="outlined">SignOut</Button>
+                      color='primary' variant="outlined">SignOut</Button>
 
                    </div>
                   </Paper>
@@ -179,6 +180,7 @@ export class ProfilePicComponent extends Component {
                 )
               )}
             </Popper>
+            </div>
             <Avatar alt="Remy Sharp" src={this.state.user.profilePic} onClick={this.handleClick('bottom')}/>
           </div>
          

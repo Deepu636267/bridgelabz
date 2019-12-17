@@ -204,13 +204,16 @@
   width: 100%;
   height: auto;
 }
+.menuButton{
+  padding: 0px 0px 0px 6px;
+}
 /* .drawr_Search{
   display: flex;
     align-items: center;
 } */
 .title {
   font-family: 'Product Sans',Arial,sans-serif;
-    font-size: 18px;
+  font-size: x-large;
     position: relative;
     color: #5f6368;
 }
@@ -248,15 +251,21 @@
 .ref_Acc{
   display: flex;
     align-items: center;
-    margin-right: 5px;
+   
 }
 .sectionDesktop{
-  padding: 0px 25px 0px 0px;
+  padding: 0px 10px 0px 0px;
+  margin-left: -10px;
 }
 .listView{
+  padding: 0px 16px 0px 0px;
+}
+.setting{
   padding: 0px 10px 0px 0px;
 }
-
+.refresh{
+  padding: 0px 10px 0px 0px;
+}
 /* ---------------------------------Drawer--------------------------------- */
 .iconName{
   padding: 0px 0px 0px 32px;
@@ -291,11 +300,11 @@
 }
 
 .img_name_email{
-  display: flex;
   height: 130px;
-  width: 331px;
-  align-items: center;
-  justify-content: SPACE-AROUND
+    width: 331px;
+    align-items: center;
+ 
+    margin-top: 19px;
 }
 .profile_Root{
   top: 16px;
@@ -303,6 +312,39 @@
 .profile_Big_Avatar{
   height:100px;
   width:100px;
+}
+.profileComponent{
+  top: 17px;
+    left: 16px;
+}
+.profilePic_SignOut_Button{
+
+  display: flex;
+  justify-content: center;
+
+  margin-top: 39%;
+  height: 10vh;
+  align-items: center;
+ 
+}.profileEmail{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 91%;
+  font-weight: 900
+}
+
+.imgIcon{
+  display: flex;
+    justify-content: center;
+}
+.profileName{
+  display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 91%;
+    margin-top: 8%;
+    font-weight: 900
 }
 /* .bigAvatar {
   width: 60;
@@ -628,7 +670,7 @@ background-color: darkgreen;
     justify-content: center;
     display: flex;
     flex-wrap: wrap;
-    /* width: 60em; */
+    margin-top: 1%;
     margin-left: 10%;
 }
 .transition_right{
@@ -636,9 +678,7 @@ background-color: darkgreen;
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
-  /* width: 60em; */
-  /* margin-left: 15%; */
-  
+  margin-top: 1%;
 }
 .descriptionDetails{
   margin-bottom: 9px;
