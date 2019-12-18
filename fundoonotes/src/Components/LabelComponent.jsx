@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { Paper, Popper, ClickAwayListener, InputBase, Button, List, Checkbox } from '@material-ui/core';
 import {  getLabel,CreateLabel } from '../Service/LabelServices';
 import SearchIcon from '@material-ui/icons/SearchOutlined';
+
 class LabelComponent extends Component {
     constructor(props) {
         super(props);
@@ -15,6 +16,7 @@ class LabelComponent extends Component {
             allLabels: []
         }
     }
+
     componentDidMount() {
         this.getLabel()
     }
@@ -47,6 +49,7 @@ class LabelComponent extends Component {
             anchorEl: false
         })
     }
+
     CheckedNotes = (label) => {
         this.setState({
             check: !this.state.check,
@@ -68,12 +71,14 @@ class LabelComponent extends Component {
             console.log("Error occur while heatting note Label back-end Api ", err);
         })
     }
+
     handleChangeCreateLabel = async (e) => {
         console.log("even data", e.target.value);
         await this.setState({
             labelData: e.target.value
         })
     }
+
     handleCreateLabel=()=>{
         var data={
             "label": this.state.labelData,
@@ -90,6 +95,7 @@ class LabelComponent extends Component {
             console.log("Error occur while heatting note Label back-end Api ", err);
         })
     }
+
     render() {
         var allLabelData = this.state.allLabels.map((key) => {
             return (
@@ -119,8 +125,7 @@ class LabelComponent extends Component {
                                 multiline
                                 spellCheck={true}
                                 value={this.state.labelData}
-                                onChange={this.handleChangeCreateLabel}
-                            />
+                                onChange={this.handleChangeCreateLabel} />
                             <SearchIcon />
                         </div>
                         {allLabelData}

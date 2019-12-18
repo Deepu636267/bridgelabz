@@ -15,34 +15,39 @@ import { reset } from '../Service/UserService';
                 snackbarMsg:''   
             }
         }
+
         snackbarOpen=()=>{
             this.setState({
                 open:true
             })
         }
+
         snackbarClose=()=>{
             this.setState({
                 snackbarOpen : false
             })
         }
+
         handleClose=()=>{
             this.setState({
                 open : false
             })
         }
+
     handlePasswordChange=(e)=>{
         console.log("passowrd",e.target.value);
         this.setState({
             password:e.target.value
         })
     }
+
     handleConfirmPasswordChange=(e)=>{
-        // console.log("confirmPassword",e.target.value);
         const confirmPassword=e.target.value
         this.setState({
             confirmPassword:confirmPassword
         })
     }
+
     handleSubmitReset=()=>{
         if (this.state.password === "") {
             this.setState({
@@ -78,6 +83,7 @@ import { reset } from '../Service/UserService';
             })
         } 
     }
+
     render() {
         return (
             <div className='reset_Container'>
@@ -101,8 +107,7 @@ import { reset } from '../Service/UserService';
                         onChange={this.handlePasswordChange}
                         label="NewPassword" 
                         required  
-                        fullWidth                                                            
-                        />  
+                        fullWidth />  
                     </div>
                     <div className='reset_Confirm'>                         
                         <TextField
@@ -111,8 +116,7 @@ import { reset } from '../Service/UserService';
                         onChange={this.handleConfirmPasswordChange}
                         label="ConfirmPassword"
                         fullWidth
-                        required                                                  
-                    />
+                        required  />
                     </div>
                     <div className='reset_button'>
                         <Button
@@ -136,10 +140,8 @@ import { reset } from '../Service/UserService';
                         <Button key="undo" color="secondary" size="small" >
                      <CloseIcon onClick={this.snackbarClose} />
                       </Button>
-                    ]}
-                />     
-                              
-            </div>
+                    ]} />     
+             </div>
         )
     }
 }

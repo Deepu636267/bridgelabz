@@ -83,8 +83,7 @@ class AppBarComponent extends Component {
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={this.handleMenu}
-                      >
+                        onClick={this.handleMenu} >
                         <MenuIcon />
                       </IconButton>
                       <DrawerComponent menuSelect={this.state.menu} />
@@ -92,16 +91,10 @@ class AppBarComponent extends Component {
 
                     <div className="menu_image" aria-label="FundooNotes">
                       <img
-                        src={
-                          "https://www.gstatic.com/images/branding/product/1x/keep_48dp.png"
-                        }
-                      />
+                        src={"https://www.gstatic.com/images/branding/product/1x/keep_48dp.png"} />
                     </div>
-                    <div className="title">
-                      Fundoo
-                    </div>
+                    <div className="title">Fundoo</div>
                   </div>
-
                   <div className="search">
                     <div className="searchIcon">
                       <SearchIcon className="searchIcon" />
@@ -129,12 +122,9 @@ class AppBarComponent extends Component {
             <BulkTrashAppBarComponent
               CountNumber={this.state.value}
               handlePropsDelete={this.handleDeleteSelectedCard}
-              handlePropsAppBarBulkClose={this.handleCloseAppBar}
-            ></BulkTrashAppBarComponent>
+              handlePropsAppBarBulkClose={this.handleCloseAppBar} />
           )}
         </div>
-
-        {/* <div className={transitions}> */}
         <div className="AppBarDiv">
           <div className={transitions}>
             <CreateNoteComponent></CreateNoteComponent>
@@ -155,8 +145,7 @@ class AppBarComponent extends Component {
         <div>
           <AppBar
             style={{ backgroundColor: "#fff", color: "inherit" }}
-            position="fixed"
-          >
+            position="fixed" >
             <div className="whole">
               <div className="main_menu_image_name">
                 <div className="menuButton">
@@ -165,13 +154,11 @@ class AppBarComponent extends Component {
                     edge="start"
                     color="inherit"
                     aria-label="open drawer"
-                    onClick={this.handleMenu}
-                  >
+                    onClick={this.handleMenu} >
                     <MenuIcon />
                   </IconButton>
                   <DrawerComponent menuSelect={this.state.menu} />
                 </div>
-
                 <div className="menu_image" aria-label="FundooNotes">
                   <img src={require("../Assets/Fundoo.png")} />
                 </div>
@@ -179,7 +166,6 @@ class AppBarComponent extends Component {
                   <span>FundooNotes</span>
                 </div>
               </div>
-
               <div className="search">
                 <div className="searchIcon">
                   <SearchIcon className="searchIcon" />

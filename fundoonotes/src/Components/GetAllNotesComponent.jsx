@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 import { Card } from "@material-ui/core";
 import { InputBase, Tooltip, Chip, Button } from "@material-ui/core";
-import { GetAllNotes,RemoveRminder,UpdateNotes,SetColor,BulkDelete,dragAndDrop} from "../Service/NotesServices";
+import {GetAllNotes,RemoveRminder,UpdateNotes,SetColor,BulkDelete,dragAndDrop} from "../Service/NotesServices";
 import ReminderCompnent from "../Components/ReminderCompnent";
 import ArchiveComponent from "../Components/ArchiveComponent";
 import AddImageComponent from "../Components/AddImageComponent";
@@ -10,14 +9,11 @@ import ColorComponent from "../Components/ColorComponent";
 import CollaboratorComponent from "../Components/CollaboratorComponent";
 import MoreComponent from "../Components/MoreComponent";
 import PinComponent from "../Components/PinComponent";
-import DoneIcon from "@material-ui/icons/Done";
-import CloseIcon from "@material-ui/icons/Close";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
-import PinDisplayComponent from "../Components/PinDisplayComponent";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import BulkTrashComponent from "../Components/BulkTrashComponent";
 const theme = createMuiTheme({
@@ -92,17 +88,20 @@ class GetAllNotesComponent extends Component {
       this.getNotes();
     }
   };
+
   handleRefreshDelete = () => {
     if (true) {
       this.getNotes();
     }
   };
+
   handleDeleteReminder = id => {
     let data = {
       Id: id,
       Reminder: ""
     };
-    RemoveRminder(data)
+
+  RemoveRminder(data)
       .then(result => {
         console.log("remove reminder", result);
       })
@@ -110,6 +109,7 @@ class GetAllNotesComponent extends Component {
         console.log("Remove Reminder Error", err);
       });
   };
+
   handleClickOpen = data => {
     this.setState({
       openNote: true,
@@ -118,23 +118,27 @@ class GetAllNotesComponent extends Component {
       description: data.description
     });
   };
+
   handleTitle = e => {
     this.setState({
       title: e.target.value
     });
   };
+
   handleDescription = e => {
     this.setState({
       description: e.target.value
     });
   };
+
   handleUpdate = dataitem => {
     let data = {
       Id: this.state.notesId,
       Title: this.state.title,
       Description: this.state.description
     };
-    UpdateNotes(data)
+
+  UpdateNotes(data)
       .then(result => {
         console.log("Update Data", result);
         this.setState({
@@ -146,6 +150,7 @@ class GetAllNotesComponent extends Component {
         console.log("Update Error", err);
       });
   };
+
   handleNoteColor = (col, notesId) => {
     let data = {
       color: col,
@@ -155,6 +160,7 @@ class GetAllNotesComponent extends Component {
     this.setState({
       color: col
     });
+
     SetColor(data)
       .then(res => {
         console.log("Response while hettinf back-end Api", res);
@@ -167,7 +173,6 @@ class GetAllNotesComponent extends Component {
 
   async handleBulkSelect(ide) {
     const { notes } = this.state;
-
     console.log("fdsdgf", notes[ide]);
     notes[ide].selected = !notes[ide].selected;
     if (notes[ide].selected === true) {
@@ -189,23 +194,24 @@ class GetAllNotesComponent extends Component {
     console.log("dsfdghf", this.state.notes);
     this.props.handleBulkButton(true);
   }
+
   setStateAsync(state) {
     return new Promise(resolve => {
-      this.setState({state, resolve});
+      this.setState({ state, resolve });
     });
   }
 
-  handleBulkCardDelete = data => {
-    this.state.notes.map((note, index) => {
+  handleBulkCardDelete = () => {
+    this.state.notes.map((note) => {
       console.log("selected", note.selected);
       if (note.selected) {
         this.state.values.push(note);
       }
       return null;
     });
-    BulkDelete(this.state.values)
+
+  BulkDelete(this.state.values)
       .then(result => {
-        console.log("Bulk Delted Success", result);
         this.setState({
           count: 0
         });
@@ -214,18 +220,17 @@ class GetAllNotesComponent extends Component {
       .catch(err => {
         console.log("Bulk Delted error", err);
       });
-    console.log("dfghsdgf", this.state.values);
   };
 
   handleCount = () => {
     return this.state.count;
   };
+
   handleCloseBulkIcon = () => {
     this.setState({
       count: 0
     });
     this.state.notes.map((note, index) => {
-      console.log("selected", note.selected);
       if (note.selected) {
         note.selected = false;
       }
@@ -234,51 +239,44 @@ class GetAllNotesComponent extends Component {
   };
 
   onDragStart = (e, id) => {
-    console.log("fhgjhfdjgkhfdjk", id);
-  
-      this.setState({
-          dragId:id
-      })
-
+    this.setState({
+      dragId: id
+    });
   };
+
   onDragOver = ev => {
     ev.preventDefault();
-    ev.dataTransfer.effectAllowed = 'move';
+    ev.dataTransfer.effectAllowed = "move";
   };
+
   onDrop = (ev, id) => {
-    console.log("dfhdjfgdsfgdjhgffaf", id);
     this.setState({
-        dropId:id
-    })
-    console.log(this.state.dragId,this.state.dropId)
+      dropId: id
+    });
+    console.log(this.state.dragId, this.state.dropId);
   };
-  handleonDragEnd=()=>{
-      console.log("dfsdgfjdgfdhgfgdfjgdsjfg",this.state.dragId,this.state.dropId)
-      dragAndDrop(this.state.dragId,this.state.dropId).then((result) => {
-          console.log("drag and drop result Succesful",result)
-          this.getNotes();
-      }).catch((err) => {
-        console.log("drag and drop result error",err)
+
+  handleonDragEnd = () => {
+    dragAndDrop(this.state.dragId, this.state.dropId)
+      .then(result => {
+        this.getNotes();
+      })
+      .catch(err => {
+        console.log("drag and drop result error", err);
       });
-  }
+  };
 
   render() {
     values: this.state.notes.map(data => {
       return { ...data, selected: false };
     });
-    //    !this.state.shiftDrawer?  "transition_right" : {handleDrawerOpen}
 
-    //         if(!this.state.shiftDrawer){
-    //             "transition_right"
-    //         }else if (()=>{this.handleDrawerOpen}){
-    //             "transition_left"
-    //         }
-    return !this.state.openNote ? (
+    return !this.state.openNote ? 
+    (
       // get-container
       <div className="getNoteAllcard">
         {this.state.notes.map((data, index) => {
           console.log("create note final data", data);
-
           return (
             <MuiThemeProvider theme={theme}>
               <div className="get_Whole_Card" key={data.id}>
@@ -286,11 +284,8 @@ class GetAllNotesComponent extends Component {
                 data.isTrash == false &&
                 data.isPin == false ? (
                   <div draggable>
-                    <BulkTrashComponent
-                      handleBulkColor={() => this.handleBulkSelect(index)}
-                    ></BulkTrashComponent>
+                    <BulkTrashComponent handleBulkColor={() => this.handleBulkSelect(index)}/>
                     <div className="get_card_effect">
-                      {/* {data.isPin==true?(<PinDisplayComponent propsPin={data.id}></PinDisplayComponent>):( */}
                       <Card
                         className="get_cards1"
                         style={{
@@ -303,47 +298,30 @@ class GetAllNotesComponent extends Component {
                         onDragStart={e => this.onDragStart(e, data.indexValue)}
                         onDragOver={e => this.onDragOver(e)}
                         onDrop={e => this.onDrop(e, data.indexValue)}
-                        onDragEnd={this.handleonDragEnd}
-                      >
+                        onDragEnd={this.handleonDragEnd}>
                         <div
                           className="get-cardDetails"
-                          onClick={() => this.handleClickOpen(data)}
-                        >
+                          onClick={() => this.handleClickOpen(data)}>
                           <div className="pinNotes">
                             <InputBase value={data.title} multiline></InputBase>
-                            {/* <div className="pinGet"aria-label="pinNotes" onClick={this.handle}>
-                                                        <img src={require("../Assets/pin.svg")} />
-                                                    </div> */}
                             <PinComponent
                               propsNoteId={data.id}
-                              className="PinIcon"
-                            ></PinComponent>
+                              className="PinIcon"/>
                           </div>
                           <InputBase
                             value={data.description}
                             multiline
                             className="descriptionDetails"
-                            onClick={() => this.handleUpdate(data)}
-                          ></InputBase>
+                            onClick={() => this.handleUpdate(data)}/>
                         </div>
 
                         <div>
                           {data.reminder != "" && data.reminder != null ? (
                             <Tooltip title="Reminder">
-                              {/* <Chip style={{ backgroundColor: "rgba(0,0,0,0.08)" }} className="chip"
-                                                                label={data.reminder.slice(0,21)}     >
-                                                                    
-                                                            </Chip> */}
                               <Chip
-                                // icon={<FaceIcon />}
-                                label={data.reminder.slice(0, 21)}
-                                // onClick={handleClick}
-                                onDelete={() =>
-                                  this.handleDeleteReminder(data.id)
-                                }
-                                variant="outlined"
-                                // deleteIcon={<CloseIcon />}
-                              />
+                              label={data.reminder.slice(0, 21)}
+                              onDelete={() =>this.handleDeleteReminder(data.id)}
+                              variant="outlined"/>
                             </Tooltip>
                           ) : null}
                         </div>
@@ -351,22 +329,19 @@ class GetAllNotesComponent extends Component {
                           <div className="WholeGetIcon">
                             <div>
                               <ReminderCompnent
-                                reminderNoteId={data.id}
-                              ></ReminderCompnent>
+                                reminderNoteId={data.id}/>
                             </div>
                             <div>
                               <CollaboratorComponent
                                 propsCollabList={data.collaborators}
                                 ownerEamil={data.email}
                                 noteId={data.id}
-                                refresh={this.handleRefresh}
-                              />
+                                refresh={this.handleRefresh}/>
                             </div>
                             <div>
                               <ColorComponent
                                 propsToColorPallate={this.handleNoteColor}
-                                notesId={data.id}
-                              />
+                                notesId={data.id} />
                             </div>
                             <div>
                               <AddImageComponent propsNoteId={data.id} />
@@ -374,21 +349,18 @@ class GetAllNotesComponent extends Component {
                             <div>
                               <ArchiveComponent
                                 archeiveId={data.id}
-                                refresh={this.handleRefresh}
-                              ></ArchiveComponent>
+                                refresh={this.handleRefresh}/>
                             </div>
                             <div>
                               <MoreComponent
                                 deleteNotesId={data.id}
                                 notesId={data.id}
                                 refreshDelete={this.handleRefreshDelete}
-                                createlabelPropsToMore={this.handleRefresh}
-                              />
+                                createlabelPropsToMore={this.handleRefresh}/>
                             </div>
                           </div>
                         </div>
                       </Card>
-                      {/* )} */}
                     </div>
                   </div>
                 ) : null}
@@ -404,8 +376,7 @@ class GetAllNotesComponent extends Component {
         keepMounted
         onClose={this.handleClose}
         aria-labelledby="alert-dialog-slide-title"
-        aria-describedby="alert-dialog-slide-description"
-      >
+        aria-describedby="alert-dialog-slide-description">
         <DialogTitle id="alert-dialog-slide-title">{"Update Note"}</DialogTitle>
         <DialogContent>
           <div>
@@ -414,8 +385,7 @@ class GetAllNotesComponent extends Component {
               multiline
               spellCheck={true}
               value={this.state.title}
-              onChange={this.handleTitle}
-            />
+              onChange={this.handleTitle}/>
           </div>
           <div>
             <InputBase
@@ -423,8 +393,7 @@ class GetAllNotesComponent extends Component {
               multiline
               spellCheck={true}
               value={this.state.description}
-              onChange={this.handleDescription}
-            />
+              onChange={this.handleDescription}  />
           </div>
         </DialogContent>
         <DialogActions>
