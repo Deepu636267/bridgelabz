@@ -153,7 +153,7 @@ class RegistrationComponent extends Component {
           });
         })
         .catch(err => {
-          console.log("err in login component ", err);
+          console.log("err in reg component ", err);
         });
     }
   };

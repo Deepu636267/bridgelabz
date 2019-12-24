@@ -15,30 +15,30 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
-import {createMuiTheme } from "@material-ui/core";
+// import {createMuiTheme } from "@material-ui/core";
 import AppBarComponent from "../Components/AppBarComponent";
 
-const theme = createMuiTheme({
-  overrides: {
-    MuiDialogTitle: {
-      root: {
-        padding: "0px"
-      }
-    },
-    MuiDialog: {
-      paper: {
-        margin: "0px",
-        width: "45%"
-      }
-    },
-    MuiList: {
-      padding: {
-        paddingTop: "0px",
-        paddingBottom: "0px"
-      }
-    }
-  }
-});
+// const theme = createMuiTheme({
+//   overrides: {
+//     MuiDialogTitle: {
+//       root: {
+//         padding: "0px"
+//       }
+//     },
+//     MuiDialog: {
+//       paper: {
+//         margin: "0px",
+//         width: "45%"
+//       }
+//     },
+//     MuiList: {
+//       padding: {
+//         paddingTop: "0px",
+//         paddingBottom: "0px"
+//       }
+//     }
+//   }
+// });
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -176,9 +176,9 @@ class LabelDisplayComponent extends Component {
 
               return (
                 <div className="get_Whole_Card" key={data.id}>
-                  {data.isArchive == false &&
-                  data.isTrash == false &&
-                  data.isPin == false ? (
+                  {data.isArchive === false &&
+                  data.isTrash === false &&
+                  data.isPin === false ? (
                     <div className="Labeldiv">
                       {data.labels.map(key => {
                         return (
@@ -206,8 +206,8 @@ class LabelDisplayComponent extends Component {
                                   </div>
 
                                   <div>
-                                    {data.reminder != "" &&
-                                    data.reminder != null ? (
+                                    {data.reminder !== "" &&
+                                    data.reminder !== null ? (
                                       <Tooltip title="Reminder">
                                         <Chip
                                           label={data.reminder.slice(0, 21)}

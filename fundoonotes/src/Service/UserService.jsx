@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseURL="https://localhost:44349/api/"
+const baseURL="http://www.fundoo.com/Fundoo/api/"
 // import axios from 'axios';
 
 export function registration (data){

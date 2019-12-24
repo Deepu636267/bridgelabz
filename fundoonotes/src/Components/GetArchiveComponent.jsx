@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { Card } from "@material-ui/core";
 import { InputBase, Tooltip, Chip } from "@material-ui/core";
-import { GetAllNotes, UnArchive } from "../Service/NotesServices";
+import { GetAllNotes } from "../Service/NotesServices";
 import ReminderCompnent from "../Components/ReminderCompnent";
 import UnArchiveComponent from "../Components/UnArchiveComponent";
 import AddImageComponent from "../Components/AddImageComponent";

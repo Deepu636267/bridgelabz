@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import RestoreFromTrashIcon from "@material-ui/icons/RestoreFromTrash";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import { DeleteNote, DeleteForever, DeleteAll } from "../Service/NotesServices";
+import { DeleteNote, DeleteForever } from "../Service/NotesServices";
 
 class RestoreComponent extends Component {
   constructor(props) {

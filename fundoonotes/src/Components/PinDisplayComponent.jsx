@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 import { Card } from "@material-ui/core";
 import { InputBase, Tooltip, Chip, Button } from "@material-ui/core";
 import {
@@ -15,35 +14,35 @@ import ColorComponent from "../Components/ColorComponent";
 import CollaboratorComponent from "../Components/CollaboratorComponent";
 import MoreComponent from "../Components/MoreComponent";
 import UnPinComponent from "../Components/UnPinComponent";
-import CloseIcon from "@material-ui/icons/Close";
+// import CloseIcon from "@material-ui/icons/Close";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
+// import {  createMuiTheme } from "@material-ui/core";
 
-const theme = createMuiTheme({
-  overrides: {
-    MuiDialogTitle: {
-      root: {
-        padding: "0px"
-      }
-    },
-    MuiDialog: {
-      paper: {
-        margin: "0px",
-        width: "45%"
-      }
-    },
-    MuiList: {
-      padding: {
-        paddingTop: "0px",
-        paddingBottom: "0px"
-      }
-    }
-  }
-});
+// const theme = createMuiTheme({
+//   overrides: {
+//     MuiDialogTitle: {
+//       root: {
+//         padding: "0px"
+//       }
+//     },
+//     MuiDialog: {
+//       paper: {
+//         margin: "0px",
+//         width: "45%"
+//       }
+//     },
+//     MuiList: {
+//       padding: {
+//         paddingTop: "0px",
+//         paddingBottom: "0px"
+//       }
+//     }
+//   }
+// });
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -126,7 +125,7 @@ export default class PinDisplayComponent extends Component {
     });
   };
 
-  handleUpdate = dataitem => {
+  handleUpdate = ()=> {
     let data = {
       Id: this.state.notesId,
       Title: this.state.title,
@@ -171,9 +170,9 @@ export default class PinDisplayComponent extends Component {
           console.log("create note final data", data);
           return (
             <div className="get_Whole_Card" key={data.id}>
-              {data.isArchive == false &&
-              data.isTrash == false &&
-              data.isPin == true ? (
+              {data.isArchive === false &&
+              data.isTrash === false &&
+              data.isPin === true ? (
                 <div className="get_card_effect">
                   <Card
                     className="get_cards1"
@@ -198,7 +197,7 @@ export default class PinDisplayComponent extends Component {
                       ></UnPinComponent>
                     </div>
                     <div>
-                      {data.reminder != "" && data.reminder != null ? (
+                      {data.reminder !== "" && data.reminder !== null ? (
                         <Tooltip title="Reminder">
                              <Chip
                             label={data.reminder.slice(0, 21)}

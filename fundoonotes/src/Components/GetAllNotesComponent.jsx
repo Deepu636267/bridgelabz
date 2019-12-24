@@ -267,7 +267,7 @@ class GetAllNotesComponent extends Component {
   };
 
   render() {
-    values: this.state.notes.map(data => {
+    this.state.notes.map(data => {
       return { ...data, selected: false };
     });
 
@@ -280,9 +280,9 @@ class GetAllNotesComponent extends Component {
           return (
             <MuiThemeProvider theme={theme}>
               <div className="get_Whole_Card" key={data.id}>
-                {data.isArchive == false &&
-                data.isTrash == false &&
-                data.isPin == false ? (
+                {data.isArchive === false &&
+                data.isTrash === false &&
+                data.isPin === false ? (
                   <div draggable>
                     <BulkTrashComponent handleBulkColor={() => this.handleBulkSelect(index)}/>
                     <div className="get_card_effect">
@@ -316,7 +316,7 @@ class GetAllNotesComponent extends Component {
                         </div>
 
                         <div>
-                          {data.reminder != "" && data.reminder != null ? (
+                          {data.reminder !== "" && data.reminder !== null ? (
                             <Tooltip title="Reminder">
                               <Chip
                               label={data.reminder.slice(0, 21)}

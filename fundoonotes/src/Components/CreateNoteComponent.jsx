@@ -9,8 +9,6 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import ColorLensIcon from "@material-ui/icons/ColorLens";
 import ArchiveIcon from "@material-ui/icons/Archive";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import UndoIcon from "@material-ui/icons/Undo";
-import RedoIcon from "@material-ui/icons/Redo";
 import { createNotes } from "../Service/NotesServices";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";

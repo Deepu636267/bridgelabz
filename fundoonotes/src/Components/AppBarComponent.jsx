@@ -1,15 +1,13 @@
 import React, { Component } from "react";
-import { AppBar, Toolbar, IconButton, InputBase } from "@material-ui/core";
+import { AppBar,IconButton, InputBase } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import { withRouter } from "react-router-dom";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ViewStreamIcon from "@material-ui/icons/ViewStream";
 import DrawerComponent from "../Components/DrawerComponent";
 import ProfilePicComponent from "../Components/ProfilePicComponent";
-import transitions from "@material-ui/core/styles/transitions";
 import GetAllNotesComponent from "../Components/GetAllNotesComponent";
 import CreateNoteComponent from "../Components/CreateNoteComponent";
 import PinDisplayComponent from "../Components/PinDisplayComponent";
@@ -34,6 +32,7 @@ class AppBarComponent extends Component {
   };
 
   handleBulkAppBarOpen = () => {
+    console.log("dgfjgdsfgdsfhg")
     this.setState({
       value: this.refs.child.handleCount()
     });
@@ -91,7 +90,7 @@ class AppBarComponent extends Component {
 
                     <div className="menu_image" aria-label="FundooNotes">
                       <img
-                        src={"https://www.gstatic.com/images/branding/product/1x/keep_48dp.png"} />
+                        src={"https://www.gstatic.com/images/branding/product/1x/keep_48dp.png"} alt="ref" />
                     </div>
                     <div className="title">Fundoo</div>
                   </div>
@@ -160,7 +159,7 @@ class AppBarComponent extends Component {
                   <DrawerComponent menuSelect={this.state.menu} />
                 </div>
                 <div className="menu_image" aria-label="FundooNotes">
-                  <img src={require("../Assets/Fundoo.png")} />
+                  <img src={require("../Assets/Fundoo.png")} alt="ref"/>
                 </div>
                 <div className="title">
                   <span>FundooNotes</span>

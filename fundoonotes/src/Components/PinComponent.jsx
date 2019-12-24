@@ -17,7 +17,7 @@ export default class PinComponent extends Component {
     return (
       <div>
         <div className="pinGet" aria-label="pinNotes" onClick={this.handle}>
-          <img src={require("../Assets/pin.svg")} />
+          <img src={require("../Assets/pin.svg")} alt="ref" />
         </div>
       </div>
     );

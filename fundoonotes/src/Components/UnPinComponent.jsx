@@ -20,7 +20,7 @@ export default class UnPinComponent extends Component {
         <div className="pinGet" aria-label="pinNotes" onClick={this.handle}>
           <img
             src={require("../Assets/Unpin1.png")}
-            style={{ height: "20px", width: "20px" }}
+            style={{ height: "20px", width: "20px" }} alt="ref"
           />
         </div>
       </div>

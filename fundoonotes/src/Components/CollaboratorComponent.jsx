@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { InputBase, Tooltip, Chip, Button, Avatar } from "@material-ui/core";
+import { InputBase,Button, Avatar } from "@material-ui/core";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";

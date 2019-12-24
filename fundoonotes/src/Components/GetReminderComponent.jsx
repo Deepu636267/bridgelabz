@@ -50,9 +50,9 @@ class GetReminderComponent extends Component {
               console.log("create note final data", data);
               return (
                 <div className="get_Whole_Card">
-                  {data.reminder != null &&
-                  data.isArchive == false &&
-                  data.isTrash == false ? (
+                  {data.reminder !== null &&
+                  data.isArchive === false &&
+                  data.isTrash === false ? (
                     <div className="get_card_effect">
                       <Card className="get_cards1">
                         <div

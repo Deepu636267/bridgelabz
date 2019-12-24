@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { Card, AppBar } from "@material-ui/core";
+import { Card} from "@material-ui/core";
 
 class ServiceCardComponent extends Component {
   constructor(props) {

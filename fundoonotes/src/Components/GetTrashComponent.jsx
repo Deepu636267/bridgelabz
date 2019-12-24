@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { Card, Button } from "@material-ui/core";
-import { InputBase, Tooltip, Chip } from "@material-ui/core";
+import { Card } from "@material-ui/core";
+import { InputBase } from "@material-ui/core";
 import { GetAllNotes, DeleteAll } from "../Service/NotesServices";
 import AppBarComponent from "../Components/AppBarComponent";
 import RestoreComponent from "../Components/RestoreComponent";
