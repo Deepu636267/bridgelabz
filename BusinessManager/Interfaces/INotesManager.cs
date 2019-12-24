@@ -18,22 +18,22 @@ namespace BusinessManager.Interfaces
     public interface INotesManager
     {
         Task<string> Create(NotesModel notes, string email,string key);
-        Task<string> Del(int ID, string Email, string key);
-        Task<List<NotesModel>> Show(string Email, string key);
+        Task<string> Del(NotesModel ID, string Email, string key);
+        Task<List<NotesModelView>> Show(string Email, string key);
         Task<string> Update(NotesModel note, string Email, string key);
         Task<NotesModel> RetrieveById(int Id, string email, string key);
-        Task<string> Archive(int Id, string email, string key);
+        Task<string> Archive(NotesModel notes, string email, string key);
         Task<string> UnArchive(int Id, string email, string key);
         Task<string> Pin(int Id, string email, string key);
         Task<string> UnPin(int Id, string email, string key);
-        Task<string> Trash(int Id, string email, string key);
+        Task<string> Trash(NotesModel notes, string email, string key);
         Task<string> RestoreById(int Id, string email, string key);
         Task<string> RestoreAllFromTrash(string email);
         Task<string> DeleteAll(string email);
         Task<string> ImageUpload(int Id, IFormFile file, string email);
-        Task<string> Reminder(NotesModel note, string email);
-        Task<string> RemoveReminder(NotesModel note,string email);
-        Task<string> SetColor(NotesModel model, string email);
+        Task<string> Reminder(NotesModel note, string email, string key);
+        Task<string> RemoveReminder(NotesModel note,string email, string key);
+        Task<string> SetColor(NotesModel model, string email, string key);
         Task<List<NotesModel>> GetListFromTrash(string Email);
         Task<List<NotesModel>> GetListFromArchive(string Email);
         Task<List<NotesModel>> GetListFromReminder(string Email);
@@ -43,7 +43,8 @@ namespace BusinessManager.Interfaces
         Task<string> RestoreSelected(string Email, NotesModel[] id, string key);
         Task<string> TrashSelected(string Email, NotesModel[] id, string key);
         Task<string> DeleteSelected(string Email, NotesModel[] id, string key);
-
+        Task<string> PushMessage();
+        Task<string> RecieveMessage();
 
     }
 }

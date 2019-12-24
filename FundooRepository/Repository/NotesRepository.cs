@@ -21,7 +21,8 @@ namespace FundooRepository.Repository
     using System.IO;
     using System.Web;
     using Nancy.Json;
-    //using System.Messaging;
+    using Experimental.System.Messaging;
+    using System.Collections;
 
 
     /// <summary>
@@ -31,6 +32,7 @@ namespace FundooRepository.Repository
     {
         private readonly UserContext _context;
         private readonly ICacheProvider _cacheProvider;
+
         /// <summary>
         /// NotesRepository is constructor for initailizing
         /// </summary>
@@ -40,6 +42,7 @@ namespace FundooRepository.Repository
             _context = context;
             _cacheProvider = cacheProvider;
         }
+
         /// <summary>
         /// Create is method for add the data in our notes table  with Jwt Authentication 
         /// </summary>
@@ -54,11 +57,12 @@ namespace FundooRepository.Repository
                 notes.Email = email;
                 var note = new NotesModel()
                 {
-                    Id = notes.Id,
                     Email = notes.Email,
                     Title = notes.Title,
                     Description = notes.Description,
                     CreatedDate = DateTime.Now,
+                    Reminder=notes.Reminder,
+                    Color=notes.Color,
                     IndexValue = AddIndexValue(email)
 
                 };
@@ -77,6 +81,7 @@ namespace FundooRepository.Repository
             // _cacheProvider.Set(email.ToUpper(), result);
             return Task.Run(() => _context.SaveChanges());
         }
+
         /// <summary>
         /// RetrieveById is method which has retrieving the data of particular Id  with Jwt Authentication 
         /// </summary>
@@ -104,16 +109,17 @@ namespace FundooRepository.Repository
                 return null;
             }
         }
+
         /// <summary>
         /// Delete is method for deleting the particular id  with Jwt Authentication 
         /// </summary>
         /// <param name="ID"></param>
         /// <param name="Email"></param>
         /// <returns></returns>
-        public Task Delete(int ID, string Email, string key)
+        public Task Delete(NotesModel notes, string Email, string key)
         {
             var value = Test_GetValue(key);
-            var value1 = value.Find(i => i.Id == ID);
+            var value1 = value.Find(i => i.Id == notes.Id);
             var result = _context.Users.Where(j => j.Email == Email).FirstOrDefault();
             if (value1.Email.Equals(Email))
             {
@@ -131,6 +137,7 @@ namespace FundooRepository.Repository
                 return null;
             }
         }
+
         /// <summary>
         /// Update is a method which has updated the data by its particular Id with Jwt Authentication 
         /// </summary>
@@ -159,12 +166,13 @@ namespace FundooRepository.Repository
                 return null;
             }
         }
+
         /// <summary>
         /// Show is a mthod which shows all the related to login person  with Jwt Authentication 
         /// </summary>
         /// <param name="Email"></param>
         /// <returns></returns>
-        public Task<List<NotesModel>> Show(string email, string key)
+        public Task<List<NotesModelView>> Show(string email, string key)
         {
             //bool note = _context.Notes.Any(p => p.Email == email);
             //if (note)
@@ -179,10 +187,32 @@ namespace FundooRepository.Repository
             //SetValue(email);
 
 
-           
-            var result = Test_GetValue(key);
-           // var result = _context.Notes.Where(i => i.Email == email || i.Collaborators.ReciverEamil==email).ToList();
 
+            //var result = Test_GetValue(key);
+            ////var result1 = (_context.Notes.Where(i => i.Email == email).Join<_context.collaborators.Where(i=>i.ReciverEamil==email)>);
+            //var re = _context.Notes.Join(_context.collaborators, i => i.Id, p => p.NoteId, (i, p) => new { i.Id,i.Email,i.Title,i.Description,i.Reminder,
+            //i.IsArchive,i.IsPin,i.IsTrash,i.Color,i.CreatedDate,i.Images,i.ModifiedDate,p.ReciverEamil,p.NoteId});
+            var result = (from notes in _context.Notes
+                          where notes.Email==email
+                          select new NotesModelView
+                          {
+                              Id = notes.Id,
+                              Email=notes.Email,
+                              Title = notes.Title,
+                              Description = notes.Description,
+                              CreatedDate = notes.CreatedDate,
+                              ModifiedDate = notes.ModifiedDate,
+                              Reminder=notes.Reminder,
+                              Images = notes.Images,
+                              IsArchive = notes.IsArchive,
+                              IsTrash = notes.IsTrash,
+                              IsPin = notes.IsPin,
+                              Color = notes.Color,
+                              IndexValue=notes.IndexValue,
+                              Labels = _context.Labels.Where(i => i.NoteId == notes.Id).ToList(),
+                              Collaborators = (_context.collaborators.Where(i => i.NoteId == notes.Id && i.SenderEmail == email).ToList())
+                          }
+                         ).OrderBy(notes => notes.IndexValue).ToList();
             return Task.Run(()=>result);
         }
         public void SetValue(string email,string key)
@@ -201,26 +231,27 @@ namespace FundooRepository.Repository
             return contacts;
 
         }
+
         /// <summary>
         /// Archives the specified identifier.
         /// </summary>
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public Task<bool> Archive(int Id, string email, string key)
+        public Task<bool> Archive(NotesModel notes, string email, string key)
         {
             var value = Test_GetValue(key);
-            var value1 = value.Find(i => i.Id == Id);
+            var value1 = value.Find(i => i.Id == notes.Id);
             // var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
             if (value1 != null)
             {
                 if (value1.Email.Equals(email))
                 {
-                    value1.IsArchive = true;
+                    value1.IsArchive = notes.IsArchive;
                     try
                     {
                         _context.Notes.Update(value1);
-                        var value2 = Task.Run(() => _context.SaveChanges());
+                        _context.SaveChanges();
                         _cacheProvider.Set(key, value);
                     }
                     catch (Exception)
@@ -246,6 +277,7 @@ namespace FundooRepository.Repository
                 return Task.Run(() => false);
             }
         }
+
         /// <summary>
         /// Uns the archive.
         /// </summary>
@@ -284,6 +316,7 @@ namespace FundooRepository.Repository
                 return Task.Run(() => false);
             }
         }
+
         /// <summary>
         /// Pins the specified identifier.
         /// </summary>
@@ -322,6 +355,7 @@ namespace FundooRepository.Repository
                 return Task.Run(() => false);
             }
         }
+
         /// <summary>
         /// Uns the pin.
         /// </summary>
@@ -360,22 +394,23 @@ namespace FundooRepository.Repository
                 return Task.Run(() => false);
             }
         }
+
         /// <summary>
         /// Trashes the specified identifier.
         /// </summary>
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public Task<bool> Trash(int Id, string email, string key)
+        public Task<bool> Trash(NotesModel notes, string email, string key)
         {
             var value = Test_GetValue(key);
-            var value1 = value.Find(i => i.Id == Id);
+            var value1 = value.Find(i => i.Id == notes.Id);
             //var result = _context.Notes.Where(i => i.Id == Id).FirstOrDefault();
             if (value1 != null)
             {
                 if (value1.Email.Equals(email))
                 {
-                    value1.IsTrash = true;
+                    value1.IsTrash = notes.IsTrash;
                     try
                     {
                         _context.Notes.Update(value1);
@@ -398,6 +433,7 @@ namespace FundooRepository.Repository
                 return Task.Run(() => false);
             }
         }
+
         /// <summary>
         /// Uns the trash.
         /// </summary>
@@ -436,6 +472,7 @@ namespace FundooRepository.Repository
                 return Task.Run(() => false);
             }
         }
+
         /// <summary>
         /// Restores all from trash.
         /// </summary>
@@ -470,6 +507,7 @@ namespace FundooRepository.Repository
                 return Task.Run(() => false);
             }
         }
+
         /// <summary>
         /// DeleteAll notes with Particular Id
         /// </summary>
@@ -483,7 +521,7 @@ namespace FundooRepository.Repository
                 _context.Notes.RemoveRange(list);
                 try
                 {
-                    var value = Task.Run(() => _context.SaveChanges());
+                    _context.SaveChanges();
                 }
                 catch (Exception)
                 {
@@ -496,6 +534,7 @@ namespace FundooRepository.Repository
                 return Task.Run(() => false);
             }
         }
+
         /// <summary>
         /// ImageUpload in Notes By Using Cloudinary
         /// </summary>
@@ -524,7 +563,7 @@ namespace FundooRepository.Repository
                     result.Images = uploadResult.Uri.ToString();
                     try
                     {
-                        var value = Task.Run(() => _context.SaveChanges());
+                        _context.SaveChanges();
                     }
                     catch (Exception)
                     {
@@ -542,23 +581,28 @@ namespace FundooRepository.Repository
                 return Task.Run(() => false);
             }
         }
+
         /// <summary>
         /// Reminders the specified note.
         /// </summary>
         /// <param name="note">The note.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public Task<bool> Reminder(NotesModel note, string email)
+        public Task<bool> Reminder(NotesModel note, string email,string key)
         {
-            var result = _context.Notes.Where(i => i.Id == note.Id).FirstOrDefault();
-            if (result != null)
+            var value = Test_GetValue(key);
+            var value1 = value.Find(i => i.Id == note.Id);
+            // var result = _context.Notes.Where(i => i.Id == note.Id).FirstOrDefault();
+            if (value1 != null)
             {
-                if (result.Email.Equals(email))
+                if (value1.Email.Equals(email))
                 {
-                    result.Reminder = note.Reminder;
+                    value1.Reminder = note.Reminder;
                     try
                     {
-                        var value = Task.Run(() => _context.SaveChanges());
+                        _context.Notes.Update(value1);
+                        _cacheProvider.Set(key, value);
+                        _context.SaveChanges();
                     }
                     catch (Exception)
                     {
@@ -576,23 +620,28 @@ namespace FundooRepository.Repository
                 return Task.Run(() => false);
             }
         }
+
         /// <summary>
         /// Removes the reminder.
         /// </summary>
         /// <param name="note">The note.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public Task<bool> RemoveReminder(NotesModel note, string email)
-        {
-            var result = _context.Notes.Where(i => i.Id == note.Id).FirstOrDefault();
-            if (result != null)
+        public Task<bool> RemoveReminder(NotesModel note, string email,string key)
             {
-                if (result.Email.Equals(email))
+            var value = Test_GetValue(key);
+            var value1 = value.Find(i => i.Id == note.Id);
+            //var result = _context.Notes.Where(i => i.Id == note.Id).FirstOrDefault();
+            if (value1 != null)
+            {
+                if (value1.Email.Equals(email))
                 {
-                    result.Reminder =null;
+                    value1.Reminder ="";
                     try
                     {
-                        var value = Task.Run(() => _context.SaveChanges());
+                        _context.Notes.Update(value1);
+                        _cacheProvider.Set(key, value);
+                        _context.SaveChanges();
                     }
                     catch (Exception)
                     {
@@ -610,20 +659,25 @@ namespace FundooRepository.Repository
                 return Task.Run(() => false);
             }
         }
+
         /// <summary>
         /// Sets the color.
         /// </summary>
         /// <param name="model">The model.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public Task SetColor(NotesModel model,string email)
+        public Task SetColor(NotesModel model,string email,string key)
         {
-            var result = _context.Notes.Where(i => i.Id == model.Id).FirstOrDefault();
-            if(result!=null)
+            var value = Test_GetValue(key);
+            var value1 = value.Find(i => i.Id == model.Id);
+            //var result = _context.Notes.Where(i => i.Id == model.Id).FirstOrDefault();
+            if (value1 != null)
             {
-                if(result.Email.Equals(email))
+                if(value1.Email.Equals(email))
                 {
-                    result.Color = model.Color;
+                    value1.Color = model.Color;
+                    _context.Notes.Update(value1);
+                    _cacheProvider.Set(key, value);
                     return Task.Run(() =>_context.SaveChanges());
                 }
                 else
@@ -636,6 +690,7 @@ namespace FundooRepository.Repository
                 return null;
             }
         }
+
         /// <summary>
         /// Gets the list from trash.
         /// </summary>
@@ -653,6 +708,7 @@ namespace FundooRepository.Repository
                 return null;
             }
         }
+
         /// <summary>
         /// Gets the list from archive.
         /// </summary>
@@ -670,6 +726,7 @@ namespace FundooRepository.Repository
                 return null;
             }
         }
+
         /// <summary>
         /// Gets the list from reminder.
         /// </summary>
@@ -687,6 +744,7 @@ namespace FundooRepository.Repository
                 return null;
             }
         }
+
         /// <summary>
         /// Gets the list from pin.
         /// </summary>
@@ -704,6 +762,8 @@ namespace FundooRepository.Repository
                 return null;
             }
         }
+
+
         ////Push Notification
         public Task PushNotification(NotificationModel obj)
         {
@@ -786,6 +846,7 @@ namespace FundooRepository.Repository
             }
             return Task.Run(() => true);
         }
+
         /// <summary>
         /// AddIndexValue int notes for drag and drop
         /// </summary>
@@ -794,7 +855,7 @@ namespace FundooRepository.Repository
         public int AddIndexValue(string email)
         {
             var result = _context.Notes.Where(i => i.Email == email).ToArray();
-            if(result!=null)
+            if(result.Length!=0)
             {
                 int max = result[0].IndexValue;
                for(int i=0;i<result.Length;i++)
@@ -877,28 +938,74 @@ namespace FundooRepository.Repository
                 return null;
             }
         }
-        //public Task PushMessage(string reminder)
-        //{
-        //    MessageQueue messageQueue = null;
-        //    if (MessageQueue.Exists(@".\Private$\SomeTestName"))
-        //    {
-        //        messageQueue = new MessageQueue(@".\Private$\SomeTestName");
-        //        messageQueue.Label = "Testing Queue";
-        //    }
-        //    else
-        //    {
-        //        // Create the Queue
-        //        MessageQueue.Create(@".\Private$\SomeTestName");
-        //        messageQueue = new MessageQueue(@".\Private$\SomeTestName");
-        //        messageQueue.Label = "Newly Created Queue";
-        //    }
-        //    messageQueue.Send("First ever Message is sent to MSMQ", "Title");
-        //    return Task.Run(()=>_context.SaveChanges());
-        //}
+        public Task<bool> PushMessage()
+        {
+            MessageQueue messageQueue = null;
+            if (MessageQueue.Exists(@".\Private$\Reminder"))
+            {
+                messageQueue = new MessageQueue(@".\Private$\Reminder");
+               // messageQueue.Label = "Testing Queue";
+                Experimental.System.Messaging.Message messaging = new Experimental.System.Messaging.Message();
+                messaging.Body = "Hello2";
+                messageQueue.Send(messaging, "Title");
+            }
+            else
+            {
+                // Create the Queue
+               // MessageQueue.Create(@".\Private$\Reminder");
+                messageQueue = new MessageQueue(@".\Private$\Reminder");
+                messageQueue.Label = "Newly Created Queue";
+                 Experimental.System.Messaging.Message messaging = new Experimental.System.Messaging.Message();
+                messaging.Body = "Hello";
+                
+                messageQueue.Send(messaging, "Title");
+            }
+           
+            return Task.Run(() => true);
+        }
+        public Task<string> RecieveMessage()
+        {
+            MessageQueue queue = new MessageQueue();
+            MessageQueue[] myQueueArray = MessageQueue.GetPrivateQueuesByMachine("desktop-2tm4pks");
+            if (myQueueArray != null)
+            {
+                foreach (MessageQueue mq in myQueueArray)
+                {
+                   
+                    if (mq.QueueName.Contains("reminder"))
+                    {
+                        queue = mq;
+                        Message[] messageList = queue.GetAllMessages();
+                        foreach (Message bfbd in messageList)
+                        {
+                            
+                            //doing some operation with the message
+                        }
+                        //  Queue = mq;
+                        return Task.Run(() => "dfhfgfj");
+                    }
+                    else
+                    {
+                        return Task.Run(() => "dfhfgfj");
+                    }
+                }
+                //MessageQueue q = new MessageQueue();
+                //q.Path = @".\Private$\Reminder";
+                //Experimental.System.Messaging.Message messaging = new Experimental.System.Messaging.Message();
+                //messaging = q.Receive(new TimeSpan(0,0,5));
+                //messaging.Formatter = new XmlMessageFormatter(new string[] { "System.String.mscorlib" });
+                string msg = "ngng";
+                return Task.Run(() => msg);
+
+            }
+            else
+            {
+                return Task.Run(() => "fhnkjshfgjkd");
+            }
+        }
         //public Task<Notes> show(string eamil)
         //{
         //    var result = _context.Notes.Where(c => c.Email == "d").OrderBy(s => s.IndexValue).ToList();
-
         //}
 
         /// <summary>

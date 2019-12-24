@@ -14,6 +14,7 @@ namespace Common.Models.LabelsModels
     public class LabelModel
     {
         private int id;
+        private int noteId;
         private string email;
         private string label;
         //Declaring ID as a Primary Key.        
@@ -70,6 +71,17 @@ namespace Common.Models.LabelsModels
             set
             {
                 this.label = value;
+            }
+        }
+        public int NoteId
+        {
+            get
+            {
+                return this.noteId;
+            }
+            set
+            {
+                this.noteId = value;
             }
         }
     }

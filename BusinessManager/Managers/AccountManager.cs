@@ -57,9 +57,21 @@ namespace BusinessManager.Managers
         /// </summary>
         /// <param name="reset">The reset.</param>
         /// <returns></returns>
-        public async Task<string> UserResetPassword(ResetPasswordModel reset)
+        public async Task<string> UserChangePassword(ResetPasswordModel reset, string email)
         {
-            await _repository.ResetPassword(reset);
+            await _repository.ChangePassword(reset,email);
+            return "Password change Successfully";
+        }
+
+        /// <summary>
+        /// Resets the password.
+        /// </summary>
+        /// <param name="Password">The password.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public async Task<string> ResetPassword(ResetPasswordModel reset, string email, string cardType)
+        {
+            await _repository.ResetPassword(reset, email, cardType);
             return "Password change Successfully";
         }
         /// <summary>
@@ -69,8 +81,8 @@ namespace BusinessManager.Managers
         /// <returns></returns>
         public async Task<string> UserForgetPassword(ForgetPasswordModel forget)
         {
-            await _repository.ForgetPassword(forget);
-            return "Email sent Successfully";
+            var result= await _repository.ForgetPassword(forget);
+            return result;
         }
         /// <summary>
         /// Finds the by email asynchronous.
@@ -120,5 +132,30 @@ namespace BusinessManager.Managers
             }
         }
 
+        public async Task<string> FacebookLogIn(UserModel login)
+        {
+            var result = await _repository.FacebookLogIn(login);
+            if (result!=null)
+            {
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task<string> GoogleLogIn(UserModel login)
+        {
+            var result = await _repository.GoogleLogIn(login);
+            if (result != null)
+            {
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

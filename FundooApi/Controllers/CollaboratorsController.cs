@@ -9,6 +9,7 @@ namespace FundooApi.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
     using BusinessManager.Interfaces;
     using Common.Models.CollaboratorsModel;
@@ -41,7 +42,7 @@ namespace FundooApi.Controllers
         [Route("Add")]
         public async Task<IActionResult> AddCollaborators(CollaboratorsModel collaborators)
         {
-            string email = User.Claims.First(c => c.Type == "Email").Value;
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.AddCollaboraotors(collaborators, email);
@@ -67,7 +68,7 @@ namespace FundooApi.Controllers
         [Route("Remove")]
         public async Task<IActionResult> RemoveCollaborators(CollaboratorsModel collaborators)
         {
-            string email = User.Claims.First(c => c.Type == "Email").Value;
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.RemoveCollaboraotors(collaborators, email);

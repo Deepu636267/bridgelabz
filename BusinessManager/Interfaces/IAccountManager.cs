@@ -19,10 +19,13 @@ namespace BusinessManager.Interfaces
     {
         Task<string> Registration(UserModel user);
         Task<string> UserLogin(LoginModel login);
-        Task<string> UserResetPassword(ResetPasswordModel reset);
+        Task<string> FacebookLogIn(UserModel login);
+        Task<string> GoogleLogIn(UserModel login);
+        Task<string> UserChangePassword(ResetPasswordModel reset, string email);
         Task<string> UserForgetPassword(ForgetPasswordModel forget);
         Task<UserModel> FindByEmailAsync(string email);
         Task<string> ProfilePicUpload(IFormFile file, string email);
         Task<string> LogOut(string key1, string key2);
+        Task<string> ResetPassword(ResetPasswordModel reset, string email, string cardType);
     }
 }

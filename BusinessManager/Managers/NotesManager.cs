@@ -46,7 +46,7 @@ namespace BusinessManager.Managers
         /// <param name="ID">The identifier.</param>
         /// <param name="Email">The email.</param>
         /// <returns></returns>
-        public async Task<string> Del(int ID, string Email, string key)
+        public async Task<string> Del(NotesModel ID, string Email, string key)
         {
             await repository.Delete(ID, Email, key);
             return "Deleted Successfully";
@@ -56,7 +56,7 @@ namespace BusinessManager.Managers
         /// </summary>
         /// <param name="Email">The email.</param>
         /// <returns></returns>
-        public async Task<List<NotesModel>> Show(string Email, string key)
+        public async Task<List<NotesModelView>> Show(string Email, string key)
         {
             
             var result = await repository.Show(Email, key);
@@ -99,9 +99,9 @@ namespace BusinessManager.Managers
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public async Task<string> Archive(int Id, string email, string key)
+        public async Task<string> Archive(NotesModel notes, string email, string key)
         {
-            var result = await repository.Archive(Id, email, key);
+            var result = await repository.Archive(notes, email, key);
             if(result==true)
             {
                 return "Archieve Succesfully";
@@ -173,9 +173,9 @@ namespace BusinessManager.Managers
         /// <param name="Id">The identifier.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public async Task<string> Trash(int Id, string email, string key)
+        public async Task<string> Trash(NotesModel notes, string email, string key)
         {
-            var result = await repository.Trash(Id, email, key);
+            var result = await repository.Trash(notes, email, key);
             if (result == true)
             {
                 return "Trash Succesfully";
@@ -245,9 +245,9 @@ namespace BusinessManager.Managers
         /// <param name="note">The note.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public async Task<string> Reminder(NotesModel note, string email)
+        public async Task<string> Reminder(NotesModel note, string email, string key)
         { 
-            var result = await repository.Reminder(note,email);
+            var result = await repository.Reminder(note,email, key);
             if (result == true)
             {
                 return "Reminder Succesfully";
@@ -263,9 +263,9 @@ namespace BusinessManager.Managers
         /// <param name="note">The note.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public async Task<string> RemoveReminder(NotesModel note, string email)
+        public async Task<string> RemoveReminder(NotesModel note, string email, string key)
         {
-            var result = await repository.RemoveReminder(note, email);
+            var result = await repository.RemoveReminder(note, email, key);
             if (result == true)
             {
                 return "Reminder Succesfully";
@@ -298,9 +298,9 @@ namespace BusinessManager.Managers
         /// <param name="model">The model.</param>
         /// <param name="email">The email.</param>
         /// <returns></returns>
-        public async Task<string> SetColor(NotesModel model, string email)
+        public async Task<string> SetColor(NotesModel model, string email, string key)
         {
-             await repository.SetColor(model,email);
+             await repository.SetColor(model,email, key);
              return "ColorSet Succesfully";
             
         }
@@ -427,6 +427,30 @@ namespace BusinessManager.Managers
         public async Task<string> DeleteSelected(string Email, NotesModel[] id, string key)
         {
             var result = await repository.DeleteSelected(Email, id, key);
+            if (result == true)
+            {
+                return "Restore Succesfully";
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public async Task<string> RecieveMessage()
+        {
+            var result = await repository.RecieveMessage();
+            if (result!=null)
+            {
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public async Task<string> PushMessage()
+        {
+            var result = await repository.PushMessage();
             if (result == true)
             {
                 return "Restore Succesfully";

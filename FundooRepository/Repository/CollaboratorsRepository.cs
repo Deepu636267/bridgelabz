@@ -7,6 +7,7 @@
 namespace FundooRepository.Repository
 {
     using Common.Models.CollaboratorsModel;
+    using Common.Models.NotesModels;
     using FundooRepository.Context;
     using FundooRepository.Intefaces;
     using System;
@@ -79,6 +80,18 @@ namespace FundooRepository.Repository
                 ReciverEamil = collaborators.ReciverEamil
             };
            _context.collaborators.Add(add);
+            _context.SaveChanges();
+            var result1 = _context.collaborators.Where(c => (c.NoteId == collaborators.NoteId) && (c.ReciverEamil == collaborators.ReciverEamil)).FirstOrDefault();
+            var result = _context.Notes.Where(i => i.Id == result1.NoteId).First();
+            var value = new NotesModel()
+            {
+                CollaboratorId = result1.Id,
+                Email= collaborators.ReciverEamil,
+                CreatedDate=DateTime.Now,
+                Title = result.Title,
+                Description = result.Description
+            };
+            _context.Notes.Add(value);
             return Task.Run(()=> true);
         }
         /// <summary>
@@ -93,6 +106,8 @@ namespace FundooRepository.Repository
             if(result.SenderEmail.Equals(email))
             {
                 _context.collaborators.Remove(result);
+               var value= _context.Notes.Where(i => i.CollaboratorId == collaborators.Id).FirstOrDefault();
+                //_context.Notes.Remove(value);
                 return Task.Run(() => _context.SaveChanges());
             }
             else

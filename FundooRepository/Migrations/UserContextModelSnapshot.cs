@@ -47,6 +47,8 @@ namespace FundooRepository.Migrations
 
                     b.Property<string>("Label");
 
+                    b.Property<int>("NoteId");
+
                     b.HasKey("ID");
 
                     b.ToTable("Labels");
@@ -57,6 +59,8 @@ namespace FundooRepository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CollaboratorId");
 
                     b.Property<string>("Color");
 

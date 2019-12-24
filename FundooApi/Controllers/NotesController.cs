@@ -63,9 +63,9 @@ namespace FundooApi.Controllers
         /// </summary>
         /// <param name="ID">The identifier.</param>
         /// <returns></returns>
-        [HttpDelete]
+        [HttpPost]
         [Route("Delete")]
-        public async Task<IActionResult> Delete(int ID)
+        public async Task<IActionResult> Delete(NotesModel ID)
         {
             string Email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
@@ -123,7 +123,7 @@ namespace FundooApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("Show")]
-        public async Task<List<NotesModel>> Show()
+        public async Task<List<NotesModelView>> Show()
         {
             string Email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
@@ -181,14 +181,14 @@ namespace FundooApi.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("Archive")]
-        public async Task<IActionResult> Archive(int Id)
+        public async Task<IActionResult> Archive(NotesModel notesId)
         {
             string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
             var key = UserId + "_" + email;
             try
             {
-                var result = await _manager.Archive(Id, email,key);
+                var result = await _manager.Archive(notesId, email,key);
                 if (result != null)
                 {
                     return Ok(new { result });
@@ -296,14 +296,14 @@ namespace FundooApi.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("Trash")]
-        public async Task<IActionResult> Trash(int Id)
+        public async Task<IActionResult> Trash(NotesModel notes)
         {
             string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
             var key = UserId + "_" + email;
             try
             {
-                var result = await _manager.Trash(Id, email,key);
+                var result = await _manager.Trash(notes, email,key);
                 if (result != null)
                 {
                     return Ok(new { result });
@@ -351,7 +351,7 @@ namespace FundooApi.Controllers
         /// Deletes all.
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
+        [HttpDelete]
         [Route("DeleteAll")]
         public async Task<IActionResult> DeleteAll()
         {
@@ -414,9 +414,11 @@ namespace FundooApi.Controllers
         public async Task<IActionResult> Reminder(NotesModel note)
         {
             string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+            string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
+            var key = UserId + "_" + email;
             try
             {
-                var result = await _manager.Reminder(note,email);
+                var result = await _manager.Reminder(note,email, key);
                 if (result != null)
                 {
                     return Ok(new { result });
@@ -441,9 +443,11 @@ namespace FundooApi.Controllers
         public async Task<IActionResult> RemoveReminder(NotesModel note)
         {
             string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+            string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
+            var key = UserId + "_" + email;
             try
             {
-                var result = await _manager.RemoveReminder(note, email);
+                var result = await _manager.RemoveReminder(note, email,key);
                 if (result != null)
                 {
                     return Ok(new { result });
@@ -467,6 +471,7 @@ namespace FundooApi.Controllers
         public async Task<IActionResult> RestoreAllFromTrash()
         {
             string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+
             try
             {
                 var result = await _manager.RestoreAllFromTrash(email);
@@ -494,9 +499,11 @@ namespace FundooApi.Controllers
         public async Task<IActionResult> SetColor(NotesModel model)
         {
             string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+            string UserId = User.Claims.First(c => c.Type == ClaimTypes.UserData).Value;
+            var key = UserId + "_" + email;
             try
             {
-                var result = await _manager.SetColor(model,email);
+                var result = await _manager.SetColor(model,email, key);
                 if (result != null)
                 {
                     return Ok(new { result });
@@ -746,6 +753,50 @@ namespace FundooApi.Controllers
             try
             {
                 var result = await _manager.DeleteSelected(email, Id, key);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost]
+        [Route("Push")]
+        public async Task<IActionResult> PushMessage()
+        {
+           
+            try
+            {
+                var result = await _manager.PushMessage();
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost]
+        [Route("Recieve")]
+        public async Task<IActionResult> Recieve()
+        {
+
+            try
+            {
+                var result = await _manager.RecieveMessage();
                 if (result != null)
                 {
                     return Ok(new { result });

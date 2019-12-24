@@ -32,6 +32,7 @@ namespace FundooRepository.Repository
             model.Email = email;
             var note = new LabelModel()
             {
+                NoteId=model.NoteId,
                 Email = model.Email,
                 Label = model.Label
             };
@@ -44,15 +45,12 @@ namespace FundooRepository.Repository
         /// <param name="ID">The identifier.</param>
         /// <param name="Email">The email.</param>
         /// <returns></returns>
-        public Task Delete(int ID, string Email)
+        public Task Delete(string label, string Email)
         {
-            var result = _context.Labels.Where(j => j.ID == ID).FirstOrDefault();
+            IEnumerable<LabelModel> result = _context.Labels.Where(i => i.Label == label && i.Email==Email).ToList();
             if (result != null)
             {
-                if (result.Email.Equals(Email))
-                {
-                    _context.Labels.Remove(result);
-                }
+                _context.Labels.RemoveRange(result);
                 return Task.Run(() => _context.SaveChanges());
             }
             else
@@ -67,15 +65,9 @@ namespace FundooRepository.Repository
         /// <returns></returns>
         public Task<List<LabelModel>> Show(string Email)
         {
-            bool note = _context.Labels.Any(p => p.Email == Email);
-            if (note)
-            {
-                return Task.Run(() => _context.Labels.Where(p => p.Email == Email).ToList());
-            }
-            else
-            {
-                return null;
-            }
+            var result = _context.Labels.Where(i => i.Email == Email).GroupBy(o=>new { o.Label }).Select(o=>o.FirstOrDefault());
+            var result1=result.ToList();
+            return Task.Run(()=>result1);
         }
         /// <summary>
         /// Updates the specified model with Jwt Authentication .
@@ -83,16 +75,19 @@ namespace FundooRepository.Repository
         /// <param name="model">The model.</param>
         /// <param name="Email">The email.</param>
         /// <returns></returns>
-        public Task Update(LabelModel model, string Email)
+        public Task Update(string label, int id,string Email)
         {
-            var result = _context.Labels.Where(j => j.ID == model.ID).FirstOrDefault();
+            var labelName = _context.Labels.Where(i => i.ID == id && i.Email == Email).FirstOrDefault();
+            IEnumerable<LabelModel> result = _context.Labels.Where(i => i.Label == labelName.Label && i.Email == Email).ToList();
             if (result != null)
             {
-                if (result.Email.Equals(Email))
+                foreach(var list in result)
                 {
-                    result.Label = model.Label;
-                    _context.Labels.Update(result);
+                    list.Label = label;
                 }
+                _context.Labels.UpdateRange(result);
+                   
+               
                 return Task.Run(() => _context.SaveChanges());
             }
             else

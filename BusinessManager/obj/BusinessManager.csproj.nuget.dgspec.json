@@ -171,6 +171,10 @@
               "target": "Package",
               "version": "[1.8.0, )"
             },
+            "Experimental.System.Messaging": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
             "Microsoft.AspNetCore.Http.Features": {
               "target": "Package",
               "version": "[2.1.1, )"

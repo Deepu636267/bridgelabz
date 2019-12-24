@@ -66,9 +66,9 @@ namespace FundooRepository.Repository
                     CardType=userm.CardType         
                 };
                _context.Users.Add(user);
-                var value = _context.SaveChanges();
-                SetCache(userm.Email);
-               return Task.Run(() => value);
+              
+                //SetCache(userm.Email);
+               return Task.Run(() => _context.SaveChanges());
             }catch(SqlException ex)
             {
                 return Task.FromException(ex);
@@ -107,13 +107,14 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <param name="forget">The forget.</param>
         /// <returns></returns>
-        public Task ForgetPassword(ForgetPasswordModel forget)
+        public Task<string> ForgetPassword(ForgetPasswordModel forget)
         {
             var result = _context.Users.Where(i => i.Email == forget.Email).FirstOrDefault();
             if(result!=null)
             {
-                SendPasswordResetEmail(forget.Email, result.FirstName);
-                return Task.Run(() => _context.SaveChanges());
+                var LoginToken = GenerateToken(result);
+                SendPasswordResetEmail(result.Email, result.FirstName,LoginToken);
+                return Task.Run(() => LoginToken);
             }
             else
             {
@@ -126,13 +127,35 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <param name="reset">The reset.</param>
         /// <returns></returns>
-        public Task ResetPassword(ResetPasswordModel reset)
+        public Task ChangePassword(ResetPasswordModel reset, string email)
         {
-            var result = _context.Users.Where(i => i.Email == reset.Email && i.Password==reset.OldPassword).FirstOrDefault();
+            var result = _context.Users.Where(i => i.Email == email && i.Password==reset.OldPassword).FirstOrDefault();
             if(result!=null)
             {
                 result.Password = reset.NewPassword;
                 _context.Users.Update(result);
+                return Task.Run(() => _context.SaveChanges());
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Resets the password.
+        /// </summary>
+        /// <param name="Password">The password.</param>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        public Task ResetPassword(ResetPasswordModel reset, string email,string cardType)
+        {
+            var result = _context.Users.Where(i => i.Email == email).FirstOrDefault();
+            if(result!=null)
+            {
+                result.Password = reset.NewPassword;
+                result.CardType = cardType;
+                _context.Users.Update(result).Property(x => x.ID).IsModified = false; ;
                 return Task.Run(() => _context.SaveChanges());
             }
             else
@@ -145,7 +168,7 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <param name="ToEmail">To email.</param>
         /// <param name="UserName">Name of the user.</param>
-        public Task SendPasswordResetEmail(string ToEmail, string UserName)
+        public Task SendPasswordResetEmail(string ToEmail, string UserName,string LoginToken)
         {
             // MailMessage class is present is System.Net.Mail namespace
             MailMessage mailMessage = new MailMessage("deepumaurya07@gmail.com", ToEmail);
@@ -154,7 +177,7 @@ namespace FundooRepository.Repository
             sbEmailBody.Append("Dear " + UserName + ",<br/><br/>");
             sbEmailBody.Append("Please click on the following link to reset your password");
             sbEmailBody.Append("<br/>"); 
-            sbEmailBody.Append("http://localhost/WebApplication1/Registration/ChangePassword.aspx?uid=");
+            sbEmailBody.Append("http://localhost:3001/reset/"+ LoginToken);
             sbEmailBody.Append("<br/><br/>");
             sbEmailBody.Append("<b>FundooApi</b>");
             mailMessage.IsBodyHtml = true;
@@ -164,7 +187,7 @@ namespace FundooRepository.Repository
             smtpClient.Credentials = new System.Net.NetworkCredential()
             {
                 UserName = "deepumaurya07@gmail.com",
-                Password = "yourpassword"
+                Password = "sachin@aryan"
             };
             smtpClient.EnableSsl = true;
             smtpClient.Send(mailMessage);
@@ -187,7 +210,7 @@ namespace FundooRepository.Repository
         /// </summary>
         /// <param name="Email">The email.</param>
         /// <returns></returns>
-        public Task<String> GenerateToken(UserModel result)
+        public String GenerateToken(UserModel result)
         {
             try
             {
@@ -208,7 +231,7 @@ namespace FundooRepository.Repository
                 var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                 var token = tokenHandler.WriteToken(securityToken);
                 _cacheProvider.Set(result.Email, token);       
-                return Task.Run(()=>token);              
+                return token;              
             }
             catch (Exception)
             {
@@ -230,7 +253,7 @@ namespace FundooRepository.Repository
             CloudinaryDotNet.Cloudinary cloudinary = new CloudinaryDotNet.Cloudinary(account);
             var image = new ImageUploadParams()
             {
-                File = new FileDescription(File)
+                File = new FileDescription(File,path)
             };
             var uploadResult = cloudinary.Upload(image);
             if (uploadResult.Error != null)
@@ -301,6 +324,75 @@ namespace FundooRepository.Repository
                 var result = _context.Users.Where(i => i.Email == email).ToList();
                 _cacheProvider.Set("User", result);
                 return;
+            }
+        }
+        public async Task<string> FacebookLogIn(UserModel user)
+        {
+            var result = _context.Users.Where(i => i.Email == user.Email).FirstOrDefault();
+            if (result != null)
+            {
+                result.Status = "Facebook-Active";
+                _context.SaveChanges();
+                await _repository.AddUserDetails(result, DateTime.Now);
+                var LoginToken = GenerateToken(result);
+                var key = result.ID.ToString() + "_" + result.Email;
+                SetValue(result.Email, key);
+                return await Task.Run(() => LoginToken);
+            }
+            else
+            {
+                UserModel userm = new UserModel()
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    Password=user.Password,
+                    CardType = user.CardType
+                };
+                _context.Users.Add(userm);
+                _context.SaveChanges();
+                result.Status = "Facebook-Active";
+                _context.SaveChanges();
+                await _repository.AddUserDetails(result, DateTime.Now);
+                var LoginToken = GenerateToken(result);
+                var key = result.ID.ToString() + "_" + result.Email;
+                SetValue(result.Email, key);
+                return await Task.Run(() => LoginToken);
+            }
+        }
+        public async Task<string> GoogleLogIn(UserModel user)
+        {
+            var result = _context.Users.Where(i => i.Email == user.Email).FirstOrDefault();
+            if (result != null)
+            {
+                result.Status = "Google-Active";
+                _context.SaveChanges();
+                await _repository.AddUserDetails(result, DateTime.Now);
+                var LoginToken = GenerateToken(result);
+                var key = result.ID.ToString() + "_" + result.Email;
+                SetValue(result.Email, key);
+                return await Task.Run(() => LoginToken);
+            }
+            else
+            {
+                UserModel userm = new UserModel()
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    Password=user.Password,
+                    CardType = user.CardType,
+                    Status="Google-Active"
+                };
+                _context.Users.Add(userm);
+                _context.SaveChanges();
+               // result.Status = "Google-Active";
+                _context.SaveChanges();
+                await _repository.AddUserDetails(user, DateTime.Now);
+                var LoginToken = GenerateToken(user);
+                //var key = result.ID.ToString() + "_" + result.Email;
+                //SetValue(result.Email, key);
+                return await Task.Run(() => LoginToken);
             }
         }
     }

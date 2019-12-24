@@ -9,6 +9,7 @@ namespace FundooApi.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
     using BusinessManager.Interfaces;
     using Common.Models.LabelsModels;
@@ -39,7 +40,7 @@ namespace FundooApi.Controllers
         {
             try
             {
-                string email = User.Claims.First(c => c.Type == "Email").Value;
+                string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
                 var result = await manager.Add(label,email);
                 return Ok(new { result });
             }
@@ -55,12 +56,12 @@ namespace FundooApi.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("LabelUpdate")]
-        public async Task<IActionResult> Update(LabelModel label)
+        public async Task<IActionResult> Update(string label,int id)
         {
-            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            string Email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
-                var result = await manager.Update(label, Email);
+                var result = await manager.Update(label,id,Email);
                 return Ok(new { result });
             }
             catch (Exception ex)
@@ -75,12 +76,12 @@ namespace FundooApi.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("LabelDelete")]
-        public async Task<IActionResult> Delete(int ID)
+        public async Task<IActionResult> Delete(string label)
         {
-            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            string Email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
-                var result = await manager.Del(ID, Email);
+                var result = await manager.Del(label, Email);
                 return Ok(new { result });
             }
             catch (Exception ex)
@@ -98,7 +99,7 @@ namespace FundooApi.Controllers
         [Route("LabelShow")]
         public async Task<IActionResult> Show()
         {
-            string Email = User.Claims.First(c => c.Type == "Email").Value;
+            string Email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await manager.Show(Email);

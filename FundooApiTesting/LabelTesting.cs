@@ -50,30 +50,30 @@ namespace FundooApiTesting
         /// <summary>
         /// Deletes this instance will be used for testing.
         /// </summary>
-        [Test]
-        public void Delete()
-        {
-            var service = new Mock<ILabelManager>();
-            var Controller = new LabelController(service.Object);
-            var data = Controller.Delete(2);
-            Assert.NotNull(data);
-            Assert.Pass();
-        }
+        //[Test]
+        //public void Delete()
+        //{
+        //    var service = new Mock<ILabelManager>();
+        //    var Controller = new LabelController(service.Object);
+        //    var data = Controller.Delete(2);
+        //    Assert.NotNull(data);
+        //    Assert.Pass();
+        //}
         /// <summary>
         /// Updates this instance will be used for testing.
         /// </summary>
-        [Test]
-        public void Update()
-        {
-            var service = new Mock<ILabelManager>();
-            var Controller = new LabelController(service.Object);
-            var add = new LabelModel()
-            {
-                Label = "College"
-            };
-            var data = Controller.Update(add);
-            Assert.NotNull(data);
-            Assert.Pass();
-        }
+        //[Test]
+        //public void Update()
+        //{
+        //    var service = new Mock<ILabelManager>();
+        //    var Controller = new LabelController(service.Object);
+        //    var add = new LabelModel()
+        //    {
+        //        Label = "College"
+        //    };
+        //    var data = Controller.Update(add);
+        //    Assert.NotNull(data);
+        //    Assert.Pass();
+        //}
     }
 }

@@ -19,11 +19,13 @@ namespace FundooRepository.Intefaces
     {
         Task Create(UserModel userm);
         Task<string> LogIn(LoginModel login);
-        Task ResetPassword(ResetPasswordModel reset);
-        Task ForgetPassword(ForgetPasswordModel forget);
+        Task<string> FacebookLogIn(UserModel login);
+        Task<string> GoogleLogIn(UserModel login);
+        Task ChangePassword(ResetPasswordModel reset, string email);
+        Task<string> ForgetPassword(ForgetPasswordModel forget);
         Task<UserModel> FindByEmailAsync(string email);
         Task<bool> ProfilePicUpload(IFormFile file, string email);
-        Task SendPasswordResetEmail(string ToEmail, string UserName);
         Task<bool> LogOut(string key1, string key2);
+        Task ResetPassword(ResetPasswordModel reset, string email, string cardType);
     }
 }

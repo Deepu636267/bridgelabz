@@ -69,7 +69,62 @@ namespace FundooApi.Controllers
             try
             {
                 var result = await _manager.UserLogin(login);
-                return Ok(new { result });
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost]
+        [Route("FacebookLogin")]
+        public async Task<IActionResult> FacebookLogIn(UserModel login)
+        {
+            try
+            {
+                var result = await _manager.FacebookLogIn(login);
+                if (result != null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
+        [HttpPost]
+        [Route("SocialLogin")]
+        public async Task<IActionResult> GoogleLogIn(UserModel login)
+        {
+            try
+            {
+                var result = await _manager.GoogleLogIn(login);
+                if(result!=null)
+                {
+                    return Ok(new { result });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+               
             }
             catch (Exception ex)
             {
@@ -83,12 +138,35 @@ namespace FundooApi.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize]
-        [Route("Reset")]
-        public async Task<IActionResult> ResetPassword(ResetPasswordModel reset)
+        [Route("Change")]
+        public async Task<IActionResult> ChangePassword(ResetPasswordModel reset)
         {
             try
             {
-                var result = await _manager.UserResetPassword(reset);
+                string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+                var result = await _manager.UserChangePassword(reset,email);
+                return Ok(new { result });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Change the Password
+        /// </summary>
+        /// <param name="Password"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Authorize]
+        [Route("Reset")]
+        public async Task<IActionResult> ResetPassowrd(ResetPasswordModel reset, string cardType)
+        {
+            try
+            {
+                string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+                var result = await _manager.ResetPassword(reset, email, cardType);
                 return Ok(new { result });
             }
             catch (Exception ex)
@@ -102,9 +180,7 @@ namespace FundooApi.Controllers
         /// <param name="forget">The forget.</param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
-       // [Cached(600)]
-        [Route("Forget")]
+        [Route("Forgot")]
         public async Task<IActionResult> ForgetPassword(ForgetPasswordModel forget)
         {
             try
@@ -164,8 +240,10 @@ namespace FundooApi.Controllers
             var result = await _manager.FindByEmailAsync(Email);
             return new
             {
+             
                 result.Email,
-                result.Password,
+               result.LastName,
+               result.ProfilePic,
                 result.FirstName
             };
         }
@@ -179,7 +257,7 @@ namespace FundooApi.Controllers
         [Route("ProfilePic")]
         public async Task<IActionResult> ProfilePicUpload(IFormFile file)
         {
-            string email = User.Claims.First(c => c.Type == "Email").Value;
+            string email = User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
             try
             {
                 var result = await _manager.ProfilePicUpload(file, email);

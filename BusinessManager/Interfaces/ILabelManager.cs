@@ -17,8 +17,8 @@ namespace BusinessManager.Interfaces
     public interface ILabelManager
     {
         Task<string> Add(LabelModel model, string email);
-        Task<string> Del(int ID, string Email);
+        Task<string> Del(string label, string Email);
         Task<List<LabelModel>> Show(string Email);
-        Task<string> Update(LabelModel model, string Email);
+        Task<string> Update(string label, int id, string Email);
     }
 }

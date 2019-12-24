@@ -17,8 +17,8 @@ namespace FundooRepository.Intefaces
     public interface ILabelRepository
     {
         Task Create(LabelModel model, string email);
-        Task Delete(int ID, string Email);
+        Task Delete(string label, string Email);
         Task<List<LabelModel>> Show(string Email);
-        Task Update(LabelModel model, string Email);
+        Task Update(string label, int id, string Email);
     }
 }

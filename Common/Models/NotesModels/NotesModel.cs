@@ -69,6 +69,8 @@ namespace Common.Models.NotesModels
         /// The index value
         /// </summary>
         private int indexValue;
+        private int collaboratorId;
+
         /// <summary>
         /// Gets or sets the identifier.
         /// </summary>
@@ -207,6 +209,11 @@ namespace Common.Models.NotesModels
         {
             get { return this.indexValue; }
             set { this.indexValue = value; }
+        }
+        public int CollaboratorId
+        {
+            get { return this.collaboratorId; }
+            set { this.collaboratorId = value; }
         }
         ///// <summary>
         ///// Gets or sets the collaborators.

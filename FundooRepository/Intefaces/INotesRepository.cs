@@ -19,21 +19,21 @@ namespace FundooRepository.Intefaces
     {
         Task Create(NotesModel notes, string email, string key);
         Task<NotesModel> RetrieveById(int Id, string email, string key);
-        Task Delete(int ID, string Email, string key);
+        Task Delete(NotesModel ID, string Email, string key);
         Task Update(NotesModel notes, string Email, string key);
-        Task<List<NotesModel>> Show(string Email, string key);
-        Task<bool> Archive(int Id, string email, string key);
+        Task<List<NotesModelView>> Show(string Email, string key);
+        Task<bool> Archive(NotesModel Id, string email, string key);
         Task<bool> UnArchive(int Id, string email, string key);
         Task<bool> Pin(int Id, string email, string key);
         Task<bool> UnPin(int Id, string email, string key);
-        Task<bool> Trash(int Id, string email, string key);
+        Task<bool> Trash(NotesModel notes, string email, string key);
         Task<bool> RestoreById(int Id, string email, string key);
         Task<bool> DeleteAll(string email);
         Task<bool> ImageUpload(int Id, IFormFile file, string email);
-        Task<bool> Reminder(NotesModel note, string email);
-        Task<bool> RemoveReminder(NotesModel note, string email);
+        Task<bool> Reminder(NotesModel note, string email,string key);
+        Task<bool> RemoveReminder(NotesModel note, string email, string key);
         Task<bool> RestoreAllFromTrash(string email);
-        Task SetColor(NotesModel model, string email);
+        Task SetColor(NotesModel model, string email, string key);
         Task<List<NotesModel>> GetListFromTrash(string Email);
         Task<List<NotesModel>> GetListFromArchive(string Email);
         Task<List<NotesModel>> GetListFromReminder(string Email);
@@ -43,5 +43,7 @@ namespace FundooRepository.Intefaces
         Task<bool> RestoreSelected(string Email, NotesModel[] id, string key);
         Task<bool> TrashSelected(string Email, NotesModel[] id, string key);
         Task<bool> DeleteSelected(string Email, NotesModel[] id, string key);
+        Task<bool> PushMessage();
+        Task<string> RecieveMessage();
     }
 }

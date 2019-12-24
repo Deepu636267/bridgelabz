@@ -82,8 +82,8 @@ namespace FundooApi
             });
             services.AddMvc(options => {
                 options.ReturnHttpNotAcceptable = true;
-               // options.RespectBrowserAcceptHeader = true;
-                options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+               //options.RespectBrowserAcceptHeader = true;
+               options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
             });
            
             //authenticate

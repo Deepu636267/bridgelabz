@@ -41,9 +41,9 @@ namespace BusinessManager.Managers
         /// <param name="ID">The identifier.</param>
         /// <param name="Email">The email.</param>
         /// <returns></returns>
-        public async Task<string> Del(int ID, string Email)
+        public async Task<string> Del(string Label, string Email)
         {
-            await label.Delete(ID, Email);
+            await label.Delete(Label, Email);
             return "Deleted Successfully";
         }
         /// <summary>
@@ -62,9 +62,9 @@ namespace BusinessManager.Managers
         /// <param name="model">The model.</param>
         /// <param name="Email">The email.</param>
         /// <returns></returns>
-        public async Task<string> Update(LabelModel model, string Email)
+        public async Task<string> Update(string Label, int id, string Email)
         {
-            await label.Update(model, Email);
+            await label.Update(Label, id,Email);
             return "Update Successfull";
         }
     }

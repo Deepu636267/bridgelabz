@@ -25,7 +25,7 @@ namespace Common.Models.CollaboratorsModel
             get { return this.sednderEmail; }
             set { this.sednderEmail = value; }
         }
-        
+        [ForeignKey("NotesModel")]
         public int NoteId
         {
             get { return this.noteId; }
